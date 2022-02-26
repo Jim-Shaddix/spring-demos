@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>whoami</title>
+</head>
+<body>
+
+  <pre id="json-display-pre"></pre>
+
+  <script th:inline="javascript">
+
+        /*<![CDATA[*/
+        const jsonBlob = /*[[${jsonBlob}]]*/ 'default';
+        /*]]>*/
+
+        const jsonDisplayPre = document.querySelector("#json-display-pre")
+        const jsonFormattedString = jsonDisplayPre.textContent = JSON.stringify(jsonBlob, undefined, 4)
+        jsonDisplayPre.textContent = jsonFormattedString
+
+    </script>
+
+</body>
+</html>
