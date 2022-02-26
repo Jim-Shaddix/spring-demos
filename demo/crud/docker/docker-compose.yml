@@ -14,8 +14,3 @@ services:
       MYSQL_USER: test-user
       MYSQL_PASSWORD: password
 
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile-alternate
-
