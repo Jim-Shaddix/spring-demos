@@ -7,6 +7,6 @@
 
 | project | README                                                                              | Demo | Description                                                     |
 |---------|-------------------------------------------------------------------------------------|------|-----------------------------------------------------------------|
-| whoami  | [link](https://github.com/Jim-Shaddix/spring-demos/blob/main/demo/whoami/README.md) | null | Webapp for returning information back to a user that describes. |
-| crud    | [link](https://github.com/Jim-Shaddix/spring-demos/blob/main/demo/crud/README.md)   | null | Basic crud application forum submission to a MySQL database.    |
+| whoami  | [link](https://github.com/Jim-Shaddix/spring-demos/blob/main/demo/whoami) | null | Webapp for returning information back to a user that describes. |
+| crud    | [link](https://github.com/Jim-Shaddix/spring-demos/blob/main/demo/crud)   | null | Basic crud application forum submission to a MySQL database.    |
 
