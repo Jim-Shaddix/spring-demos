@@ -1,5 +1,6 @@
 package com.example.whoami.parser;
 
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +21,7 @@ public class HttpServletRequestParser {
      * @param request the http request received.
      * @return the http headers that were present in the request received.
      */
-    public Map<String, String> parseRequestHeaders(HttpServletRequest request) {
+    public Map<String, String> parseRequestHeaders(@NonNull HttpServletRequest request) {
 
         Map<String, String> headerMap = new LinkedHashMap<>();
 
@@ -41,7 +42,7 @@ public class HttpServletRequestParser {
      * @param request the http servlet request being processed.
      * @return the body of the http request that was received.
      */
-    public Optional<String> parseRequestBody(HttpServletRequest request) {
+    public Optional<String> parseRequestBody(@NonNull HttpServletRequest request) {
 
         String requestBody;
 
@@ -70,7 +71,7 @@ public class HttpServletRequestParser {
      * @param request the http request received from the user.
      * @return the different ports of the URL broken out
      */
-    public Map<String, String> parseRequestUrlParts(HttpServletRequest request) {
+    public Map<String, String> parseRequestUrlParts(@NonNull HttpServletRequest request) {
 
         Map<String, String> urlParts = new LinkedHashMap<>();
         urlParts.put("request-method", request.getMethod());
@@ -92,7 +93,7 @@ public class HttpServletRequestParser {
      * @param request the http request received from the user.
      * @return metadata that describes the users remote information.
      */
-    public Map<String, String> parseRemoteInfo(HttpServletRequest request) {
+    public Map<String, String> parseRemoteInfo(@NonNull HttpServletRequest request) {
 
         Map<String, String> remoteInfo = new LinkedHashMap<>();
 
@@ -109,7 +110,7 @@ public class HttpServletRequestParser {
      * @param request the http request received from the user.
      * @return metadata that describes the users authentication information.
      */
-    public Map<String, String> parseAuthInfo(HttpServletRequest request) {
+    public Map<String, String> parseAuthInfo(@NonNull HttpServletRequest request) {
 
         Map<String, String> parsedAuthInfo = new LinkedHashMap<>();
 

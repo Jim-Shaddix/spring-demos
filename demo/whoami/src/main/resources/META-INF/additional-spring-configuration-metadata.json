@@ -19,6 +19,11 @@
       "name": "whoami.parse-remote-info",
       "type": "java.lang.Boolean",
       "description": "Determines whether or not to display the remote information sent to server."
+    },
+    {
+      "name": "whoami.parse-auth-info",
+      "type": "java.lang.Boolean",
+      "description": "Determines whether or not to display the authentication information associated with the users session."
     }
   ]
 }

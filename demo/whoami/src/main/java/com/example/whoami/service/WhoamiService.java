@@ -4,6 +4,8 @@ import com.example.whoami.config.ParserFlags;
 import com.example.whoami.parser.HttpServletRequestParser;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,7 +38,7 @@ public class WhoamiService {
      * @param request http request recieved from the WhoamiController
      * @return metadata describing the http request.
      */
-    public Map<String, Object> parseRequestMetadata(HttpServletRequest request) {
+    public Map<String, Object> parseRequestMetadata(@NonNull HttpServletRequest request) {
 
         Map<String, Object> whoamiMap = new LinkedHashMap<>();
 
@@ -77,11 +79,11 @@ public class WhoamiService {
      *
      * @param whoamiMap http request metadata parsed from a HttpRequestServlet.
      */
-    public void logRequest(Map<String, Object> whoamiMap) {
+    public void logRequest(@NonNull Map<String, Object> whoamiMap) {
         log.info("Number of \"whoami\" requests processed: "
                 + String.valueOf(numberOfRequestsProcessed.incrementAndGet())
                 + ". json-response: "
-                + whoamiMap
+                + whoamiMap.toString()
         );
     }
 
