@@ -1,5 +1,6 @@
 package com.example.whoami.service;
 
+import com.example.whoami.config.ParserFlags;
 import com.example.whoami.parser.HttpServletRequestParser;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
@@ -15,14 +16,15 @@ import java.util.concurrent.atomic.AtomicLong;
  * contains methods for processing requests received
  * from the WhoamiController.java.
  */
+@AllArgsConstructor
 @Service
 @Log
-@AllArgsConstructor
 public class WhoamiService {
 
     private static final AtomicLong numberOfRequestsProcessed = new AtomicLong(0);
 
-    HttpServletRequestParser requestParser;
+    private final HttpServletRequestParser requestParser;
+    private final ParserFlags parserFlags;
 
     /**
      * Parses metadata content from a http request into the following sections.
@@ -38,19 +40,32 @@ public class WhoamiService {
 
         Map<String, Object> whoamiMap = new LinkedHashMap<>();
 
-        Map<String, String> requestHeaders = requestParser.parseRequestHeaders(request);
-        Optional<String> requestBody = requestParser.parseRequestBody(request);
-        Map<String, String> requestUrlParts = requestParser.parseRequestUrlParts(request);
-        Map<String, String> remoteInfo = requestParser.parseRemoteInfo(request);
+        if (parserFlags.isBody()) {
+            whoamiMap.put("headers", requestParser.parseRequestHeaders(request));
+        };
 
-        whoamiMap.put("headers", requestHeaders);
-        whoamiMap.put("url-parts", requestUrlParts);
-        whoamiMap.put("remote-info", remoteInfo);
+        if(parserFlags.isUrlParts()) {
+            whoamiMap.put("url-parts", requestParser.parseRequestUrlParts(request));
+        }
 
-        if (requestBody.isPresent()) {
-            whoamiMap.put("body", requestBody.get());
-        } else {
-            whoamiMap.put("body", "empty-body");
+        if(parserFlags.isRemoteInfo()) {
+            whoamiMap.put("remote-info", requestParser.parseRemoteInfo(request));
+        }
+
+        if(parserFlags.isAuthInfo()) {
+            whoamiMap.put("auth", requestParser.parseAuthInfo(request));
+        }
+
+        if(parserFlags.isBody()) {
+
+            Optional<String> requestBody = requestParser.parseRequestBody(request);
+
+            if (requestBody.isPresent()) {
+                whoamiMap.put("body", requestBody.get());
+            } else {
+                whoamiMap.put("body", "empty-body");
+            }
+
         }
 
         return whoamiMap;

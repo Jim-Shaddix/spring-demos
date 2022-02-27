@@ -74,10 +74,10 @@ public class HttpServletRequestParser {
 
         Map<String, String> urlParts = new LinkedHashMap<>();
         urlParts.put("request-method", request.getMethod());
-        urlParts.put("request-url", request.getRequestURL().toString());
+        urlParts.put("request-url", String.valueOf(request.getRequestURL()));
         urlParts.put("scheme", request.getScheme());
         urlParts.put("protocol", request.getProtocol());
-        urlParts.put("server-host", request.getServerName().toString());
+        urlParts.put("server-host", String.valueOf(request.getServerName()));
         urlParts.put("server-port", String.valueOf(request.getServerPort()));
         urlParts.put("path", request.getServletPath());
         urlParts.put("query-string", request.getQueryString());
@@ -90,7 +90,7 @@ public class HttpServletRequestParser {
      * a servlet request.
      *
      * @param request the http request received from the user.
-     * @return
+     * @return metadata that describes the users remote information.
      */
     public Map<String, String> parseRemoteInfo(HttpServletRequest request) {
 
@@ -101,6 +101,23 @@ public class HttpServletRequestParser {
         remoteInfo.put("request-port", String.valueOf(request.getRemotePort()));
 
         return remoteInfo;
+    }
+
+    /**
+     * gathers authentication information in regard to the users request.
+     *
+     * @param request the http request received from the user.
+     * @return metadata that describes the users authentication information.
+     */
+    public Map<String, String> parseAuthInfo(HttpServletRequest request) {
+
+        Map<String, String> parsedAuthInfo = new LinkedHashMap<>();
+
+        parsedAuthInfo.put("auth-type", request.getAuthType());
+        parsedAuthInfo.put("remote-user", request.getRemoteUser());
+        parsedAuthInfo.put("user-principal", String.valueOf(request.getUserPrincipal()));
+
+        return parsedAuthInfo;
     }
 
 }
