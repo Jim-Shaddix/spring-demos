@@ -5,7 +5,6 @@ import com.example.whoami.parser.HttpServletRequestParser;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;

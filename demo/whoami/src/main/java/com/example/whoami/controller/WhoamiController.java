@@ -44,7 +44,7 @@ public class WhoamiController {
      * @param request the http request received from the user.
      * @return raw json representation of the requests' metadata.
      */
-    @RequestMapping("/api/whoami/**")
+    @RequestMapping(value = "/api/whoami/**", produces = "application/json")
     @ResponseBody
     public String whoamiApi(HttpServletRequest request) {
 
