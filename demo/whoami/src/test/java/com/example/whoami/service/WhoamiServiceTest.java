@@ -14,11 +14,16 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.util.ReflectionTestUtils.*;
 
+/**
+ * Unit tests for WhoamiService
+ */
 class WhoamiServiceTest {
 
     private static HttpServletRequestParser requestParser;
     private static ParserFlags parserFlagsAllTrue;
     private static ParserFlags parserFlagsAllFalse;
+
+    public static int requestCount = 0;
 
     /**
      * sets up all the mocks for the WhoamiService.
@@ -93,8 +98,9 @@ class WhoamiServiceTest {
         // setup WhoamiService for test
         WhoamiService whoamiService = new WhoamiService(requestParser, parserFlagsAllTrue);
 
+        // reset static count in whoami service, so we know its expected result.
         AtomicLong numRequests = (AtomicLong) getField(whoamiService, "numberOfRequestsProcessed");
-        assertEquals(0, numRequests.get());
+        numRequests.set(0);
 
         Map<String, Object> whoamiMap = new HashMap<>();
         whoamiMap.put("first", "1");

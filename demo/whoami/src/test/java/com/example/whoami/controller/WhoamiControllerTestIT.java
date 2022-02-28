@@ -12,30 +12,33 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 
+/**
+ * Tests all expected requests for the WhoamiApplication.
+ */
 @AutoConfigureMockMvc
 @SpringBootTest
-class WhoamiControllerTest {
+class WhoamiControllerTestIT {
 
     @Autowired
     MockMvc mockMvc;
 
     private static final URI uri = URI.create("http://localhost");
 
-    @Test
-    void initRediect() throws Exception {
-        mockMvc.perform(get("http://localhost/"))
-                .andExpect(redirectedUrlPattern("/whoami?whoami-redirect=true"))
-                .andExpect(status().is3xxRedirection());
-    }
-
+    /**
+     * verifies the whoami requests to the /api path return valid json.
+     */
     @Test
     void whoamiApi() throws Exception {
         mockMvc.perform(get("http://localhost/api/whoami/random-path-element"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
                 .andExpect(content().contentTypeCompatibleWith("application/json"));
+                //.andExpect(jsonPath("random-path-element", "$.url-parts.path"))
     }
 
+    /**
+     * verifies the whoami requests to the /api path return valid json.
+     */
     @Test
     void whoamiHtml() throws Exception {
         mockMvc.perform(get("http://localhost/whoami/random-path-element"))
