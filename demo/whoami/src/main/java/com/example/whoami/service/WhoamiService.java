@@ -39,6 +39,7 @@ public class WhoamiService {
      */
     public Map<String, Object> parseRequestMetadata(@NonNull HttpServletRequest request) {
 
+
         Map<String, Object> whoamiMap = new LinkedHashMap<>();
 
         if (parserFlags.isBody()) {

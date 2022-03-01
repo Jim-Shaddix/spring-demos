@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.net.URI;
@@ -29,19 +30,21 @@ class WhoamiControllerTestIT {
      */
     @Test
     void whoamiApi() throws Exception {
-        mockMvc.perform(get("http://localhost/api/whoami/random-path-element"))
+        mockMvc.perform(get("http://localhost/api/whoami?a=b"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
-                .andExpect(content().contentTypeCompatibleWith("application/json"));
-                //.andExpect(jsonPath("random-path-element", "$.url-parts.path"))
+                .andExpect(content().contentTypeCompatibleWith("application/json"))
+                .andExpect(jsonPath("$.body").value("empty-body"))
+                .andExpect(jsonPath("$.url-parts.query-string").value("a=b"));
+                //.andExpect(jsonPath("$.url-parts.path").value("/whoami"))
     }
 
     /**
-     * verifies the whoami requests to the /api path return valid json.
+     * verifies requests to the whoami html page are completed with a valid response.
      */
     @Test
     void whoamiHtml() throws Exception {
-        mockMvc.perform(get("http://localhost/whoami/random-path-element"))
+        mockMvc.perform(get("http://localhost/whoami?a=b"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("text/html;charset=UTF-8"))
                 .andExpect(content().contentTypeCompatibleWith("text/html;charset=UTF-8"));
