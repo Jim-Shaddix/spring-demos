@@ -49,10 +49,8 @@ class WhoamiErrorControllerTestIT {
                 .andExpect(status().is4xxClientError())
                 .andReturn();
 
-                //.andExpect(content().bytes())
-
         String content = result.getResponse().getContentAsString();
-        System.out.println(content);
+        System.out.println("content: " + content);
 
     }
 

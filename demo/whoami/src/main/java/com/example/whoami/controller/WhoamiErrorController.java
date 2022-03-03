@@ -1,6 +1,7 @@
 package com.example.whoami.controller;
 
 import lombok.extern.java.Log;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Handles all error responses for the Whoami app.
  */
+@ConditionalOnProperty(value = "whoami.controller.enable-error-controller", havingValue = "true")
 @Controller
 @Log
 public class WhoamiErrorController implements ErrorController {

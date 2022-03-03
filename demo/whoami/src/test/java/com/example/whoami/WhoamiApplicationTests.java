@@ -9,7 +9,6 @@ import org.springframework.test.context.ActiveProfiles;
 class WhoamiApplicationTests {
 
     @Test
-    void contextLoads() {
-    }
+    void contextLoads() {}
 
 }

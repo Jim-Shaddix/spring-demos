@@ -22,6 +22,10 @@ return information back to the user that describes the content of the request.
 | FrameWorks            | SpringBoot                |
 | Build & CI/CD Tools   | Maven, Docker, Kubernetes |
 
+### Environment Setup
+Required Environment Variables:
+    1. SPRING_PROFILES_ACTIVE= one of {dev, prod, test}
+
 ### Command Flows
 1. build an executable jar: `mvn package`
 2. build a docker image: `docker compose -f docker/docker-compose.yml build`

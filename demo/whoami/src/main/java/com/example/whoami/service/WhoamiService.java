@@ -1,6 +1,6 @@
 package com.example.whoami.service;
 
-import com.example.whoami.property.ParserProperties;
+import com.example.whoami.config.ParserProperties;
 import com.example.whoami.parser.HttpServletRequestParser;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
@@ -25,7 +25,7 @@ public class WhoamiService {
     private static final AtomicLong numberOfRequestsProcessed = new AtomicLong(0);
 
     private final HttpServletRequestParser requestParser;
-    private final ParserProperties parserFlags;
+    private final ParserProperties parserProperties;
 
     /**
      * Parses metadata content from a http request into the following sections.
@@ -41,23 +41,23 @@ public class WhoamiService {
 
         Map<String, Object> whoamiMap = new LinkedHashMap<>();
 
-        if (parserFlags.isBody()) {
+        if (parserProperties.isBody()) {
             whoamiMap.put("headers", requestParser.parseRequestHeaders(request));
         };
 
-        if(parserFlags.isUrlParts()) {
+        if(parserProperties.isUrlParts()) {
             whoamiMap.put("url-parts", requestParser.parseRequestUrlParts(request));
         }
 
-        if(parserFlags.isRemoteInfo()) {
+        if(parserProperties.isRemoteInfo()) {
             whoamiMap.put("remote-info", requestParser.parseRemoteInfo(request));
         }
 
-        if(parserFlags.isAuthInfo()) {
+        if(parserProperties.isAuthInfo()) {
             whoamiMap.put("auth", requestParser.parseAuthInfo(request));
         }
 
-        if(parserFlags.isBody()) {
+        if(parserProperties.isBody()) {
 
             Optional<String> requestBody = requestParser.parseRequestBody(request);
 
