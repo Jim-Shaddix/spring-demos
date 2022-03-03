@@ -31,7 +31,7 @@ public class WhoamiController {
      * @return raw json representation of the requests' metadata.
      */
     @ResponseBody
-    @RequestMapping(value = "/api/whoami/**", produces = "application/json")
+    @RequestMapping(value = "/api/v1/whoami/**", produces = "application/json")
     public String whoamiApi(HttpServletRequest request) throws JsonProcessingException {
 
         Map<String, Object> whoamiMap = whoamiService.parseRequestMetadata(request);

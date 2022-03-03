@@ -29,18 +29,18 @@ public class WhoamiErrorController implements ErrorController {
 
             if(statusCode == HttpStatus.NOT_FOUND.value()) {
                 log.info("404 Error Received from URI: " + request.getRequestURI() + ".");
-                return "error-404";
+                return "error/404";
             }
 
             else if(statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
-                return "error-500";
+                return "error/5xx";
             }
 
         }
 
         // may want to change this default to a different error
         // page in the future.
-        return "error-500";
+        return "error/5xx";
     }
 
 }

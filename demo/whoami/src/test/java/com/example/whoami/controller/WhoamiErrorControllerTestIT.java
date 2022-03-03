@@ -44,12 +44,12 @@ class WhoamiErrorControllerTestIT {
     @Test
     void handleError404() throws Exception {
 
-        MvcResult result = mockMvc.perform(get("http://localhost:8080/random-path").contentType(MediaType.APPLICATION_JSON))
+        MvcResult result = mockMvc.perform(get("http://localhost:8080/random-path").contentType(MediaType.TEXT_HTML))
                 .andExpect(status().is(404))
                 .andExpect(status().is4xxClientError())
                 .andReturn();
 
-        String content = result.getResponse().getContentAsString();
+        String content = result.getResponse().getContentAsString(StandardCharsets.UTF_8);
         System.out.println("content: " + content);
 
     }

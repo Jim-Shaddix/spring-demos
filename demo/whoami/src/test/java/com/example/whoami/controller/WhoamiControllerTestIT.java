@@ -32,7 +32,7 @@ class WhoamiControllerTestIT {
      */
     @Test
     void whoamiApi() throws Exception {
-        mockMvc.perform(get("http://localhost/api/whoami?a=b"))
+        mockMvc.perform(get("http://localhost/api/v1/whoami?a=b"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
                 .andExpect(content().contentTypeCompatibleWith("application/json"))
