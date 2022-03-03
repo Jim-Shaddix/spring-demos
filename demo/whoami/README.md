@@ -1,9 +1,15 @@
 # Whoami
 - Author: James Shaddix
 
+![whoami](facets/whoami.png)
+
 ### Description
 This is a basic web application for displaying metadata back to a
-user that describes the request that was sent to the server.
+client that describes the request that was sent to a server. 
+This application is useful for uncovering network issues in a system. For example, if you are unsure
+what headers are being appended by a reverse proxy in your system, it can be useful to have a whoami application
+available that can relay all the http headers back to you. This application
+supports customization properties for determining what network information will be sent back to the client.
 
 ### Endpoints
 - Each of the endpoints will accept any type of request (GET, POST, PUT, ect...) and
@@ -24,7 +30,7 @@ return information back to the user that describes the content of the request.
 
 ### Environment Setup
 Required Environment Variables:
-    1. SPRING_PROFILES_ACTIVE= one of {dev, prod, test}
+1. SPRING_PROFILES_ACTIVE= one of {dev, prod, test}
 
 ### Command Flows
 1. build an executable jar: `mvn package`
