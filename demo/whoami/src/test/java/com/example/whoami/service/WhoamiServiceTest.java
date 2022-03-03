@@ -1,6 +1,6 @@
 package com.example.whoami.service;
 
-import com.example.whoami.config.ParserFlags;
+import com.example.whoami.properties.ParserProperties;
 import com.example.whoami.parser.HttpServletRequestParser;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -20,8 +20,8 @@ import static org.springframework.test.util.ReflectionTestUtils.*;
 class WhoamiServiceTest {
 
     private static HttpServletRequestParser requestParser;
-    private static ParserFlags parserFlagsAllTrue;
-    private static ParserFlags parserFlagsAllFalse;
+    private static ParserProperties parserFlagsAllTrue;
+    private static ParserProperties parserFlagsAllFalse;
 
     public static int requestCount = 0;
 
@@ -32,7 +32,7 @@ class WhoamiServiceTest {
     public static void setup() {
 
         // setup parserFlagsAllTrue mock
-        parserFlagsAllTrue = mock(ParserFlags.class);
+        parserFlagsAllTrue = mock(ParserProperties.class);
         when(parserFlagsAllTrue.isBody()).thenReturn(true);
         when(parserFlagsAllTrue.isUrlParts()).thenReturn(true);
         when(parserFlagsAllTrue.isAuthInfo()).thenReturn(true);
@@ -40,7 +40,7 @@ class WhoamiServiceTest {
         when(parserFlagsAllTrue.isRemoteInfo()).thenReturn(true);
 
         // setup parserFlagsAllFalse mock
-        parserFlagsAllFalse = mock(ParserFlags.class);
+        parserFlagsAllFalse = mock(ParserProperties.class);
         when(parserFlagsAllFalse.isBody()).thenReturn(false);
         when(parserFlagsAllFalse.isUrlParts()).thenReturn(false);
         when(parserFlagsAllFalse.isAuthInfo()).thenReturn(false);

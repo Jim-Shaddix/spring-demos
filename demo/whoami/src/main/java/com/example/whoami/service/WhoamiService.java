@@ -1,6 +1,6 @@
 package com.example.whoami.service;
 
-import com.example.whoami.config.ParserFlags;
+import com.example.whoami.properties.ParserProperties;
 import com.example.whoami.parser.HttpServletRequestParser;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
@@ -25,7 +25,7 @@ public class WhoamiService {
     private static final AtomicLong numberOfRequestsProcessed = new AtomicLong(0);
 
     private final HttpServletRequestParser requestParser;
-    private final ParserFlags parserFlags;
+    private final ParserProperties parserFlags;
 
     /**
      * Parses metadata content from a http request into the following sections.
@@ -38,7 +38,6 @@ public class WhoamiService {
      * @return metadata describing the http request.
      */
     public Map<String, Object> parseRequestMetadata(@NonNull HttpServletRequest request) {
-
 
         Map<String, Object> whoamiMap = new LinkedHashMap<>();
 
