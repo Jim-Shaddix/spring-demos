@@ -1,6 +1,6 @@
 package com.example.whoami.service;
 
-import com.example.whoami.properties.ParserProperties;
+import com.example.whoami.property.ParserProperties;
 import com.example.whoami.parser.HttpServletRequestParser;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

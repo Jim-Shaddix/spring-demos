@@ -1,29 +1,9 @@
 {
   "properties": [
     {
-      "name": "whoami.parse-body",
-      "type": "java.lang.Boolean",
-      "description": "Determines whether or not to display the parsed http body."
-    },
-    {
-      "name": "whoami.parse-headers",
-      "type": "java.lang.Boolean",
-      "description": "Determines whether or not to display the parsed http headers."
-    },
-    {
-      "name": "whoami.parse-url-parts",
-      "type": "java.lang.Boolean",
-      "description": "Determines whether or not to display the different portions of the url."
-    },
-    {
-      "name": "whoami.parse-remote-info",
-      "type": "java.lang.Boolean",
-      "description": "Determines whether or not to display the remote information sent to server."
-    },
-    {
-      "name": "whoami.parse-auth-info",
-      "type": "java.lang.Boolean",
-      "description": "Determines whether or not to display the authentication information associated with the users session."
+      "name": "whoami.application.version",
+      "type": "java.lang.String",
+      "description": "Application version displayed in the banner."
     }
   ]
 }

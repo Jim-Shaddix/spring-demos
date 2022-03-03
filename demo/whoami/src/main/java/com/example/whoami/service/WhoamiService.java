@@ -1,6 +1,6 @@
 package com.example.whoami.service;
 
-import com.example.whoami.properties.ParserProperties;
+import com.example.whoami.property.ParserProperties;
 import com.example.whoami.parser.HttpServletRequestParser;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;

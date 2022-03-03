@@ -4,5 +4,6 @@
 | |/\| | '_ \ / _ \ / _` | '_ ` _ \| |
 \  /\  / | | | (_) | (_| | | | | | | |
  \/  \/|_| |_|\___/ \__,_|_| |_| |_|_|
-App: ${spring.application.name} ${whoami.application.version}
-Powered by Spring Boot ${spring-boot.version}
+Application:        ${spring.application.name}-${whoami.application.version}
+SpringBoot:         ${spring-boot.version}
+Active-Profiles:    ${spring.profiles.active}

@@ -1,6 +1,7 @@
 package com.example.whoami.controller;
 
 import com.example.whoami.service.WhoamiService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -29,22 +30,15 @@ public class WhoamiController {
      * @param request the http request received from the user.
      * @return raw json representation of the requests' metadata.
      */
-    @RequestMapping(value = "/api/whoami/**", produces = "application/json")
     @ResponseBody
-    public String whoamiApi(HttpServletRequest request) {
+    @RequestMapping(value = "/api/whoami/**", produces = "application/json")
+    public String whoamiApi(HttpServletRequest request) throws JsonProcessingException {
 
         Map<String, Object> whoamiMap = whoamiService.parseRequestMetadata(request);
 
         whoamiService.logRequest(whoamiMap);
 
-        String whoamiJson = "";
-
-        try {
-            whoamiJson = objectMapper.writeValueAsString(whoamiMap);
-        } catch (Exception e) {
-            System.err.println("An error occurred while attempting to create json object.");
-            e.printStackTrace();
-        }
+        String whoamiJson = objectMapper.writeValueAsString(whoamiMap);
 
         return whoamiJson;
     }
