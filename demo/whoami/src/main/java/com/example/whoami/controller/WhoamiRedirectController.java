@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class WhoamiRedirectController {
 
     /**
-     * redirect url that routes the user to the whoami path, and
+     * redirects the client to the whoami path, and
      * sets a query parameter indicating the presence of the redirect.
      *
      * @param model allows for setting query parameters in the redirect url.

@@ -3,7 +3,7 @@ version: "3"
 services:
 
   app:
-    image: "whoami:latest"
+    image: "spring-practice/whoami:latest"
     build:
       context: "../"
       dockerfile: "docker/Dockerfile"

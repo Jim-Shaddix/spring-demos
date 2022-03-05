@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -119,6 +121,47 @@ public class HttpServletRequestParser {
         parsedAuthInfo.put("user-principal", String.valueOf(request.getUserPrincipal()));
 
         return parsedAuthInfo;
+    }
+
+    /**
+     * parses the hostname of the machine running the whoami application.
+     * In the event where this application is running in a docker container,
+     * than method will return the containerID.
+     *
+     * @return hostname of the machine running this application.
+     */
+    public Map<String, String> parseHostName() {
+
+        Map<String, String> hostNameMap = new LinkedHashMap<>();
+
+        String hostname;
+
+        // using unix hostname to get result
+        String unixHost = System.getenv("HOSTNAME");
+        if (unixHost != null) {
+            hostNameMap.put("hostname", unixHost);
+            return hostNameMap;
+        }
+
+        // using windows environment variable to get hostname
+        String windowsHost = System.getenv("COMPUTERNAME");
+        if (windowsHost != null) {
+            hostNameMap.put("hostname", windowsHost);
+            return hostNameMap;
+        }
+
+        // using inet to get hostname
+        // this is useful for determining the hostname on windows systems,
+        // in the event that the COMPUTERNAME environment variable is not set.
+        try {
+            String inetHost = InetAddress.getLocalHost().getHostName();
+            if (inetHost.length() != 0) {
+                hostNameMap.put("hostname", inetHost);
+                return hostNameMap;
+            }
+        } catch (UnknownHostException e) {}
+
+        return null;
     }
 
 }
