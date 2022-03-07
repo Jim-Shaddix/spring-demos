@@ -1,5 +1,6 @@
 package com.example.whoami.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -20,6 +21,7 @@ public class WhoamiRedirectController {
      * @param model allows for setting query parameters in the redirect url.
      * @return the redirect view for rerouting the user.
      */
+    @Operation(summary = "redirects to /whoami")
     @RequestMapping("/")
     public ModelAndView initRediect(ModelMap model) {
         model.addAttribute("whoami-redirect", "true");
