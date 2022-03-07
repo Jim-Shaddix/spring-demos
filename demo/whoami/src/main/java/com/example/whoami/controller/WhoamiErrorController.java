@@ -11,7 +11,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * This controller handles default
+ * This controller handles all the error responses.
  */
 @ConditionalOnProperty(value = "whoami.controller.enable-error-controller", havingValue = "true")
 @Controller
