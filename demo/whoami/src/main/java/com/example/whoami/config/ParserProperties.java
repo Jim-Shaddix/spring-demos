@@ -18,31 +18,39 @@ public class ParserProperties {
      * Determines if the body of the http request is
      * will be returned ot the user.
      */
-    private boolean body;
+    private boolean body = true;
 
     /**
      * Determines if the headers of the http request
      * will be returned the client.
      */
-    private boolean header;
+    private boolean header = true;
 
     /**
      * Determines if the url parts of the http request
      * will be returned ot the user.
      */
-    private boolean urlParts;
+    private boolean urlParts = true;
 
     /**
      * Determines if the metadata associated with request
      * regarding the clients' origin is sent back to the client.
      */
-    private boolean remoteInfo;
+    private boolean remoteInfo = true;
 
     /**
      * Determines if the authentication info associated with
      * the client will be sent back to them.
      */
-    private boolean authInfo;
+    private boolean authInfo = true;
+
+    /**
+     * Determines if the hostname associated with the machine
+     * will be sent back to the client. In the event that the
+     * whoami application is running in a docker container,
+     * then the containerID will be sent back to the user.
+     */
+    private boolean hostname = true;
 
 }
 

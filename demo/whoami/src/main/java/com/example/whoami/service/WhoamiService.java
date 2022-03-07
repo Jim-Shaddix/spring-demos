@@ -33,8 +33,9 @@ public class WhoamiService {
      * 2. request body
      * 3. request url components
      * 4. remote info
+     * 5. hostname
      *
-     * @param request http request recieved from the WhoamiController
+     * @param request http request received from the WhoamiController
      * @return metadata describing the http request.
      */
     public Map<String, Object> parseRequestMetadata(@NonNull HttpServletRequest request) {
@@ -67,6 +68,10 @@ public class WhoamiService {
                 whoamiMap.put("body", "empty-body");
             }
 
+        }
+
+        if(parserProperties.isHostname()) {
+            whoamiMap.put("hostname", requestParser.parseHostName());
         }
 
         return whoamiMap;

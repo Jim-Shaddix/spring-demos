@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class WhoamiInitRunner implements CommandLineRunner {
 
+    private static final String PROPERTY_MSG = "Custom Properties --> ";
+
     final private ParserProperties parserProperties;
 
     final private ControllerProperties controllerProperties;
@@ -24,8 +26,8 @@ public class WhoamiInitRunner implements CommandLineRunner {
      */
     @Override
     public void run(String... args) {
-        log.info("Running WhoamiApp with ParserProperties: " + parserProperties.toString());
-        log.info("Running WhoamiApp with ControllerProperties: " + controllerProperties.toString());
+        log.info(PROPERTY_MSG + parserProperties.toString());
+        log.info(PROPERTY_MSG + controllerProperties.toString());
     }
 
 }

@@ -126,8 +126,9 @@ public class HttpServletRequestParser {
     /**
      * parses the hostname of the machine running the whoami application.
      * In the event where this application is running in a docker container,
-     * than method will return the containerID.
-     *
+     * then method will return the containerID.
+     * The following post gives details on how to acquire a hostname
+     * in java: https://stackoverflow.com/questions/7348711/recommended-way-to-get-hostname-in-java
      * @return hostname of the machine running this application.
      */
     public Map<String, String> parseHostName() {
@@ -151,7 +152,7 @@ public class HttpServletRequestParser {
         }
 
         // using inet to get hostname
-        // this is useful for determining the hostname on windows systems,
+        // this is useful for determining the hostname on Windows systems,
         // in the event that the COMPUTERNAME environment variable is not set.
         try {
             String inetHost = InetAddress.getLocalHost().getHostName();

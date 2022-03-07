@@ -11,12 +11,14 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Handles all error responses for the Whoami app.
+ * This controller handles default
  */
 @ConditionalOnProperty(value = "whoami.controller.enable-error-controller", havingValue = "true")
 @Controller
 @Log
 public class WhoamiErrorController implements ErrorController {
+
+    private final static String DEFAULT_ERROR_PAGE = "error/5xx";
 
     @RequestMapping("/error")
     public String handleError(HttpServletRequest request) {
@@ -28,19 +30,18 @@ public class WhoamiErrorController implements ErrorController {
             int statusCode = Integer.parseInt(status.toString());
 
             if(statusCode == HttpStatus.NOT_FOUND.value()) {
-                log.info("404 Error Received from URI: " + request.getRequestURI() + ".");
+                log.warning("404 Error received from URI: " + request.getRequestURI() + ".");
                 return "error/404";
             }
 
             else if(statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
+                log.warning("500 Error received from URI: " + request.getRequestURI() + ".");
                 return "error/5xx";
             }
 
         }
 
-        // may want to change this default to a different error
-        // page in the future.
-        return "error/5xx";
+        return DEFAULT_ERROR_PAGE;
     }
 
 }
