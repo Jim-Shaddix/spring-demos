@@ -19,25 +19,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @AutoConfigureMockMvc
 @SpringBootTest
 @ActiveProfiles("test")
-class WhoamiControllerTestIT {
+class WhoamiWebControllerTestIT {
 
     @Autowired
     MockMvc mockMvc;
 
     private static final URI uri = URI.create("http://localhost");
-
-    /**
-     * verifies the whoami requests to the /api path return valid json.
-     */
-    @Test
-    void whoamiApi() throws Exception {
-        mockMvc.perform(get("http://localhost/api/v1/whoami?a=b"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json"))
-                .andExpect(content().contentTypeCompatibleWith("application/json"))
-                .andExpect(jsonPath("$.body").value("empty-body"))
-                .andExpect(jsonPath("$.url-parts.query-string").value("a=b"));
-    }
 
     /**
      * verifies requests to the whoami html page are completed with a valid response.
