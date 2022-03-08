@@ -4,6 +4,7 @@ import com.example.whoami.service.WhoamiService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ import java.util.*;
  */
 @Controller
 @AllArgsConstructor
+@Tag(name = "Whoami-Controller", description = "Endpoints for sending metadata back to a client describing their request.")
 public class WhoamiController {
 
     private ObjectMapper objectMapper;

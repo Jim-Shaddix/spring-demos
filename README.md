@@ -2,6 +2,9 @@
 
 NOTE: this repository is still in its early stages!
 
+- All applications in this repository have:
+  - Docker/Docker-Compsoe/Kubernetes/OpenAPI configurations.
+
 ### Folders:
 - demo: completed demo applications for showing off concepts.
 - guides: [spring boot offical guides](https://spring.io/guides) that I followed.
