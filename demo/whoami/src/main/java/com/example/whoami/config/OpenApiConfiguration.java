@@ -12,12 +12,11 @@ import io.swagger.v3.oas.annotations.servers.Server;
                 description = "Provides the API definitions for the whoami application",
                 contact = @Contact(
                         name = "James Shaddix",
-                        url = "https://jshaddix.com",
-                        email = "sadf"
+                        url = "https://jshaddix.com"
                 ),
                 license = @License(
                         name = "MIT Licence",
-                        url = "https://github.com/thombergs/code-examples/blob/master/LICENSE")),
+                        url = "https://github.com/Jim-Shaddix/spring-demos/tree/main/demo/whoami")),
         servers = @Server(url = "http://localhost:8080")
 )
 public class OpenApiConfiguration {}
