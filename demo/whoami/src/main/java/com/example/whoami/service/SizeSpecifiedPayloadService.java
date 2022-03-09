@@ -21,9 +21,9 @@ import java.util.stream.LongStream;
 @Service
 public class SizeSpecifiedPayloadService {
 
-    // this order is actually important, because their exists a greedy
+    // The order of this array is important, because their exists a greedy
     // algorithm that loops through this array, and selects the first
-    // unit that matchs the suffix of size provided by the user.
+    // unit that matches the suffix of size provided by the user.
     private static final String[] validUnits = {"kb", "mb", "gb", "b"};
 
     private static class SizeUnitSpecification {
