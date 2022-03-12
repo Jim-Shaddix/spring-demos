@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Log
 @Service
 @AllArgsConstructor
-public class RfcHeaderParser implements HeaderParser {
+public class RfcHeaderParser implements HeaderParser<RfcHeader> {
 
     final private static String RFC_HEADER_URL = "https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html";
 
@@ -62,7 +62,7 @@ public class RfcHeaderParser implements HeaderParser {
         return rfcHeaders;
     }
 
-    public List<? extends Header> parseHeaders() {
+    public List<RfcHeader> parseHeaders() {
         return parseRfcHeadersFromWeb(RFC_HEADER_URL);
     }
 

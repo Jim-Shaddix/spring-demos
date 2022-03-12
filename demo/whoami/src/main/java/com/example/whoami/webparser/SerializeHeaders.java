@@ -16,7 +16,7 @@ public class SerializeHeaders {
     RfcHeaderParser rfcHeaderParser;
 
     public void serializeHeaders() {
-        List<FlavioHeader> headers = (List<FlavioHeader>) flavioHeaderParser.parseHeaders();
+        List<FlavioHeader> flavioHeaders = (List<FlavioHeader>) flavioHeaderParser.parseHeaders();
     }
 
 }

@@ -2,6 +2,6 @@ package com.example.whoami.webparser;
 
 import java.util.List;
 
-public interface HeaderParser {
-    public List<? extends Header> parseHeaders();
+public interface HeaderParser<R> {
+    public List<R> parseHeaders();
 }

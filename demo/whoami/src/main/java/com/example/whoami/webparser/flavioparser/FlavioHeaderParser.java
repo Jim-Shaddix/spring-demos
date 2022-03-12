@@ -19,7 +19,7 @@ import java.util.List;
 @Log
 @Service
 @AllArgsConstructor
-public class FlavioHeaderParser implements HeaderParser {
+public class FlavioHeaderParser implements HeaderParser<FlavioHeader> {
 
     final private static String SIMPLE_REQUEST_HEADER_URL = "https://flaviocopes.com/http-request-headers/";
     final private static String SIMPLE_RESPONSE_HEADER_URL = "https://flaviocopes.com/http-response-headers/";
@@ -58,7 +58,7 @@ public class FlavioHeaderParser implements HeaderParser {
         return simpleHeaders;
     }
 
-    public List<? extends Header> parseHeaders() {
+    public List<FlavioHeader> parseHeaders() {
 
         List<FlavioHeader> allHeaders = new ArrayList<>();
 
