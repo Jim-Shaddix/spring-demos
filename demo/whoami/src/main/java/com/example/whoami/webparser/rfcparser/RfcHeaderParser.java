@@ -1,7 +1,6 @@
 package com.example.whoami.webparser.rfcparser;
 
 import com.example.whoami.webparser.HeaderParser;
-import com.example.whoami.webparser.Header;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.jsoup.Jsoup;
@@ -40,17 +39,19 @@ public class RfcHeaderParser implements HeaderParser<RfcHeader> {
 
         List<RfcHeader> rfcHeaders = new ArrayList<>();
 
-        for (Element e: elements) {
+        for (Element headerElement: elements) {
 
-            List<Element> elementList = new ArrayList<>();
-            String headerName = e.text();
+            String headerName = headerElement.text().trim().split(" ")[1];
+            List<Element> headerDefinitionElements = new ArrayList<>();
 
-            while (!e.tag().equals("h3")) {
-                elementList.add(e);
-                e = e.nextElementSibling();
+            Element subElement = headerElement.nextElementSibling();
+
+            while (subElement != null && !subElement.tagName().equals("h3")) {
+                headerDefinitionElements.add(subElement);
+                subElement = subElement.nextElementSibling();
             }
 
-            String definition = elementList.stream()
+            String definition = headerDefinitionElements.stream()
                     .map(Element::text)
                     .collect(Collectors.joining("\n"));
 

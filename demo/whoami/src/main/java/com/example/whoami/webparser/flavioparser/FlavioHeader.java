@@ -6,8 +6,8 @@ import lombok.Getter;
 import lombok.ToString;
 
 @Getter
-@Builder
 @ToString
+@Builder
 public class FlavioHeader extends Header {
     private String name;
     private String example;

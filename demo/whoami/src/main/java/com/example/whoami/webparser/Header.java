@@ -1,5 +1,14 @@
 package com.example.whoami.webparser;
 
-public abstract class Header {
+import lombok.*;
+
+public abstract class Header implements Comparable<Header>{
+
     private String name;
+    public String getName(){return name;}
+
+    public int compareTo(Header header){
+        return name.compareTo(header.name);
+    }
+
 }
