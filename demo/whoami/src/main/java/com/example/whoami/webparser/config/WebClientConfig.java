@@ -1,4 +1,4 @@
-package com.example.whoami.config;
+package com.example.whoami.webparser.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +11,12 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Configuration
 public class WebClientConfig {
 
+    /**
+     * This custom webclient configuration is needed
+     * to specify max byte return value. This is needed
+     * because the default size is not large enough for the html
+     * webpages that this client will be requesting.
+     */
     @Bean
     public WebClient webClient() {
 

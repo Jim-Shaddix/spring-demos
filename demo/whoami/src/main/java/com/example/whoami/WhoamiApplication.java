@@ -5,7 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 
 @SpringBootApplication
-@ConfigurationPropertiesScan("com.example.whoami.config")
+@ConfigurationPropertiesScan(value = {
+        "com.example.whoami.config",
+        "com.example.whoami.webparser.config"
+})
 public class WhoamiApplication {
 
     public static void main(String[] args) {

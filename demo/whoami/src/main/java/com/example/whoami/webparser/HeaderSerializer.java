@@ -6,7 +6,8 @@ import com.example.whoami.webparser.rfcparser.RfcHeader;
 import com.example.whoami.webparser.rfcparser.RfcHeaderParser;
 import com.example.whoami.webparser.spec.HeaderSpec;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
@@ -16,12 +17,15 @@ import java.nio.file.Paths;
 import java.util.*;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class HeaderSerializer {
 
-    FlavioHeaderParser flavioHeaderParser;
-    RfcHeaderParser rfcHeaderParser;
-    ObjectMapper objectMapper;
+    @Value("${whoami.webparser.http-header-spec-location}")
+    private String headerSpecLocation;
+
+    private final FlavioHeaderParser flavioHeaderParser;
+    private final  RfcHeaderParser rfcHeaderParser;
+    private final ObjectMapper objectMapper;
 
     private Map<String, Integer> createIndexMap(List<? extends Header> headerList) {
         Map<String, Integer> indexMap = new HashMap<>();
@@ -68,10 +72,6 @@ public class HeaderSerializer {
         List<FlavioHeader> flavioHeaders =  flavioHeaderParser.parseHeaders();
         List<RfcHeader> rfcHeaders = rfcHeaderParser.parseHeaders();
 
-        // sort header lists in place
-        //Collections.sort(flavioHeaders);
-        //Collections.sort(rfcHeaders);
-
         Map<String, Integer> flavioIndexMap = createIndexMap(flavioHeaders);
 
         // populate all the header specifications
@@ -104,7 +104,7 @@ public class HeaderSerializer {
     public void serializeHeaders() throws IOException {
         List<HeaderSpec> headerSpecs = createAllHeaderSpecs();
         try {
-            objectMapper.writeValue(Paths.get("books.json").toFile(), headerSpecs);
+            objectMapper.writeValue(Paths.get(headerSpecLocation).toFile(), headerSpecs);
         } catch (IOException e) {
             e.printStackTrace();
         }

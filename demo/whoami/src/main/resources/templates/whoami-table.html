@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Whoami</h1>
+
+    <section id="http-header-section">
+        <h3>Http Headers Recieved From Server</h3>
+        <table id="json-table-display"></table>
+    </section>
+
+    <script th:inline="javascript">
+
+      /*<![CDATA[*/
+      const jsonBlob = /*[[${jsonBlob}]]*/ [
+          {
+              "name": "jim",
+              "example": "123",
+              "shortDescription": "short-description",
+              "longDescription": "long-description",
+              "type": "basic"
+          },
+          {
+              "name": "jim",
+              "example": "123",
+              "shortDescription": "short-description",
+              "longDescription": "long-description",
+              "type": "basic"
+          },
+          {
+              "name": "jim",
+              "example": "123",
+              "shortDescription": "short-description",
+              "longDescription": "long-description",
+              "type": "basic"
+          }
+      ];
+      /*]]>*/
+
+      /**
+       * parses a field from a json blob,
+       * creates a column with the field information.
+       * adds the field to the row.
+       *
+       * @param row Table row object that will have a column appended to it.
+       * @param jsonObject jsonObject whose field will be parsed.
+       * @param fieldName the field name that will be used to parse the json object.
+       */
+      function createHtmlColumn(row, jsonObject, fieldName) {
+          let newCol = document.createElement("th")
+          newCol.innerHTML = jsonObject[fieldName]
+          row.appendChild(newCol)
+      }
+
+      const jsonTableDisplay = document.querySelector("#json-table-display")
+
+      // for each json object, add a new column
+      for (let i = 0; i < jsonBlob.length; i++) {
+
+          let jsonObject = jsonBlob[i]
+          let newRow = document.createElement("tr")
+
+          createHtmlColumn(newRow, jsonObject, "name")
+          createHtmlColumn(newRow, jsonObject, "type")
+          createHtmlColumn(newRow, jsonObject, "example")
+          createHtmlColumn(newRow, jsonObject, "shortDescription")
+          createHtmlColumn(newRow, jsonObject, "longDescription")
+
+          // create new row for every json object
+          jsonTableDisplay.appendChild(newRow)
+      }
+
+    </script>
+
+</body>
+</html>
