@@ -37,22 +37,22 @@
           {
               "name": "jim",
               "example": "123",
-              "shortDescription": "short-description",
-              "longDescription": "long-description",
+              "short-description": "short-description",
+              "long-description": "long-description",
               "type": "basic"
           },
           {
               "name": "jim",
               "example": "123",
-              "shortDescription": "short-description",
-              "longDescription": "long-description",
+              "short-description": "short-description",
+              "long-description": "long-description",
               "type": "basic"
           },
           {
               "name": "jim",
               "example": "123",
-              "shortDescription": "short-description",
-              "longDescription": "long-description",
+              "short-description": "short-description",
+              "long-description": "long-description",
               "type": "basic"
           }
       ];
@@ -76,20 +76,25 @@
       const jsonTableDisplay = document.querySelector("#json-table-display")
 
       // for each json object, add a new column
-      for (let i = 0; i < jsonBlob.length; i++) {
+      let elementOrder = ["name", "type", "example", "short-description", "long-description"]
 
-          let jsonObject = jsonBlob[i]
-          let newRow = document.createElement("tr")
+      function setHeaderTable() {
 
-          createHtmlColumn(newRow, jsonObject, "name")
-          createHtmlColumn(newRow, jsonObject, "type")
-          createHtmlColumn(newRow, jsonObject, "example")
-          createHtmlColumn(newRow, jsonObject, "shortDescription")
-          createHtmlColumn(newRow, jsonObject, "longDescription")
+          for (let i = 0; i < jsonBlob.length; i++) {
 
-          // create new row for every json object
-          jsonTableDisplay.appendChild(newRow)
+              let jsonObject = jsonBlob[i]
+              let newRow = document.createElement("tr")
+
+              // create new columns for each of the elements in the json blob
+              elementOrder.forEach((value, index) => createHtmlColumn(newRow, jsonObject, value))
+
+              // create new row for every json object
+              jsonTableDisplay.appendChild(newRow)
+          }
+
       }
+
+      setHeaderTable()
 
     </script>
 

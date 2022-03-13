@@ -1,27 +1,22 @@
 package com.example.whoami.webparser.config;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import com.example.whoami.webparser.service.WebParserService;
+import com.example.whoami.webparser.spec.HeaderSpec;
+import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-/**
- * Properties that govern the execution of the web-parser.
- */
-@Setter
-@Getter
-@ConfigurationProperties("whoami.webparser")
+import java.util.List;
+
+@Configuration
+@AllArgsConstructor
 public class WebParserConfig {
 
-    /**
-     * Forces the webparser to be executed again. By default, the
-     * parser will not be executed if the location specified by
-     * httpHeaderSpecLocation already has a json file.
-     */
-    private boolean forceParserExecution = false;
+    private final WebParserService webParserService;
 
-    /**
-     * The location used for reading in the httpHeaderSpec.
-     */
-    private String httpHeaderSpecLocation;
+    @Bean
+    public List<HeaderSpec> getHeaderSpecs() throws Exception {
+       return webParserService.fetchHeaderSpecs();
+    }
 
 }

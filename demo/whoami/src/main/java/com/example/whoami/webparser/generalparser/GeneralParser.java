@@ -1,31 +1,28 @@
-package com.example.whoami.webparser;
+package com.example.whoami.webparser.generalparser;
 
+import com.example.whoami.webparser.Header;
 import com.example.whoami.webparser.flavioparser.FlavioHeader;
 import com.example.whoami.webparser.flavioparser.FlavioHeaderParser;
 import com.example.whoami.webparser.rfcparser.RfcHeader;
 import com.example.whoami.webparser.rfcparser.RfcHeaderParser;
 import com.example.whoami.webparser.spec.HeaderSpec;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.AllArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
-@RequiredArgsConstructor
-public class HeaderSerializer {
-
-    @Value("${whoami.webparser.http-header-spec-location}")
-    private String headerSpecLocation;
+@AllArgsConstructor
+public class GeneralParser {
 
     private final FlavioHeaderParser flavioHeaderParser;
-    private final  RfcHeaderParser rfcHeaderParser;
-    private final ObjectMapper objectMapper;
+    private final RfcHeaderParser rfcHeaderParser;
 
     private Map<String, Integer> createIndexMap(List<? extends Header> headerList) {
         Map<String, Integer> indexMap = new HashMap<>();
@@ -38,10 +35,10 @@ public class HeaderSerializer {
     private void setFieldsFromRfc(
             @NonNull HeaderSpec headerSpec,
             @Nullable RfcHeader rfcHeader) {
-       if (rfcHeader != null) {
-           headerSpec.setName(rfcHeader.getName());
-           headerSpec.setLongDescription(rfcHeader.getDefinition());
-       }
+        if (rfcHeader != null) {
+            headerSpec.setName(rfcHeader.getName());
+            headerSpec.setLongDescription(rfcHeader.getDefinition());
+        }
     }
 
     private void setFieldsFromFlavio(
@@ -67,7 +64,7 @@ public class HeaderSerializer {
         return headerSpec;
     }
 
-    private List<HeaderSpec> createAllHeaderSpecs() {
+    public List<HeaderSpec> createAllHeaderSpecs() {
 
         List<FlavioHeader> flavioHeaders =  flavioHeaderParser.parseHeaders();
         List<RfcHeader> rfcHeaders = rfcHeaderParser.parseHeaders();
@@ -95,19 +92,6 @@ public class HeaderSerializer {
         }
 
         return headerSpecs;
-    }
-
-    /**
-     * Serialize all the header definitions to a JSON file.
-     * @throws IOException
-     */
-    public void serializeHeaders() throws IOException {
-        List<HeaderSpec> headerSpecs = createAllHeaderSpecs();
-        try {
-            objectMapper.writeValue(Paths.get(headerSpecLocation).toFile(), headerSpecs);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
 }
