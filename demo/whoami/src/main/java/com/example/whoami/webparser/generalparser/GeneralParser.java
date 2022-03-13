@@ -7,6 +7,7 @@ import com.example.whoami.webparser.rfcparser.Rfc2616Header;
 import com.example.whoami.webparser.rfcparser.Rfc2616HeaderParser;
 import com.example.whoami.webparser.spec.HeaderSpec;
 import lombok.AllArgsConstructor;
+import lombok.extern.java.Log;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Log
 @Service
 @AllArgsConstructor
 public class GeneralParser {
@@ -68,23 +70,25 @@ public class GeneralParser {
         List<FlavioHeader> flavioHeaders =  flavioHeaderParser.parseHeaders();
         List<Rfc2616Header> rfcHeaders = rfc2616HeaderParser.parseHeaders();
 
-        Map<String, Integer> flavioIndexMap = createIndexMap(flavioHeaders);
+        Map<String, Integer> rfcIndexMap = createIndexMap(rfcHeaders);
 
         // populate all the header specifications
         List<HeaderSpec> headerSpecs = new ArrayList<>();
         {
-            Rfc2616Header rfc2616Header;
+            FlavioHeader flavioHeader;
             String rfcHeaderName;
             HeaderSpec spec;
-            Integer flavioIndex;
-            for (int i = 0; i < rfcHeaders.size(); i++) {
-                rfc2616Header = rfcHeaders.get(i);
-                rfcHeaderName = rfc2616Header.getName();
-                flavioIndex = flavioIndexMap.getOrDefault(rfcHeaderName, null);
-                if (flavioIndex == null) {
-                    spec = createHeaderSpec(rfc2616Header, null);
+            Integer rfcIndex;
+            for (int i = 0; i < flavioHeaders.size(); i++) {
+                flavioHeader = flavioHeaders.get(i);
+                rfcHeaderName = flavioHeader.getName();
+                rfcIndex = rfcIndexMap.getOrDefault(rfcHeaderName, null);
+                if (rfcIndex == null) {
+                    log.warning("Could not find an rfc-header that matches the flavio-header: " +
+                            flavioHeader.getName());
+                    spec = createHeaderSpec(null, flavioHeader);
                 } else {
-                    spec = createHeaderSpec(rfc2616Header, flavioHeaders.get(flavioIndex));
+                    spec = createHeaderSpec(rfcHeaders.get(rfcIndex), flavioHeader);
                 }
                 headerSpecs.add(spec);
             }

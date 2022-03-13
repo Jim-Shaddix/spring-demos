@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Headers</title>
+    <script type="text/javascript" src="js/TableFunctions.js"></script>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Headers</h1>
+
+    <section id="http-header-section">
+        <h3>Http Header Definitions</h3>
+        <table id="json-table-display"></table>
+    </section>
+
+    <!-- JavaScript -->
+    <script class="thymeleaf-import" th:inline="javascript">
+        /*<![CDATA[*/
+        const jsonBlob = /*[[${jsonBlob}]]*/ [
+            {
+                "name": "jim",
+                "example": "123",
+                "short-description": "short-description",
+                "long-description": "long-description",
+                "type": "basic"
+            },
+            {
+                "name": "jim",
+                "example": "123",
+                "short-description": "short-description",
+                "long-description": "long-description",
+                "type": "basic"
+            },
+            {
+                "name": "jim",
+                "example": "123",
+                "short-description": "short-description",
+                "long-description": "long-description",
+                "type": "basic"
+            }
+        ];
+        /*]]>*/
+
+    </script>
+    <script th:inline="javascript">
+
+      const jsonTableDisplay = document.querySelector("#json-table-display")
+
+      // for each json object, add a new column
+      const tableElementOrder = ["name", "type", "example", "short-description", "long-description"]
+
+      setHeaderTable(jsonTableDisplay, tableElementOrder, jsonBlob)
+
+    </script>
+
+</body>
+</html>

@@ -8,7 +8,6 @@ import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
 
@@ -30,7 +29,7 @@ public class WebParserService {
         return Paths.get(headerSpecLocation).toFile().exists();
     }
 
-    private List<HeaderSpec> executeWebParser() throws IOException {
+    private List<HeaderSpec> executeWebParser() {
         List<HeaderSpec> headerSpecs = generalParser.createAllHeaderSpecs();
         log.info("Fetching definitions of http headers ...");
         headerSpecIO.wrightHeaderSpecFile(headerSpecs);
@@ -39,7 +38,7 @@ public class WebParserService {
         return headerSpecs;
     }
 
-    public List<HeaderSpec> fetchHeaderSpecs() throws Exception {
+    public List<HeaderSpec> fetchHeaderSpecs() {
 
         if (!jsonHeaderSpecFileExists()) {
 

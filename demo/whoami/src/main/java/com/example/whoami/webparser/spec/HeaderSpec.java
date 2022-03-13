@@ -38,18 +38,20 @@ public class HeaderSpec {
     public String toString() {
 
         int abbreviatedLength = 10;
-        String longDesc;
-        if (longDescription.length() >= abbreviatedLength) {
-            longDesc = longDescription.substring(0, abbreviatedLength).trim() + " ...";
-        } else {
-            longDesc = longDescription.trim();
+        String longDesc = null;
+        if (longDescription != null) {
+            if (longDescription.length() >= abbreviatedLength) {
+                longDesc = longDescription.substring(0, abbreviatedLength).trim() + " ...";
+            } else {
+                longDesc = longDescription.trim();
+            }
         }
 
         return "HeaderSpec{" +
                 "name='" + name + '\'' +
                 ", example='" + example + '\'' +
                 ", shortDescription='" + shortDescription + '\'' +
-                ", longDescription='" + longDesc + '\'' +
+                ", longDescription='" + String.valueOf(longDesc) + '\'' +
                 ", type='" + type + '\'' +
                 '}';
     }

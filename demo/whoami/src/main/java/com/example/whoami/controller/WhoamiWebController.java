@@ -35,21 +35,25 @@ public class WhoamiWebController {
     @Operation(summary = "Displays metadata describing the users request in html.")
     @RequestMapping("/whoami/**")
     public String whoamiHtml(Model model, HttpServletRequest request) {
-
         WhoamiDto whoamiDto = whoamiService.parseRequestMetadata(request);
-
         whoamiService.logRequest(whoamiDto);
-
         model.addAttribute("jsonBlob", whoamiDto);
-
         return "whoami";
     }
 
-    @Operation(summary = "Displays descriptions of possible http headers")
-    @GetMapping("/header")
+    @Operation(summary = "Displays descriptions of possible http headers.")
+    @GetMapping("/headers")
     public String headerView(Model model, HttpServletRequest request) {
         model.addAttribute("jsonBlob", headerSpecs);
-        return "header-table";
+        return "headers";
+    }
+
+    @Operation(summary = "Displays descriptions of all of the whoami information.")
+    @RequestMapping("/whoami-table/**")
+    public String whoamiTableView(Model model, HttpServletRequest request) {
+        WhoamiDto whoamiDto = whoamiService.parseRequestMetadata(request);
+        model.addAttribute("jsonBlob", whoamiDto);
+        return "whoami-table";
     }
 
 }
