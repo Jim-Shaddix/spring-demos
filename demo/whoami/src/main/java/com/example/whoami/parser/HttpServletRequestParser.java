@@ -131,24 +131,20 @@ public class HttpServletRequestParser {
      * in java: https://stackoverflow.com/questions/7348711/recommended-way-to-get-hostname-in-java
      * @return hostname of the machine running this application.
      */
-    public Map<String, String> parseHostName() {
-
-        Map<String, String> hostNameMap = new LinkedHashMap<>();
+    public String parseHostName() {
 
         String hostname;
 
         // using unix hostname to get result
         String unixHost = System.getenv("HOSTNAME");
         if (unixHost != null) {
-            hostNameMap.put("hostname", unixHost);
-            return hostNameMap;
+            return unixHost;
         }
 
         // using windows environment variable to get hostname
         String windowsHost = System.getenv("COMPUTERNAME");
         if (windowsHost != null) {
-            hostNameMap.put("hostname", windowsHost);
-            return hostNameMap;
+            return windowsHost;
         }
 
         // using inet to get hostname
@@ -157,8 +153,7 @@ public class HttpServletRequestParser {
         try {
             String inetHost = InetAddress.getLocalHost().getHostName();
             if (inetHost.length() != 0) {
-                hostNameMap.put("hostname", inetHost);
-                return hostNameMap;
+                return inetHost;
             }
         } catch (UnknownHostException e) {}
 

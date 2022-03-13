@@ -5,9 +5,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 
-/**
- * Configures webclient for the web-parser.
- */
 @Configuration
 public class WebClientConfig {
 

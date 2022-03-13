@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.springframework.lang.Nullable;
 
 @RequiredArgsConstructor
 @Setter
@@ -13,15 +14,19 @@ public class HeaderSpec {
     @JsonProperty("name")
     String name;
 
+    @Nullable
     @JsonProperty("example")
     String example;
 
+    @Nullable
     @JsonProperty("short-description")
     String shortDescription;
 
+    @Nullable
     @JsonProperty("long-description")
     String longDescription;
 
+    @Nullable
     @JsonProperty("type")
     String type;
 

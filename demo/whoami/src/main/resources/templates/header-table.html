@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Headers</title>
     <style>
         table {
             font-family: arial, sans-serif;
@@ -23,10 +23,10 @@
 </head>
 <body>
 
-    <h1>Whoami</h1>
+    <h1>Headers</h1>
 
     <section id="http-header-section">
-        <h3>Http Headers Recieved From Server</h3>
+        <h3>Http Header Definitions</h3>
         <table id="json-table-display"></table>
     </section>
 
@@ -58,6 +58,11 @@
       ];
       /*]]>*/
 
+      const jsonTableDisplay = document.querySelector("#json-table-display")
+
+      // for each json object, add a new column
+      const tableElementOrder = ["name", "type", "example", "short-description", "long-description"]
+
       /**
        * parses a field from a json blob,
        * creates a column with the field information.
@@ -69,15 +74,17 @@
        */
       function createHtmlColumn(row, jsonObject, fieldName) {
           let newCol = document.createElement("th")
-          newCol.innerHTML = jsonObject[fieldName]
+          let value = jsonObject[fieldName]
+          if (fieldName === "long-description") {
+              value = "long defintion"
+          }
+          newCol.innerHTML = value
           row.appendChild(newCol)
       }
 
-      const jsonTableDisplay = document.querySelector("#json-table-display")
-
-      // for each json object, add a new column
-      let elementOrder = ["name", "type", "example", "short-description", "long-description"]
-
+      /**
+       * sets the table contents from the json object
+       */
       function setHeaderTable() {
 
           for (let i = 0; i < jsonBlob.length; i++) {
@@ -86,7 +93,7 @@
               let newRow = document.createElement("tr")
 
               // create new columns for each of the elements in the json blob
-              elementOrder.forEach((value, index) => createHtmlColumn(newRow, jsonObject, value))
+              tableElementOrder.forEach((value, index) => createHtmlColumn(newRow, jsonObject, value))
 
               // create new row for every json object
               jsonTableDisplay.appendChild(newRow)

@@ -19,13 +19,13 @@ import java.util.stream.Collectors;
 @Log
 @Service
 @AllArgsConstructor
-public class RfcHeaderParser implements HeaderParser<RfcHeader> {
+public class Rfc2616HeaderParser implements HeaderParser<Rfc2616Header> {
 
     final private static String RFC_HEADER_URL = "https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html";
 
     final private WebClient webClient;
 
-    private List<RfcHeader> parseRfcHeadersFromWeb(String simpleHeaderUrl) {
+    private List<Rfc2616Header> parseRfcHeadersFromWeb(String simpleHeaderUrl) {
 
         WebClient.ResponseSpec responseSpec = webClient.get()
                 .uri(simpleHeaderUrl)
@@ -37,25 +37,25 @@ public class RfcHeaderParser implements HeaderParser<RfcHeader> {
         Document doc =  Jsoup.parse(result);
         Elements elements =  doc.body().getElementsByTag("h3");
 
-        List<RfcHeader> rfcHeaders = new ArrayList<>();
+        List<Rfc2616Header> rfcHeaders = new ArrayList<>();
 
         for (Element headerElement: elements) {
 
             String headerName = headerElement.text().trim().split(" ")[1];
+
             List<Element> headerDefinitionElements = new ArrayList<>();
 
             Element subElement = headerElement.nextElementSibling();
-
             while (subElement != null && !subElement.tagName().equals("h3")) {
                 headerDefinitionElements.add(subElement);
                 subElement = subElement.nextElementSibling();
             }
 
             String definition = headerDefinitionElements.stream()
-                    .map(Element::text)
+                    .map(Element::outerHtml)
                     .collect(Collectors.joining("\n"));
 
-            RfcHeader rfcHeader = new RfcHeader(headerName, definition);
+            Rfc2616Header rfcHeader = new Rfc2616Header(headerName, definition);
             rfcHeaders.add(rfcHeader);
 
         }
@@ -63,7 +63,7 @@ public class RfcHeaderParser implements HeaderParser<RfcHeader> {
         return rfcHeaders;
     }
 
-    public List<RfcHeader> parseHeaders() {
+    public List<Rfc2616Header> parseHeaders() {
         return parseRfcHeadersFromWeb(RFC_HEADER_URL);
     }
 

@@ -1,15 +1,18 @@
 package com.example.whoami.controller;
 
+import com.example.whoami.dto.WhoamiDto;
 import com.example.whoami.service.WhoamiService;
+import com.example.whoami.webparser.spec.HeaderSpec;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
+import java.util.List;
 
 @Controller
 @AllArgsConstructor
@@ -18,6 +21,8 @@ import java.util.Map;
 public class WhoamiWebController {
 
     private WhoamiService whoamiService;
+
+    private List<HeaderSpec> headerSpecs;
 
     /**
      * This endpoint displays metadata describing the users request
@@ -31,13 +36,20 @@ public class WhoamiWebController {
     @RequestMapping("/whoami/**")
     public String whoamiHtml(Model model, HttpServletRequest request) {
 
-        Map<String, Object> whoamiMap = whoamiService.parseRequestMetadata(request);
+        WhoamiDto whoamiDto = whoamiService.parseRequestMetadata(request);
 
-        whoamiService.logRequest(whoamiMap);
+        whoamiService.logRequest(whoamiDto);
 
-        model.addAttribute("jsonBlob", whoamiMap);
+        model.addAttribute("jsonBlob", whoamiDto);
 
         return "whoami";
+    }
+
+    @Operation(summary = "Displays descriptions of possible http headers")
+    @GetMapping("/header")
+    public String headerView(Model model, HttpServletRequest request) {
+        model.addAttribute("jsonBlob", headerSpecs);
+        return "header-table";
     }
 
 }

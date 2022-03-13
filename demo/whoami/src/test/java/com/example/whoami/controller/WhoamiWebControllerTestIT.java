@@ -37,4 +37,10 @@ class WhoamiWebControllerTestIT {
                 .andExpect(content().contentTypeCompatibleWith("text/html;charset=UTF-8"));
     }
 
+    @Test
+    void headerViewTest() throws Exception {
+        mockMvc.perform(get("http://localhost/header"))
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(view().name("header-table"));
+    }
 }

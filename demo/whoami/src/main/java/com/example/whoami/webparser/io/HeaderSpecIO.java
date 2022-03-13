@@ -1,5 +1,6 @@
 package com.example.whoami.webparser.io;
 
+import com.example.whoami.webparser.exception.WebParserException;
 import com.example.whoami.webparser.spec.HeaderSpec;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -21,13 +22,13 @@ public class HeaderSpecIO {
 
     /**
      * Serialize all the header definitions to a JSON file.
-     * @throws IOException
      */
-    public void wrightHeaderSpecFile(List<HeaderSpec> headerSpecs) throws IOException {
+    public void wrightHeaderSpecFile(List<HeaderSpec> headerSpecs) {
         try {
             objectMapper.writeValue(Paths.get(headerSpecLocation).toFile(), headerSpecs);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new WebParserException("Failed while trying to wright the " +
+                    "Header Specifications to a JSON file!", e);
         }
     }
 
@@ -41,7 +42,7 @@ public class HeaderSpecIO {
             specs = objectMapper.readerForListOf(HeaderSpec.class)
                     .readValue(Paths.get(headerSpecLocation).toFile());
         } catch (Exception e) {
-            throw new RuntimeException("Failed to read json spec file", e);
+            throw new WebParserException("Failed to read json spec file", e);
         }
 
         return specs;

@@ -3,10 +3,9 @@ package com.example.whoami.webparser.generalparser;
 import com.example.whoami.webparser.Header;
 import com.example.whoami.webparser.flavioparser.FlavioHeader;
 import com.example.whoami.webparser.flavioparser.FlavioHeaderParser;
-import com.example.whoami.webparser.rfcparser.RfcHeader;
-import com.example.whoami.webparser.rfcparser.RfcHeaderParser;
+import com.example.whoami.webparser.rfcparser.Rfc2616Header;
+import com.example.whoami.webparser.rfcparser.Rfc2616HeaderParser;
 import com.example.whoami.webparser.spec.HeaderSpec;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -22,7 +21,7 @@ import java.util.Map;
 public class GeneralParser {
 
     private final FlavioHeaderParser flavioHeaderParser;
-    private final RfcHeaderParser rfcHeaderParser;
+    private final Rfc2616HeaderParser rfc2616HeaderParser;
 
     private Map<String, Integer> createIndexMap(List<? extends Header> headerList) {
         Map<String, Integer> indexMap = new HashMap<>();
@@ -34,7 +33,7 @@ public class GeneralParser {
 
     private void setFieldsFromRfc(
             @NonNull HeaderSpec headerSpec,
-            @Nullable RfcHeader rfcHeader) {
+            @Nullable Rfc2616Header rfcHeader) {
         if (rfcHeader != null) {
             headerSpec.setName(rfcHeader.getName());
             headerSpec.setLongDescription(rfcHeader.getDefinition());
@@ -53,7 +52,7 @@ public class GeneralParser {
     }
 
     private HeaderSpec createHeaderSpec(
-            @Nullable RfcHeader rfcHeader,
+            @Nullable Rfc2616Header rfcHeader,
             @Nullable FlavioHeader flavioHeader) {
 
         HeaderSpec headerSpec = new HeaderSpec();
@@ -67,25 +66,25 @@ public class GeneralParser {
     public List<HeaderSpec> createAllHeaderSpecs() {
 
         List<FlavioHeader> flavioHeaders =  flavioHeaderParser.parseHeaders();
-        List<RfcHeader> rfcHeaders = rfcHeaderParser.parseHeaders();
+        List<Rfc2616Header> rfcHeaders = rfc2616HeaderParser.parseHeaders();
 
         Map<String, Integer> flavioIndexMap = createIndexMap(flavioHeaders);
 
         // populate all the header specifications
         List<HeaderSpec> headerSpecs = new ArrayList<>();
         {
-            RfcHeader rfcHeader;
+            Rfc2616Header rfc2616Header;
             String rfcHeaderName;
             HeaderSpec spec;
             Integer flavioIndex;
             for (int i = 0; i < rfcHeaders.size(); i++) {
-                rfcHeader = rfcHeaders.get(i);
-                rfcHeaderName = rfcHeader.getName();
+                rfc2616Header = rfcHeaders.get(i);
+                rfcHeaderName = rfc2616Header.getName();
                 flavioIndex = flavioIndexMap.getOrDefault(rfcHeaderName, null);
                 if (flavioIndex == null) {
-                    spec = createHeaderSpec(rfcHeader, null);
+                    spec = createHeaderSpec(rfc2616Header, null);
                 } else {
-                    spec = createHeaderSpec(rfcHeader, flavioHeaders.get(flavioIndex));
+                    spec = createHeaderSpec(rfc2616Header, flavioHeaders.get(flavioIndex));
                 }
                 headerSpecs.add(spec);
             }

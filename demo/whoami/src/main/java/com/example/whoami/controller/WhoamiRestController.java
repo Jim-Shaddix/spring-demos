@@ -1,5 +1,6 @@
 package com.example.whoami.controller;
 
+import com.example.whoami.dto.WhoamiDto;
 import com.example.whoami.service.SizeSpecifiedPayloadService;
 import com.example.whoami.service.WhoamiService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -10,7 +11,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
 
 /**
  * Controller for sending metadata pertaining to a request
@@ -37,11 +37,11 @@ public class WhoamiRestController {
     @RequestMapping(value = "/whoami/**", produces = "application/json")
     public String whoamiApi(HttpServletRequest request) throws JsonProcessingException {
 
-        Map<String, Object> whoamiMap = whoamiService.parseRequestMetadata(request);
+        WhoamiDto whoamiDto = whoamiService.parseRequestMetadata(request);
 
-        whoamiService.logRequest(whoamiMap);
+        whoamiService.logRequest(whoamiDto);
 
-        String whoamiJson = objectMapper.writeValueAsString(whoamiMap);
+        String whoamiJson = objectMapper.writeValueAsString(whoamiDto);
 
         return whoamiJson;
     }

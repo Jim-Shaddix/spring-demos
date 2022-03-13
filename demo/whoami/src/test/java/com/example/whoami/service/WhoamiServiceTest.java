@@ -1,12 +1,12 @@
 package com.example.whoami.service;
 
 import com.example.whoami.config.ParserProperties;
+import com.example.whoami.dto.WhoamiDto;
 import com.example.whoami.parser.HttpServletRequestParser;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -66,13 +66,18 @@ class WhoamiServiceTest {
         // setup WhoamiService for test
         WhoamiService whoamiService = new WhoamiService(requestParser, parserFlagsAllTrue);
 
-        Map<String, Object> map = whoamiService.parseRequestMetadata(null);
+        WhoamiDto whoamiDto = whoamiService.parseRequestMetadata(null);
         verify(requestParser).parseRequestHeaders(any());
         verify(requestParser).parseRequestBody(any());
         verify(requestParser).parseRemoteInfo(any());
         verify(requestParser).parseRequestUrlParts(any());
         verify(requestParser).parseAuthInfo(any());
-        assertEquals(5, map.size());
+        assertNotNull(whoamiDto.getHeaders());
+        assertNotNull(whoamiDto.getBody());
+        assertNotNull(whoamiDto.getRemoteInfo());
+        assertNotNull(whoamiDto.getUrlParts());
+        assertNotNull(whoamiDto.getAuth());
+
     }
 
     /**
@@ -85,8 +90,12 @@ class WhoamiServiceTest {
         // setup WhoamiService for test
         WhoamiService whoamiService = new WhoamiService(requestParser, parserFlagsAllFalse);
 
-        Map<String, Object> map = whoamiService.parseRequestMetadata(null);
-        assertEquals(0, map.size());
+        WhoamiDto whoamiDto = whoamiService.parseRequestMetadata(null);
+        assertNull(whoamiDto.getHeaders());
+        assertNull(whoamiDto.getBody());
+        assertNull(whoamiDto.getRemoteInfo());
+        assertNull(whoamiDto.getUrlParts());
+        assertNull(whoamiDto.getAuth());
     }
 
     /**
@@ -102,12 +111,8 @@ class WhoamiServiceTest {
         AtomicLong numRequests = (AtomicLong) getField(whoamiService, "numberOfRequestsProcessed");
         numRequests.set(0);
 
-        Map<String, Object> whoamiMap = new HashMap<>();
-        whoamiMap.put("first", "1");
-        whoamiMap.put("second", "2");
-        whoamiMap.put("third", "3");
-
-        whoamiService.logRequest(whoamiMap);
+        WhoamiDto whoamiDto = new WhoamiDto();
+        whoamiService.logRequest(whoamiDto);
 
         assertEquals(1, numRequests.get());
 

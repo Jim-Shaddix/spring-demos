@@ -5,6 +5,8 @@ import com.example.whoami.webparser.spec.HeaderSpec;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.reactive.function.client.ExchangeStrategies;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 

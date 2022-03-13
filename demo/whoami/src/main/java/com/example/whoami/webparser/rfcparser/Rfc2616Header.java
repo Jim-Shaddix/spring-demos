@@ -8,7 +8,7 @@ import lombok.ToString;
 @Getter
 @ToString
 @AllArgsConstructor
-public class RfcHeader extends Header {
+public class Rfc2616Header extends Header {
     private String name;
     private String definition;
 }

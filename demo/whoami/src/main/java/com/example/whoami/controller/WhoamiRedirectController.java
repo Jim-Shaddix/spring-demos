@@ -30,4 +30,10 @@ public class WhoamiRedirectController {
         return new ModelAndView("redirect:/whoami", model);
     }
 
+    @Operation(summary = "forwards to /whoami")
+    @RequestMapping("/forward")
+    public ModelAndView initForward(ModelMap model) {
+        return new ModelAndView("forward:/whoami", model);
+    }
+
 }

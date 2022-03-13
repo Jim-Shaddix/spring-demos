@@ -1,7 +1,6 @@
 package com.example.whoami.webparser.flavioparser;
 
 import com.example.whoami.webparser.HeaderParser;
-import com.example.whoami.webparser.Header;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.jsoup.Jsoup;
