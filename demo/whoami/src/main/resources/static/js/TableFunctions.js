@@ -8,20 +8,36 @@
  * @param jsonObject jsonObject whose field will be parsed.
  * @param fieldName the field name that will be used to parse the json object.
  */
-function createHtmlColumn(row, jsonObject, fieldName) {
+function setTableColumns(row, jsonObject, fieldName) {
     let newCol = document.createElement("th")
     let value = jsonObject[fieldName]
-    //if (fieldName === "long-description") {
-    //    value = "long defintion"
-    //}
     newCol.innerHTML = value
     row.appendChild(newCol)
 }
 
 /**
+ * Sets the first row (the title row) of a table.
+ *
+ * @param jsonTableDisplay
+ * @param tableElementOrder
+ */
+function setTitle(jsonTableDisplay, tableElementOrder) {
+
+    let newRow = document.createElement("tr")
+    for (let i = 0; i < tableElementOrder.length; i++) {
+        let newCol = document.createElement("th")
+        newCol.innerText = tableElementOrder[i]
+        newRow.appendChild(newCol)
+    }
+    jsonTableDisplay.appendChild(newRow)
+}
+
+/**
  * sets the table contents from the json object
  */
-function setHeaderTable(jsonTableDisplay, tableElementOrder, jsonBlob) {
+function setTableRows(jsonTableDisplay, tableElementOrder, jsonBlob) {
+
+    setTitle(jsonTableDisplay, tableElementOrder)
 
     for (let i = 0; i < jsonBlob.length; i++) {
 
@@ -29,7 +45,7 @@ function setHeaderTable(jsonTableDisplay, tableElementOrder, jsonBlob) {
         let newRow = document.createElement("tr")
 
         // create new columns for each of the elements in the json blob
-        tableElementOrder.forEach((value, index) => createHtmlColumn(newRow, jsonObject, value))
+        tableElementOrder.forEach((value, index) => setTableColumns(newRow, jsonObject, value))
 
         // create new row for every json object
         jsonTableDisplay.appendChild(newRow)
@@ -37,5 +53,26 @@ function setHeaderTable(jsonTableDisplay, tableElementOrder, jsonBlob) {
 
 }
 
+function setTableColumnFromEntry(row, value) {
+    let newCol = document.createElement("th")
+    newCol.innerHTML = value
+    row.appendChild(newCol)
+}
 
+function setTableTowsFromJsonWithoutFieldName(jsonTableDisplay, tableElementOrder, jsonBlob) {
 
+    console.log("setting up the table: "+  jsonTableDisplay.toString())
+    let blobEntries = Object.entries(jsonBlob)
+    setTitle(jsonTableDisplay, tableElementOrder)
+
+    for (let i = 0; i < blobEntries.length; i++) {
+
+        let keyValueArray = blobEntries[i]
+        let newRow = document.createElement("tr")
+        setTableColumnFromEntry(newRow, keyValueArray[0])
+        setTableColumnFromEntry(newRow, keyValueArray[1])
+        jsonTableDisplay.appendChild(newRow)
+
+    }
+
+}

@@ -39,8 +39,8 @@ class WhoamiWebControllerTestIT {
 
     @Test
     void headerViewTest() throws Exception {
-        mockMvc.perform(get("http://localhost/header"))
+        mockMvc.perform(get("http://localhost/headers"))
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(view().name("header-table"));
+                .andExpect(view().name("headers"));
     }
 }

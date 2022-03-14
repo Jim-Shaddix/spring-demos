@@ -5,6 +5,7 @@
     <title>Headers</title>
     <script type="text/javascript" src="js/TableFunctions.js"></script>
     <style>
+
         table {
             font-family: arial, sans-serif;
             border-collapse: collapse;
@@ -20,6 +21,7 @@
         tr:nth-child(even) {
             background-color: #dddddd;
         }
+
     </style>
 </head>
 <body>
@@ -32,7 +34,8 @@
     </section>
 
     <!-- JavaScript -->
-    <script class="thymeleaf-import" th:inline="javascript">
+    <script th:inline="javascript" class="thymeleaf-import">
+
         /*<![CDATA[*/
         const jsonBlob = /*[[${jsonBlob}]]*/ [
             {
@@ -67,7 +70,7 @@
       // for each json object, add a new column
       const tableElementOrder = ["name", "type", "example", "short-description", "long-description"]
 
-      setHeaderTable(jsonTableDisplay, tableElementOrder, jsonBlob)
+      setTableRows(jsonTableDisplay, tableElementOrder, jsonBlob)
 
     </script>
 

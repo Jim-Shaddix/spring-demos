@@ -3,32 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>whoami-table</title>
+    <script type="text/javascript" src="js/TableFunctions.js"></script>
+    <style>
+        section {
+            visibility: hidden;
+        }
+    </style>
 </head>
 <body>
 
     <h1>Whoami</h1>
 
-    <section>
+    <section id="header-section">
         <h3>Request headers received from the servers</h3>
         <table id="header-table"></table>
     </section>
 
-    <section>
+    <section id="request-body-section">
         <h3>Request Body</h3>
         <table id="request-body-table"></table>
     </section>
 
-    <section>
+    <section id="url-parts-section">
         <h3>Url Parts</h3>
         <table id="url-parts-table"></table>
     </section>
 
-    <section>
+    <section id="remote-info-section">
         <h3>Remote Info</h3>
         <table id="remote-info-table"></table>
     </section>
 
-    <section>
+    <section id="authentication-section">
         <h3>Auth Info</h3>
         <table id="auth-info-table"></table>
     </section>
@@ -36,86 +42,65 @@
     <script th:inline="javascript">
         /*<![CDATA[*/
         const jsonBlob = /*[[${jsonBlob}]]*/ {
-                "headers": {
-                "host": "localhost:8080",
-                    "connection": "keep-alive",
-                    "upgrade-insecure-requests": "1",
-                    "user-agent": "agent",
-                    "accept": "text/html,application/xhtml+xml,application/xml;",
-                    "sec-fetch-site": "none",
-                    "sec-fetch-mode": "n",
-                    "sec-fetch-user": "?1",
-                    "sec-fetch-dest": "document",
-                    "sec-ch-ua": "asdf",
-                    "sec-ch-ua-mobile": "?0",
-                    "sec-ch-ua-platform": "\"linux\"",
-                    "accept-encoding": "gzip",
-                    "accept-language": "en",
+            "headers": {
+            "host": "localhost:8080",
+                "connection": "keep-alive",
+                "upgrade-insecure-requests": "1",
+                "user-agent": "agent",
+                "accept": "text/html,application/xhtml+xml,application/xml;",
+                "sec-fetch-site": "none",
+                "sec-fetch-mode": "n",
+                "sec-fetch-user": "?1",
+                "sec-fetch-dest": "document",
+                "sec-ch-ua": "asdf",
+                "sec-ch-ua-mobile": "?0",
+                "sec-ch-ua-platform": "\"linux\"",
+                "accept-encoding": "gzip",
+                "accept-language": "en",
             },
-                "url-parts": {
-                "request-method": "GET",
-                    "request-url": "http://localhost:8080/whoami",
-                    "scheme": "http",
-                    "protocol": "HTTP/1.1",
-                    "server-host": "localhost",
-                    "server-port": "8080",
-                    "path": "/whoami",
-                    "query-string": "whoami-redirect=true"
+            "url-parts": {
+            "request-method": "GET",
+                "request-url": "http://localhost:8080/whoami",
+                "scheme": "http",
+                "protocol": "HTTP/1.1",
+                "server-host": "localhost",
+                "server-port": "8080",
+                "path": "/whoami",
+                "query-string": "whoami-redirect=true"
             },
-                "remote-info": {
-                "request-address": "0:0:0:0:0:0:0:1",
-                    "request-host": "0:0:0:0:0:0:0:1",
-                    "request-port": "52563"
+            "remote-info": {
+            "request-address": "0:0:0:0:0:0:0:1",
+                "request-host": "0:0:0:0:0:0:0:1",
+                "request-port": "52563"
             },
-                "auth": {
-                "auth-type": null,
-                    "remote-user": null,
-                    "user-principal": "null"
+            "auth": {
+            "auth-type": null,
+                "remote-user": null,
+                "user-principal": "null"
             },
-                "body": "empty-body",
-                "hostname": "host"
+            "body": "empty-body",
+            "hostname": "host"
         }
         /*]]>*/
     </script>
+
     <script th:inline="javascript">
 
-        /**
-         * parses a field from a json blob,
-         * creates a column with the field information.
-         * adds the field to the row.
-         *
-         * @param row Table row object that will have a column appended to it.
-         * @param jsonObject jsonObject whose field will be parsed.
-         * @param fieldName the field name that will be used to parse the json object.
-         */
-        function createHtmlColumn(row, jsonObject, fieldName) {
-            let newCol = document.createElement("th")
-            let value = jsonObject[fieldName]
-            newCol.innerHTML = value
-            row.appendChild(newCol)
-        }
+        function setSectionTable(sectionSelector, fieldNames, jsonObject) {
 
-        /**
-         * sets the table contents from the json object
-         */
-        function setHeaderTable(jsonTableDisplay, tableElementOrder, jsonBlob) {
+            // set section element to visible
+            let sectionElement = document.querySelector(sectionSelector)
+            sectionElement.style.visibility = "visible";
 
-            for (let i = 0; i < jsonBlob.length; i++) {
-
-                let jsonObject = jsonBlob[i]
-                let newRow = document.createElement("tr")
-
-                // create new columns for each of the elements in the json blob
-                tableElementOrder.forEach((value, index) => createHtmlColumn(newRow, jsonObject, value))
-
-                // create new row for every json object
-                jsonTableDisplay.appendChild(newRow)
-            }
+            // populate the table in the section
+            let tableElement = document.querySelector(sectionSelector + " " + "table")
+            setTableTowsFromJsonWithoutFieldName(tableElement, fieldNames, jsonObject)
 
         }
 
-    </script>
-    <script th:inline="javascript">
+        setSectionTable("#header-section",      ["Header Name", "Value"],           jsonBlob["headers"])
+        setSectionTable("#url-parts-section",   ["Url-Component", "Value"],         jsonBlob["url-parts"])
+        setSectionTable("#remote-info-section", ["Remote-Info-Component", "Value"], jsonBlob["remote-info"])
 
     </script>
 
