@@ -22,7 +22,6 @@ import javax.servlet.http.HttpServletRequest;
 @Tag(name = "Whoami-Rest-Controller", description = "Endpoints for sending metadata back to a client describing their request.")
 public class WhoamiRestController {
 
-    private ObjectMapper objectMapper;
     private WhoamiService whoamiService;
     private SizeSpecifiedPayloadService sizeSpecifiedPayloadService;
 
@@ -35,15 +34,13 @@ public class WhoamiRestController {
      */
     @Operation(summary = "Returns metadata describing the users request in json.")
     @RequestMapping(value = "/whoami/**", produces = "application/json")
-    public String whoamiApi(HttpServletRequest request) throws JsonProcessingException {
+    public WhoamiDto whoamiApi(HttpServletRequest request) throws JsonProcessingException {
 
         WhoamiDto whoamiDto = whoamiService.parseRequestMetadata(request);
 
         whoamiService.logRequest(whoamiDto);
 
-        String whoamiJson = objectMapper.writeValueAsString(whoamiDto);
-
-        return whoamiJson;
+        return whoamiDto;
     }
 
     @Operation(summary = "Returns the value of 1 every time. This endpoint is used for benchmarking network speed.")

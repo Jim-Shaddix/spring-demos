@@ -2,6 +2,7 @@ package com.example.whoami.service;
 
 import com.example.whoami.config.ParserProperties;
 import com.example.whoami.dto.WhoamiDto;
+import com.example.whoami.dto.component.RequestBodyDto;
 import com.example.whoami.parser.HttpServletRequestParser;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
@@ -9,7 +10,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -45,31 +45,31 @@ public class WhoamiService {
             whoamiDto.setHeaders(requestParser.parseRequestHeaders(request));
         };
 
-        if(parserProperties.isUrlParts()) {
+        if (parserProperties.isUrlParts()) {
             whoamiDto.setUrlParts(requestParser.parseRequestUrlParts(request));
         }
 
-        if(parserProperties.isRemoteInfo()) {
+        if (parserProperties.isRemoteInfo()) {
             whoamiDto.setRemoteInfo(requestParser.parseRemoteInfo(request));
         }
 
-        if(parserProperties.isAuthInfo()) {
+        if (parserProperties.isAuthInfo()) {
             whoamiDto.setAuth(requestParser.parseAuthInfo(request));
         }
 
-        if(parserProperties.isBody()) {
+        if (parserProperties.isBody()) {
 
-            Optional<String> requestBody = requestParser.parseRequestBody(request);
+            RequestBodyDto requestBodyDto = requestParser.parseRequestBody(request);
 
-            if (requestBody.isPresent()) {
-                whoamiDto.setBody(requestBody.get());
-            } else {
-                whoamiDto.setBody("empty-body");
+            if (requestBodyDto.getContent() == null ) {
+                requestBodyDto.setContent("empty-body");
             }
+
+            whoamiDto.setBody(requestBodyDto);
 
         }
 
-        if(parserProperties.isHostname()) {
+        if (parserProperties.isHostname()) {
             whoamiDto.setHostname(requestParser.parseHostName());
         }
 

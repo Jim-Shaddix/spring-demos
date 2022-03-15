@@ -1,5 +1,9 @@
 package com.example.whoami.parser;
 
+import com.example.whoami.dto.component.AuthDto;
+import com.example.whoami.dto.component.RemoteInfoDto;
+import com.example.whoami.dto.component.RequestBodyDto;
+import com.example.whoami.dto.component.UrlPartsDto;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
@@ -44,11 +48,13 @@ public class HttpServletRequestParser {
      * @param request the http servlet request being processed.
      * @return the body of the http request that was received.
      */
-    public Optional<String> parseRequestBody(@NonNull HttpServletRequest request) {
+    public RequestBodyDto parseRequestBody(@NonNull HttpServletRequest request) {
 
-        String requestBody;
+        RequestBodyDto requestBodyDto = new RequestBodyDto();
 
         try {
+
+            String requestBody;
 
             // parsing request body from the request
             requestBody = request.getReader()
@@ -60,11 +66,13 @@ public class HttpServletRequestParser {
                 requestBody = null;
             }
 
+            requestBodyDto.setContent(requestBody);
+
         } catch (IOException e) {
             throw new RuntimeException("Failed ot parse the request body.", e);
         }
 
-        return Optional.ofNullable(requestBody);
+        return requestBodyDto;
     }
 
     /**
@@ -73,19 +81,20 @@ public class HttpServletRequestParser {
      * @param request the http request received from the user.
      * @return the different ports of the URL broken out
      */
-    public Map<String, String> parseRequestUrlParts(@NonNull HttpServletRequest request) {
+    public UrlPartsDto parseRequestUrlParts(@NonNull HttpServletRequest request) {
 
-        Map<String, String> urlParts = new LinkedHashMap<>();
-        urlParts.put("request-method", request.getMethod());
-        urlParts.put("request-url", String.valueOf(request.getRequestURL()));
-        urlParts.put("scheme", request.getScheme());
-        urlParts.put("protocol", request.getProtocol());
-        urlParts.put("server-host", String.valueOf(request.getServerName()));
-        urlParts.put("server-port", String.valueOf(request.getServerPort()));
-        urlParts.put("path", request.getServletPath());
-        urlParts.put("query-string", request.getQueryString());
+        UrlPartsDto dto = new UrlPartsDto();
 
-        return urlParts;
+        dto.setRequestMethod(request.getMethod());
+        dto.setRequestUrl(String.valueOf(request.getRequestURL()));
+        dto.setScheme(request.getScheme());
+        dto.setProtocol(request.getProtocol());
+        dto.setServerHost(String.valueOf(request.getServerName()));
+        dto.setServerPort(String.valueOf(request.getServerPort()));
+        dto.setPath(request.getServletPath());
+        dto.setQueryString(request.getQueryString());
+
+        return dto;
     }
 
     /**
@@ -95,15 +104,15 @@ public class HttpServletRequestParser {
      * @param request the http request received from the user.
      * @return metadata that describes the users remote information.
      */
-    public Map<String, String> parseRemoteInfo(@NonNull HttpServletRequest request) {
+    public RemoteInfoDto parseRemoteInfo(@NonNull HttpServletRequest request) {
 
-        Map<String, String> remoteInfo = new LinkedHashMap<>();
+        RemoteInfoDto dto = new RemoteInfoDto();
 
-        remoteInfo.put("request-address", request.getRemoteAddr());
-        remoteInfo.put("request-host", request.getRemoteHost());
-        remoteInfo.put("request-port", String.valueOf(request.getRemotePort()));
+        dto.setRequestAddress(request.getRemoteAddr());
+        dto.setRequestHost(request.getRemoteHost());
+        dto.setRequestPort(String.valueOf(request.getRemotePort()));
 
-        return remoteInfo;
+        return dto;
     }
 
     /**
@@ -112,15 +121,15 @@ public class HttpServletRequestParser {
      * @param request the http request received from the user.
      * @return metadata that describes the users authentication information.
      */
-    public Map<String, String> parseAuthInfo(@NonNull HttpServletRequest request) {
+    public AuthDto parseAuthInfo(@NonNull HttpServletRequest request) {
 
-        Map<String, String> parsedAuthInfo = new LinkedHashMap<>();
+        AuthDto dto = new AuthDto();
 
-        parsedAuthInfo.put("auth-type", request.getAuthType());
-        parsedAuthInfo.put("remote-user", request.getRemoteUser());
-        parsedAuthInfo.put("user-principal", String.valueOf(request.getUserPrincipal()));
+        dto.setAuthType(request.getAuthType());
+        dto.setRemoteUser(request.getRemoteUser());
+        dto.setUserPrincipal(String.valueOf(request.getUserPrincipal()));
 
-        return parsedAuthInfo;
+        return dto;
     }
 
     /**

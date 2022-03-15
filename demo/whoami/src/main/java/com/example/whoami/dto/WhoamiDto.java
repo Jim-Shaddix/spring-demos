@@ -1,5 +1,9 @@
 package com.example.whoami.dto;
 
+import com.example.whoami.dto.component.AuthDto;
+import com.example.whoami.dto.component.RemoteInfoDto;
+import com.example.whoami.dto.component.RequestBodyDto;
+import com.example.whoami.dto.component.UrlPartsDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,16 +20,16 @@ public class WhoamiDto {
     private Map<String, String> headers;
 
     @JsonProperty("url-parts")
-    private Map<String, String> urlParts;
+    private UrlPartsDto urlParts;
 
     @JsonProperty("remote-info")
-    private Map<String, String> remoteInfo;
+    private RemoteInfoDto remoteInfo;
 
     @JsonProperty("auth")
-    private Map<String, String> auth;
+    private AuthDto auth;
 
     @JsonProperty("body")
-    private String body;
+    private RequestBodyDto body;
 
     @JsonProperty("hostname")
     private String hostname;

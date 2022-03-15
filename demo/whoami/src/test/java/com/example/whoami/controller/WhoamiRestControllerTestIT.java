@@ -36,7 +36,7 @@ public class WhoamiRestControllerTestIT {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
                 .andExpect(content().contentTypeCompatibleWith("application/json"))
-                .andExpect(jsonPath("$.body").value("empty-body"))
+                .andExpect(jsonPath("$.body.content").value("empty-body"))
                 .andExpect(jsonPath("$.url-parts.query-string").value("a=b"));
     }
 

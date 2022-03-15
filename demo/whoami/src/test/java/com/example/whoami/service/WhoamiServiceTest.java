@@ -1,6 +1,10 @@
 package com.example.whoami.service;
 
 import com.example.whoami.config.ParserProperties;
+import com.example.whoami.dto.component.AuthDto;
+import com.example.whoami.dto.component.RemoteInfoDto;
+import com.example.whoami.dto.component.RequestBodyDto;
+import com.example.whoami.dto.component.UrlPartsDto;
 import com.example.whoami.dto.WhoamiDto;
 import com.example.whoami.parser.HttpServletRequestParser;
 import org.junit.jupiter.api.BeforeAll;
@@ -50,10 +54,10 @@ class WhoamiServiceTest {
         // setup parser mock
         requestParser = mock(HttpServletRequestParser.class);
         when(requestParser.parseRequestHeaders(any())).thenReturn(new HashMap<>());
-        when(requestParser.parseAuthInfo(any())).thenReturn(new HashMap<>());
-        when(requestParser.parseRemoteInfo(any())).thenReturn(new HashMap<>());
-        when(requestParser.parseRequestUrlParts(any())).thenReturn(new HashMap<>());
-        when(requestParser.parseRequestBody(any())).thenReturn(Optional.ofNullable(null));
+        when(requestParser.parseAuthInfo(any())).thenReturn(new AuthDto());
+        when(requestParser.parseRemoteInfo(any())).thenReturn(new RemoteInfoDto());
+        when(requestParser.parseRequestUrlParts(any())).thenReturn(new UrlPartsDto());
+        when(requestParser.parseRequestBody(any())).thenReturn(new RequestBodyDto());
     }
 
     /**
