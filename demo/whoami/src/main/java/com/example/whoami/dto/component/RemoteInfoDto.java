@@ -1,16 +1,19 @@
 package com.example.whoami.dto.component;
 
+import com.example.whoami.dto.description.BasicDescriptionDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.Map;
+
 @Getter
 @Setter
 @ToString
 @Schema(description = "Information that describes the remote client! That's you!")
-public class RemoteInfoDto {
+public class RemoteInfoDto extends BasicDescriptionDto {
 
     @Schema(description = "The IP address associated with the client.")
     @JsonProperty("request-address")

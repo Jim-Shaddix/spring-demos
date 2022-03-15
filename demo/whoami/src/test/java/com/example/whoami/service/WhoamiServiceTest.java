@@ -1,17 +1,15 @@
 package com.example.whoami.service;
 
 import com.example.whoami.config.ParserProperties;
-import com.example.whoami.dto.component.AuthDto;
-import com.example.whoami.dto.component.RemoteInfoDto;
-import com.example.whoami.dto.component.RequestBodyDto;
-import com.example.whoami.dto.component.UrlPartsDto;
+import com.example.whoami.dto.component.*;
 import com.example.whoami.dto.WhoamiDto;
 import com.example.whoami.parser.HttpServletRequestParser;
+import com.example.whoami.parser.ServerMetadataParser;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -26,6 +24,7 @@ class WhoamiServiceTest {
     private static HttpServletRequestParser requestParser;
     private static ParserProperties parserFlagsAllTrue;
     private static ParserProperties parserFlagsAllFalse;
+    private static ServerMetadataParser serverMetadataParser;
 
     public static int requestCount = 0;
 
@@ -53,11 +52,14 @@ class WhoamiServiceTest {
 
         // setup parser mock
         requestParser = mock(HttpServletRequestParser.class);
-        when(requestParser.parseRequestHeaders(any())).thenReturn(new HashMap<>());
+        when(requestParser.parseRequestHeaders(any())).thenReturn(new ArrayList<RequestHeaderDto>());
         when(requestParser.parseAuthInfo(any())).thenReturn(new AuthDto());
         when(requestParser.parseRemoteInfo(any())).thenReturn(new RemoteInfoDto());
         when(requestParser.parseRequestUrlParts(any())).thenReturn(new UrlPartsDto());
         when(requestParser.parseRequestBody(any())).thenReturn(new RequestBodyDto());
+
+        serverMetadataParser = mock(ServerMetadataParser.class);
+        when(serverMetadataParser.parseServerMetaData()).thenReturn(new ServerMetadataDto());
     }
 
     /**
@@ -68,7 +70,7 @@ class WhoamiServiceTest {
     void parseRequestMetadataAllTrueFlags() {
 
         // setup WhoamiService for test
-        WhoamiService whoamiService = new WhoamiService(requestParser, parserFlagsAllTrue);
+        WhoamiService whoamiService = new WhoamiService(requestParser,serverMetadataParser, parserFlagsAllTrue);
 
         WhoamiDto whoamiDto = whoamiService.parseRequestMetadata(null);
         verify(requestParser).parseRequestHeaders(any());
@@ -92,7 +94,7 @@ class WhoamiServiceTest {
     void parseRequestMetadataAllFalseFlags() {
 
         // setup WhoamiService for test
-        WhoamiService whoamiService = new WhoamiService(requestParser, parserFlagsAllFalse);
+        WhoamiService whoamiService = new WhoamiService(requestParser, serverMetadataParser, parserFlagsAllFalse);
 
         WhoamiDto whoamiDto = whoamiService.parseRequestMetadata(null);
         assertNull(whoamiDto.getHeaders());
@@ -109,7 +111,7 @@ class WhoamiServiceTest {
     void logRequest() {
 
         // setup WhoamiService for test
-        WhoamiService whoamiService = new WhoamiService(requestParser, parserFlagsAllTrue);
+        WhoamiService whoamiService = new WhoamiService(requestParser, serverMetadataParser, parserFlagsAllTrue);
 
         // reset static count in whoami service, so we know its expected result.
         AtomicLong numRequests = (AtomicLong) getField(whoamiService, "numberOfRequestsProcessed");

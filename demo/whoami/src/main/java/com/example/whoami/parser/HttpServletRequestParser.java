@@ -1,16 +1,11 @@
 package com.example.whoami.parser;
 
-import com.example.whoami.dto.component.AuthDto;
-import com.example.whoami.dto.component.RemoteInfoDto;
-import com.example.whoami.dto.component.RequestBodyDto;
-import com.example.whoami.dto.component.UrlPartsDto;
+import com.example.whoami.dto.component.*;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -27,19 +22,31 @@ public class HttpServletRequestParser {
      * @param request the http request received.
      * @return the http headers that were present in the request received.
      */
-    public Map<String, String> parseRequestHeaders(@NonNull HttpServletRequest request) {
+    public List<RequestHeaderDto> parseRequestHeaders(@NonNull HttpServletRequest request) {
 
-        Map<String, String> headerMap = new LinkedHashMap<>();
+        List<RequestHeaderDto> requestHeaderDtos = new ArrayList<>();
 
         Enumeration<String> headerEnum = request.getHeaderNames();
 
-        String currHeader;
-        while(headerEnum.hasMoreElements()) {
-            currHeader = headerEnum.nextElement();
-            headerMap.put(currHeader, request.getHeader(currHeader));
+        // set the request header DTOs
+        {
+            String currHeaderName;
+            String currHeaderValue;
+            while (headerEnum.hasMoreElements()) {
+
+                // parse header information
+                currHeaderName = headerEnum.nextElement();
+                currHeaderValue = request.getHeader(currHeaderName);
+
+                // set header information in a dto
+                RequestHeaderDto requestHeaderDto = new RequestHeaderDto();
+                requestHeaderDto.setName(currHeaderName);
+                requestHeaderDto.setValue(currHeaderValue);
+                requestHeaderDtos.add(requestHeaderDto);
+            }
         }
 
-        return headerMap;
+        return requestHeaderDtos;
     }
 
     /**
@@ -130,43 +137,6 @@ public class HttpServletRequestParser {
         dto.setUserPrincipal(String.valueOf(request.getUserPrincipal()));
 
         return dto;
-    }
-
-    /**
-     * parses the hostname of the machine running the whoami application.
-     * In the event where this application is running in a docker container,
-     * then method will return the containerID.
-     * The following post gives details on how to acquire a hostname
-     * in java: https://stackoverflow.com/questions/7348711/recommended-way-to-get-hostname-in-java
-     * @return hostname of the machine running this application.
-     */
-    public String parseHostName() {
-
-        String hostname;
-
-        // using unix hostname to get result
-        String unixHost = System.getenv("HOSTNAME");
-        if (unixHost != null) {
-            return unixHost;
-        }
-
-        // using windows environment variable to get hostname
-        String windowsHost = System.getenv("COMPUTERNAME");
-        if (windowsHost != null) {
-            return windowsHost;
-        }
-
-        // using inet to get hostname
-        // this is useful for determining the hostname on Windows systems,
-        // in the event that the COMPUTERNAME environment variable is not set.
-        try {
-            String inetHost = InetAddress.getLocalHost().getHostName();
-            if (inetHost.length() != 0) {
-                return inetHost;
-            }
-        } catch (UnknownHostException e) {}
-
-        return null;
     }
 
 }

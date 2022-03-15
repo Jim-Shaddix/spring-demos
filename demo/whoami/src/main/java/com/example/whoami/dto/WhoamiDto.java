@@ -1,23 +1,23 @@
 package com.example.whoami.dto;
 
-import com.example.whoami.dto.component.AuthDto;
-import com.example.whoami.dto.component.RemoteInfoDto;
-import com.example.whoami.dto.component.RequestBodyDto;
-import com.example.whoami.dto.component.UrlPartsDto;
+import com.example.whoami.dto.component.*;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
 import java.util.Map;
 
 @Getter
 @Setter
 @ToString
+@Schema(description = "contains all of the metadata associated with the client initial request.")
 public class WhoamiDto {
 
     @JsonProperty("headers")
-    private Map<String, String> headers;
+    private List<RequestHeaderDto> headers;
 
     @JsonProperty("url-parts")
     private UrlPartsDto urlParts;
@@ -31,7 +31,7 @@ public class WhoamiDto {
     @JsonProperty("body")
     private RequestBodyDto body;
 
-    @JsonProperty("hostname")
-    private String hostname;
+    @JsonProperty("server-info")
+    private ServerMetadataDto serverMetadataDto;
 
 }

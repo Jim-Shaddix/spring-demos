@@ -4,6 +4,7 @@ import com.example.whoami.config.ParserProperties;
 import com.example.whoami.dto.WhoamiDto;
 import com.example.whoami.dto.component.RequestBodyDto;
 import com.example.whoami.parser.HttpServletRequestParser;
+import com.example.whoami.parser.ServerMetadataParser;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.lang.NonNull;
@@ -24,6 +25,7 @@ public class WhoamiService {
     private static final AtomicLong numberOfRequestsProcessed = new AtomicLong(0);
 
     private final HttpServletRequestParser requestParser;
+    private final ServerMetadataParser serverMetadataParser;
     private final ParserProperties parserProperties;
 
     /**
@@ -70,7 +72,7 @@ public class WhoamiService {
         }
 
         if (parserProperties.isHostname()) {
-            whoamiDto.setHostname(requestParser.parseHostName());
+            whoamiDto.setServerMetadataDto(serverMetadataParser.parseServerMetaData());
         }
 
         return whoamiDto;
