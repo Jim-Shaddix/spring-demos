@@ -1,6 +1,8 @@
 package com.example.whoami.parser;
 
 import com.example.whoami.dto.component.*;
+import com.example.whoami.dto.description.BasicDescriptionDto;
+import lombok.AllArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +15,16 @@ import java.util.stream.Collectors;
  * Methods for Parsing metadata from HttpServletRequests.
  */
 @Service
+@AllArgsConstructor
 public class HttpServletRequestParser {
+
+    BasicDtoDescriptionParser basicDtoDescriptionParser;
+
+    private void setDescription(BasicDescriptionDto basicDescriptionDto) {
+        Map<String, String> map = basicDtoDescriptionParser
+                .parseDtoDescription(basicDescriptionDto.getClass());
+        basicDescriptionDto.setDefinition(map);
+    }
 
     /**
      * parses the http headers from the HttpServletRequest and
@@ -79,6 +90,7 @@ public class HttpServletRequestParser {
             throw new RuntimeException("Failed ot parse the request body.", e);
         }
 
+        setDescription(requestBodyDto);
         return requestBodyDto;
     }
 
@@ -101,6 +113,7 @@ public class HttpServletRequestParser {
         dto.setPath(request.getServletPath());
         dto.setQueryString(request.getQueryString());
 
+        setDescription(dto);
         return dto;
     }
 
@@ -119,6 +132,7 @@ public class HttpServletRequestParser {
         dto.setRequestHost(request.getRemoteHost());
         dto.setRequestPort(String.valueOf(request.getRemotePort()));
 
+        setDescription(dto);
         return dto;
     }
 
@@ -136,6 +150,7 @@ public class HttpServletRequestParser {
         dto.setRemoteUser(request.getRemoteUser());
         dto.setUserPrincipal(String.valueOf(request.getUserPrincipal()));
 
+        setDescription(dto);
         return dto;
     }
 

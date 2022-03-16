@@ -1,4 +1,21 @@
 
+
+/**
+ * Sets the first row (the title row) of a table.
+ *
+ * @param jsonTableDisplay
+ * @param tableElementOrder
+ */
+function setTitle(jsonTableDisplay, tableElementOrder) {
+    let newRow = document.createElement("tr")
+    for (let i = 0; i < tableElementOrder.length; i++) {
+        let newCol = document.createElement("th")
+        newCol.innerText = tableElementOrder[i]
+        newRow.appendChild(newCol)
+    }
+    jsonTableDisplay.appendChild(newRow)
+}
+
 /**
  * parses a field from a json blob,
  * creates a column with the field information.
@@ -13,23 +30,6 @@ function setTableColumns(row, jsonObject, fieldName) {
     let value = jsonObject[fieldName]
     newCol.innerHTML = value
     row.appendChild(newCol)
-}
-
-/**
- * Sets the first row (the title row) of a table.
- *
- * @param jsonTableDisplay
- * @param tableElementOrder
- */
-function setTitle(jsonTableDisplay, tableElementOrder) {
-
-    let newRow = document.createElement("tr")
-    for (let i = 0; i < tableElementOrder.length; i++) {
-        let newCol = document.createElement("th")
-        newCol.innerText = tableElementOrder[i]
-        newRow.appendChild(newCol)
-    }
-    jsonTableDisplay.appendChild(newRow)
 }
 
 /**
@@ -53,25 +53,42 @@ function setTableRows(jsonTableDisplay, tableElementOrder, jsonBlob) {
 
 }
 
-function setTableColumnFromEntry(row, value) {
+function appendColumn(row, value) {
     let newCol = document.createElement("th")
     newCol.innerHTML = value
     row.appendChild(newCol)
 }
 
-function setTableTowsFromJsonWithoutFieldName(jsonTableDisplay, tableElementOrder, jsonBlob) {
+function populateTableFromKeyValuePairs(tableElement, columnTitles, keyValueObject) {
 
-    console.log("setting up the table: "+  jsonTableDisplay.toString())
-    let blobEntries = Object.entries(jsonBlob)
-    setTitle(jsonTableDisplay, tableElementOrder)
+    console.log("setting up the table: "+  tableElement.toString())
 
+    columnTitles.push("field-description")
+
+    setTitle(tableElement, columnTitles)
+
+    let description = keyValueObject["description"]
+
+    let blobEntries = Object.entries(keyValueObject)
     for (let i = 0; i < blobEntries.length; i++) {
 
-        let keyValueArray = blobEntries[i]
         let newRow = document.createElement("tr")
-        setTableColumnFromEntry(newRow, keyValueArray[0])
-        setTableColumnFromEntry(newRow, keyValueArray[1])
-        jsonTableDisplay.appendChild(newRow)
+
+        // skipping the description column
+        if (blobEntries[i][0] === "description"){continue}
+
+        // getting column values to add
+        let key = blobEntries[i][0]
+        let value = blobEntries[i][1]
+        let keyDescription = description[key + "-def"]
+
+        // adding columns
+        appendColumn(newRow, key)
+        appendColumn(newRow, value)
+        appendColumn(newRow, keyDescription)
+
+        // appending row to the table
+        tableElement.appendChild(newRow)
 
     }
 

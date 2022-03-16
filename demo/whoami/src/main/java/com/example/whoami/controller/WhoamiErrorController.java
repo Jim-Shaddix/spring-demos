@@ -1,6 +1,6 @@
 package com.example.whoami.controller;
 
-import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @ConditionalOnProperty(value = "whoami.controller.enable-error-controller", havingValue = "true")
 @Controller
-@Log
+@Slf4j
 public class WhoamiErrorController implements ErrorController {
 
     private final static String DEFAULT_ERROR_PAGE = "error/5xx";
@@ -30,12 +30,12 @@ public class WhoamiErrorController implements ErrorController {
             int statusCode = Integer.parseInt(status.toString());
 
             if(statusCode == HttpStatus.NOT_FOUND.value()) {
-                log.warning("404 Error received from URI: " + request.getRequestURI() + ".");
+                log.warn("404 Error received from URI: " + request.getRequestURI() + ".");
                 return "error/404";
             }
 
             else if(statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
-                log.warning("500 Error received from URI: " + request.getRequestURI() + ".");
+                log.warn("500 Error received from URI: " + request.getRequestURI() + ".");
                 return "error/5xx";
             }
 

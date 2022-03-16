@@ -210,7 +210,7 @@
 
     <script th:inline="javascript">
 
-        function setSectionTable(sectionSelector, fieldNames, jsonObject) {
+        function setTableFromKeyValueObject(sectionSelector, columnTitles, keyValueObject) {
 
             // set section element to visible
             let sectionElement = document.querySelector(sectionSelector)
@@ -218,15 +218,17 @@
 
             // populate the table in the section
             let tableElement = document.querySelector(sectionSelector + " " + "table")
-            setTableTowsFromJsonWithoutFieldName(tableElement, fieldNames, jsonObject)
+
+            populateTableFromKeyValuePairs(tableElement, columnTitles, keyValueObject)
 
         }
 
+        setTableFromKeyValueObject("#url-parts-section",     ["Url-Component", "Value"],         jsonBlob["url-parts"])
+        setTableFromKeyValueObject("#request-body-section",  ["Request-Body-Component", "Value"],jsonBlob["body"])
+        setTableFromKeyValueObject("#remote-info-section",   ["Client Info",  "Value"],          jsonBlob["remote-info"])
+        setTableFromKeyValueObject("#authentication-section",["auth-info", "value"],             jsonBlob["auth"])
+
         //setSectionTable("#header-section",        ["Header Name", "Value"],           jsonBlob["headers"])
-        setSectionTable("#url-parts-section",     ["Url-Component", "Value"],         jsonBlob["url-parts"])
-        setSectionTable("#request-body-section",  ["Request-Body-Component", "Value"],jsonBlob["body"])
-        setSectionTable("#remote-info-section",   ["Client Info",  "Value"],          jsonBlob["remote-info"])
-        setSectionTable("#authentication-section",["auth-info", "value"],             jsonBlob["auth"])
 
     </script>
 

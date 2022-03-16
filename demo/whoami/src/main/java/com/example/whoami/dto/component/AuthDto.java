@@ -7,8 +7,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.Map;
-
 @Setter
 @Getter
 @ToString
@@ -20,7 +18,7 @@ public class AuthDto extends BasicDescriptionDto {
     private String authType;
 
     @Schema(description = "remote user")
-    @JsonProperty("remoteUser")
+    @JsonProperty("remote-user")
     private String remoteUser;
 
     @Schema(description = "user principal")
