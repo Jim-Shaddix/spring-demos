@@ -1,21 +1,30 @@
 package com.example.whoami.parser;
 
 import com.example.whoami.dto.component.ServerMetadataDto;
+import com.example.whoami.dto.description.BasicDescriptionDto;
+import com.example.whoami.webparser.spec.HeaderSpec;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.List;
+import java.util.Map;
 
 /**
  * parses metadata describing the server or docker image
  * that is running this application.
  */
 @Service
+@AllArgsConstructor
 public class ServerMetadataParser {
+
+    private BasicDtoDescriptionParser basicDtoDescriptionParser;
 
     public ServerMetadataDto parseServerMetaData() {
         ServerMetadataDto serverMetadataDto = new ServerMetadataDto();
         serverMetadataDto.setHostname(parseHostName());
+        setDescription(serverMetadataDto);
         return serverMetadataDto;
     }
 
@@ -54,6 +63,12 @@ public class ServerMetadataParser {
         } catch (UnknownHostException e) {}
 
         return null;
+    }
+
+    private void setDescription(BasicDescriptionDto basicDescriptionDto) {
+        Map<String, String> map = basicDtoDescriptionParser
+                .parseDtoDescription(basicDescriptionDto.getClass());
+        basicDescriptionDto.setDefinition(map);
     }
 
 }

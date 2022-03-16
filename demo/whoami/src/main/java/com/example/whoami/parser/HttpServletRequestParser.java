@@ -2,6 +2,7 @@ package com.example.whoami.parser;
 
 import com.example.whoami.dto.component.*;
 import com.example.whoami.dto.description.BasicDescriptionDto;
+import com.example.whoami.webparser.spec.HeaderSpec;
 import lombok.AllArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
@@ -18,12 +19,34 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class HttpServletRequestParser {
 
-    BasicDtoDescriptionParser basicDtoDescriptionParser;
+    private BasicDtoDescriptionParser basicDtoDescriptionParser;
+
+    private List<HeaderSpec> headerSpecs;
 
     private void setDescription(BasicDescriptionDto basicDescriptionDto) {
         Map<String, String> map = basicDtoDescriptionParser
                 .parseDtoDescription(basicDescriptionDto.getClass());
         basicDescriptionDto.setDefinition(map);
+    }
+
+    private void setHeaderDescription(RequestHeaderDto requestHeaderDto) {
+
+        // find spec for the request dto
+        Optional<HeaderSpec> optionalSpec = headerSpecs.stream()
+            .filter(spec -> {
+                return spec.getName().toLowerCase()
+                        .equals(requestHeaderDto.getName().toLowerCase());
+            }).findAny();
+
+        // if the spec was found, then set the fields in the DTO.
+        if (optionalSpec.isPresent()) {
+            HeaderSpec spec = optionalSpec.get();
+            requestHeaderDto.setType(String.valueOf(spec.getType()));
+            requestHeaderDto.setExample(spec.getExample());
+            requestHeaderDto.setLongDefinition(spec.getLongDescription());
+            requestHeaderDto.setShortDefinition(spec.getShortDescription());
+        }
+
     }
 
     /**
@@ -53,6 +76,7 @@ public class HttpServletRequestParser {
                 RequestHeaderDto requestHeaderDto = new RequestHeaderDto();
                 requestHeaderDto.setName(currHeaderName);
                 requestHeaderDto.setValue(currHeaderValue);
+                setHeaderDescription(requestHeaderDto);
                 requestHeaderDtos.add(requestHeaderDto);
             }
         }

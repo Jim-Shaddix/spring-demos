@@ -32,6 +32,8 @@ function appendColumn(row, value) {
  */
 function populateTableFromObjectArray(tableElement, columnTitles, arrayObject) {
 
+    console.log("setting up the table: "+  tableElement.id)
+
     setTitle(tableElement, columnTitles)
 
     for (let i = 0; i < arrayObject.length; i++) {
@@ -50,7 +52,7 @@ function populateTableFromObjectArray(tableElement, columnTitles, arrayObject) {
 
 function populateTableFromKeyValuePairs(tableElement, columnTitles, keyValueObject) {
 
-    console.log("setting up the table: "+  tableElement.toString())
+    console.log("setting up the table: "+  tableElement.id)
 
     columnTitles.push("field-description")
 

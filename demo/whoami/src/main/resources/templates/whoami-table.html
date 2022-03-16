@@ -5,7 +5,7 @@
     <title>whoami-table</title>
     <script type="text/javascript" src="js/TableFunctions.js"></script>
     <style>
-        section {
+        #whoami-table div {
             display: none;
         }
     </style>
@@ -15,8 +15,8 @@
     <h1>Whoami</h1>
 
     <div id="button-div">
-        <button>JSON</button>
-        <button>Json-Without-Definitions</button>
+        <button>Json</button>
+        <button>Pretty-Json</button>
         <button>Tables</button>
         <button>Header-Descriptions</button>
     </div>
@@ -49,6 +49,19 @@
                 <h3>Auth Info</h3>
                 <table id="auth-info-table"></table>
             </div>
+
+            <div id="server-info-table-div">
+                <h3>Server Info</h3>
+                <table id="server-info-table"></table>
+            </div>
+
+        </div>
+
+        <div id = "whoami-raw-json">
+            <p id="raw-json-p"></p>
+        </div>
+
+        <div id = "whoami-json">
 
         </div>
 
@@ -217,36 +230,106 @@
 
     <script th:inline="javascript">
 
-        function setTableFromKeyValueObject(sectionSelector, columnTitles, keyValueObject) {
+//        ContentType = Object.freeze({
+//            TABLE:       Symbol("TABLE"),
+//            JSON:        Symbol("JSON"),
+//            PRETTY_JSON: Symbol("PRETTY_JSON")
+//        });
+
+        ContentType = {
+            "TABLE": "TABLE",
+            "JSON": "JSON",
+            "PRETTY_JSON": "PRETTY_JSON"
+        }
+
+        class ContentBlock {
+
+            type
+            containerElement
+            enableHandle
+
+            constructor(type, containerElement, enableHandle) {
+                this.type = type
+                this.containerElement = containerElement
+                this.enableHandle = enableHandle
+            }
+
+            enable() {
+                this.enableHandle();
+                this.containerElement.display = "block"
+            }
+
+            disable() {
+                this.containerElement.display = "none"
+            }
+
+        }
+
+        class Content {
+
+            enabledContentBlock;
+            allContentBlocks
+
+            constructor(allContentBlocks) {
+                this.allContentBlocks = allContentBlocks;
+            }
+
+            enable(type) {
+                let typeBlock =  this.allContentBlocks.find(block => block.type === type)
+                if (this.enabledContentBlock != null) {
+                    this.enabledContentBlock.disable();
+                }
+                typeBlock.enable();
+                this.enabled = typeBlock;
+            }
+
+        }
+
+        function setTableFromKeyValueObject(tableSelector, columnTitles, keyValueObject) {
 
             // set section element to visible
-            let sectionElement = document.querySelector(sectionSelector)
-            sectionElement.style.display = "block";
+            let divElement = document.querySelector(tableSelector)
+            divElement.style.display = "block";
 
             // populate the table in the section
-            let tableElement = document.querySelector(sectionSelector + " " + "table")
+            let tableElement = document.querySelector(tableSelector + " " + "table")
 
             populateTableFromKeyValuePairs(tableElement, columnTitles, keyValueObject)
 
         }
 
-        function setContentToTables() {
+        function displayTableFromKeyValueObject() {
             setTableFromKeyValueObject("#url-parts-table-div",     ["Url-Component", "Value"],         jsonBlob["url-parts"])
             setTableFromKeyValueObject("#request-body-table-div",  ["Request-Body-Component", "Value"],jsonBlob["body"])
             setTableFromKeyValueObject("#remote-info-table-div",   ["Client Info",  "Value"],          jsonBlob["remote-info"])
             setTableFromKeyValueObject("#authentication-table-div",["auth-info", "value"],             jsonBlob["auth"])
-            //setSectionTable("#header-section",        ["Header Name", "Value"],           jsonBlob["headers"])
+            setTableFromKeyValueObject("#server-info-table-div",   ["server-info", "value"],           jsonBlob["server-info"])
         }
 
-        function setTableFromArrayObject() {
+        function displayTableFromArrayObject() {
+            let headerTableDiv = document.querySelector("#header-table-div")
+            headerTableDiv.style.display = "block";
             let tableElement = document.querySelector("#header-table-div")
             let columnTitles = ["name", "value", "short-definition", "example", "long-definition"]
             let arrayObject = jsonBlob["headers"]
             populateTableFromObjectArray(tableElement, columnTitles, arrayObject)
         }
 
-        setContentToTables()
-        setTableFromArrayObject()
+        function setContentToTables() {
+            displayTableFromKeyValueObject()
+            displayTableFromArrayObject()
+        }
+
+        function setContentToRawJson() {
+            const jsonDisplayPre = document.querySelector("#raw-json-p")
+            jsonDisplayPre.textContent = jsonDisplayPre.textContent = JSON.stringify(jsonBlob, undefined, 4)
+        }
+
+        tableContentBlock = new ContentBlock(ContentType.TABLE,      document.querySelector("#whoami-table"),    setContentToTables)
+        rawJsonContentBlock = new ContentBlock(ContentType.JSON, document.querySelector("#whoami-raw-json"), setContentToRawJson)
+        allContentBlocks = [tableContentBlock, rawJsonContentBlock]
+        content = new Content(allContentBlocks, tableContentBlock)
+        content.enable(ContentType.TABLE)
 
     </script>
 
