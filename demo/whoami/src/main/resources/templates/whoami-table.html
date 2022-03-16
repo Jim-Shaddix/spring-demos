@@ -238,7 +238,15 @@
             //setSectionTable("#header-section",        ["Header Name", "Value"],           jsonBlob["headers"])
         }
 
+        function setTableFromArrayObject() {
+            let tableElement = document.querySelector("#header-table-div")
+            let columnTitles = ["name", "value", "short-definition", "example", "long-definition"]
+            let arrayObject = jsonBlob["headers"]
+            populateTableFromObjectArray(tableElement, columnTitles, arrayObject)
+        }
+
         setContentToTables()
+        setTableFromArrayObject()
 
     </script>
 
