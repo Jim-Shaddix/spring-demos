@@ -1,33 +1,28 @@
 
-
 /**
  * Sets the first row (the title row) of a table.
  *
- * @param jsonTableDisplay
- * @param tableElementOrder
+ * @param tableElement
+ * @param columnTitles
  */
-function setTitle(jsonTableDisplay, tableElementOrder) {
+function setTitle(tableElement, columnTitles) {
     let newRow = document.createElement("tr")
-    for (let i = 0; i < tableElementOrder.length; i++) {
+    for (let i = 0; i < columnTitles.length; i++) {
         let newCol = document.createElement("th")
-        newCol.innerText = tableElementOrder[i]
+        newCol.innerText = columnTitles[i]
         newRow.appendChild(newCol)
     }
-    jsonTableDisplay.appendChild(newRow)
+    tableElement.appendChild(newRow)
 }
 
 /**
- * parses a field from a json blob,
- * creates a column with the field information.
- * adds the field to the row.
+ * append a column to a row
  *
- * @param row Table row object that will have a column appended to it.
- * @param jsonObject jsonObject whose field will be parsed.
- * @param fieldName the field name that will be used to parse the json object.
+ * @param row row that will have a column appended to it
+ * @param value value to set in the column
  */
-function setTableColumns(row, jsonObject, fieldName) {
+function appendColumn(row, value) {
     let newCol = document.createElement("th")
-    let value = jsonObject[fieldName]
     newCol.innerHTML = value
     row.appendChild(newCol)
 }
@@ -35,28 +30,22 @@ function setTableColumns(row, jsonObject, fieldName) {
 /**
  * sets the table contents from the json object
  */
-function setTableRows(jsonTableDisplay, tableElementOrder, jsonBlob) {
+function populateTableFromObjectArray(tableElement, columnTitles, arrayObject) {
 
-    setTitle(jsonTableDisplay, tableElementOrder)
+    setTitle(tableElement, columnTitles)
 
-    for (let i = 0; i < jsonBlob.length; i++) {
+    for (let i = 0; i < arrayObject.length; i++) {
 
-        let jsonObject = jsonBlob[i]
+        let jsonObject = arrayObject[i]
         let newRow = document.createElement("tr")
 
         // create new columns for each of the elements in the json blob
-        tableElementOrder.forEach((value, index) => setTableColumns(newRow, jsonObject, value))
+        columnTitles.forEach((field, index) => appendColumn(newRow, jsonObject[field]))
 
         // create new row for every json object
-        jsonTableDisplay.appendChild(newRow)
+        tableElement.appendChild(newRow)
     }
 
-}
-
-function appendColumn(row, value) {
-    let newCol = document.createElement("th")
-    newCol.innerHTML = value
-    row.appendChild(newCol)
 }
 
 function populateTableFromKeyValuePairs(tableElement, columnTitles, keyValueObject) {

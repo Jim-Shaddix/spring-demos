@@ -6,7 +6,7 @@
     <script type="text/javascript" src="js/TableFunctions.js"></script>
     <style>
         section {
-            visibility: hidden;
+            display: none;
         }
     </style>
 </head>
@@ -14,34 +14,41 @@
 
     <h1>Whoami</h1>
 
+    <div id="button-div">
+        <button>JSON</button>
+        <button>Json-Without-Definitions</button>
+        <button>Tables</button>
+        <button>Header-Descriptions</button>
+    </div>
+
     <div id="content">
 
         <div id="whoami-table">
 
-            <section id="header-section">
+            <div id="header-table-div">
                 <h3>Request headers received from the servers</h3>
                 <table id="header-table"></table>
-            </section>
+            </div>
 
-            <section id="request-body-section">
+            <div id="request-body-table-div">
                 <h3>Request Body</h3>
                 <table id="request-body-table"></table>
-            </section>
+            </div>
 
-            <section id="url-parts-section">
+            <div id="url-parts-table-div">
                 <h3>Url Parts</h3>
                 <table id="url-parts-table"></table>
-            </section>
+            </div>
 
-            <section id="remote-info-section">
+            <div id="remote-info-table-div">
                 <h3>Remote Info</h3>
                 <table id="remote-info-table"></table>
-            </section>
+            </div>
 
-            <section id="authentication-section">
+            <div id="authentication-table-div">
                 <h3>Auth Info</h3>
                 <table id="auth-info-table"></table>
-            </section>
+            </div>
 
         </div>
 
@@ -214,7 +221,7 @@
 
             // set section element to visible
             let sectionElement = document.querySelector(sectionSelector)
-            sectionElement.style.visibility = "visible";
+            sectionElement.style.display = "block";
 
             // populate the table in the section
             let tableElement = document.querySelector(sectionSelector + " " + "table")
@@ -223,12 +230,15 @@
 
         }
 
-        setTableFromKeyValueObject("#url-parts-section",     ["Url-Component", "Value"],         jsonBlob["url-parts"])
-        setTableFromKeyValueObject("#request-body-section",  ["Request-Body-Component", "Value"],jsonBlob["body"])
-        setTableFromKeyValueObject("#remote-info-section",   ["Client Info",  "Value"],          jsonBlob["remote-info"])
-        setTableFromKeyValueObject("#authentication-section",["auth-info", "value"],             jsonBlob["auth"])
+        function setContentToTables() {
+            setTableFromKeyValueObject("#url-parts-table-div",     ["Url-Component", "Value"],         jsonBlob["url-parts"])
+            setTableFromKeyValueObject("#request-body-table-div",  ["Request-Body-Component", "Value"],jsonBlob["body"])
+            setTableFromKeyValueObject("#remote-info-table-div",   ["Client Info",  "Value"],          jsonBlob["remote-info"])
+            setTableFromKeyValueObject("#authentication-table-div",["auth-info", "value"],             jsonBlob["auth"])
+            //setSectionTable("#header-section",        ["Header Name", "Value"],           jsonBlob["headers"])
+        }
 
-        //setSectionTable("#header-section",        ["Header Name", "Value"],           jsonBlob["headers"])
+        setContentToTables()
 
     </script>
 
