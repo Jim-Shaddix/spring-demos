@@ -33,12 +33,12 @@ public class WhoamiWebController {
      * @return the formatted html template with the users' metadata displayed in json.
      */
     @Operation(summary = "Displays metadata describing the users request in html.")
-    @RequestMapping("/whoami/**")
+    @GetMapping("/whoami-json-display/**")
     public String whoamiHtml(Model model, HttpServletRequest request) {
         WhoamiDto whoamiDto = whoamiService.parseRequestMetadata(request);
         whoamiService.logRequest(whoamiDto);
         model.addAttribute("jsonBlob", whoamiDto);
-        return "whoami";
+        return "whoami-json-display";
     }
 
     @Operation(summary = "Displays descriptions of possible http headers.")
@@ -49,11 +49,11 @@ public class WhoamiWebController {
     }
 
     @Operation(summary = "Displays descriptions of all of the whoami information.")
-    @RequestMapping("/whoami-table/**")
+    @GetMapping("/whoami/**")
     public String whoamiTableView(Model model, HttpServletRequest request) {
         WhoamiDto whoamiDto = whoamiService.parseRequestMetadata(request);
         model.addAttribute("jsonBlob", whoamiDto);
-        return "whoami-table";
+        return "whoami";
     }
 
 }
