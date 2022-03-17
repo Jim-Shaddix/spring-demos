@@ -21,10 +21,12 @@
         #top-content {
             text-align: center;
             padding: 30px;
+            padding-bottom: 0px;
         }
         #content {
             background-color: darkslategray;
             border: 1px solid darkgrey;
+            font-size: 12px;
             overflow: scroll;
             width: 90%;
         }
@@ -37,7 +39,11 @@
         }
         #content table {
             color: white;
-            font-size: 12px;
+        }
+        #content-description {
+            width: 600px;
+            margin: auto;
+            padding: 10px;
         }
     </style>
 </head>
@@ -55,56 +61,54 @@
                 <button id="headers-button" class="btn btn-warning">Header-Descriptions</button>
             </div>
         </div>
+        <div id="content-description"></div>
     </div>
+
 
     <div id="content" class="container">
 
         <div id = "whoami-table">
 
             <div id="url-parts-table-div">
-                <h3>Url Parts</h3>
+                <h5>Url Components</h5>
                 <table id="url-parts-table" class="table"></table>
             </div>
 
             <div id="request-body-table-div">
-                <h3>Request Body</h3>
+                <h5>Request Body</h5>
                 <table id="request-body-table" class="table"></table>
             </div>
 
             <div id="remote-info-table-div">
-                <h3>Remote Info</h3>
+                <h5>Remote Description</h5>
                 <table id="remote-info-table" class="table"></table>
             </div>
 
             <div id="server-info-table-div">
-                <h3>Server Info</h3>
+                <h5>Server Description</h5>
                 <table id="server-info-table" class="table"></table>
             </div>
 
             <div id="authentication-table-div">
-                <h3>Auth Info</h3>
+                <h5>Authentication</h5>
                 <table id="auth-info-table" class="table"></table>
             </div>
 
             <div id="header-table-div">
-                <h3>Request headers received from the servers</h3>
                 <table id="header-table" class="table table-fixed table-bordered"></table>
             </div>
 
         </div>
 
         <div id = "whoami-raw-json">
-            <h3>Json</h3>
             <pre id="raw-json-pre"></pre>
         </div>
 
         <div id = "whoami-pretty-json">
-            <h3>Pretty Json</h3>
             <pre id="pretty-json-pre"></pre>
         </div>
 
         <div id = "whoami-headers-table">
-            <h3>Headers Table</h3>
             <table id="headers-table" class="table table-fixed table-bordered"></table>
         </div>
 
@@ -286,21 +290,35 @@
             containerElement
             enableHandle
             buttonElement
+            contentDescription
 
-            constructor(type, containerElement, enableHandle, buttonElement) {
+            constructor(type, containerElement, enableHandle, buttonElement, contentDescription) {
                 this.type = type
                 this.containerElement = containerElement
                 this.enableHandle = enableHandle
                 this.buttonElement = buttonElement
+                this.contentDescription = contentDescription
                 this.populate()
             }
 
             enable() {
                 this.containerElement.style.display = "block"
+                this.#setContentDescription()
             }
 
             populate() {
                 this.enableHandle();
+            }
+
+            #setContentDescription() {
+                let contentDescriptionElement = document.querySelector("#content-description")
+                let newP = document.createElement("p")
+                let newSpan = document.createElement("span")
+                newSpan.style.textDecoration = "underline"
+                newSpan.textContent = this.buttonElement.textContent
+                newP.appendChild(newSpan)
+                newP.append(": " + this.contentDescription)
+                contentDescriptionElement.replaceChildren(newP)
             }
 
             disable() {
@@ -425,25 +443,23 @@
 
         }
 
-        tableContentBlock      = new ContentBlock(ContentType.TABLE,      document.querySelector("#whoami-table"),        populateTablesContent,    document.querySelector("#tables-button"))
-        rawJsonContentBlock    = new ContentBlock(ContentType.JSON,       document.querySelector("#whoami-raw-json"),     populateRawJsonContent,   document.querySelector("#json-button"))
-        prettyJsonContentBlock = new ContentBlock(ContentType.PRETTY_JSON,document.querySelector("#whoami-pretty-json"),  populatePrettyJsonContent,document.querySelector("#pretty-json-button"))
-        headersContentBlock    = new ContentBlock(ContentType.HEADERS,    document.querySelector("#whoami-headers-table"),populateHeadersContent,   document.querySelector("#headers-button"))
+        let tableDesc = "Displays the request message contents (with descriptions) that were received from the Whoami server when you connected to this website!"
+        let jsonDesc = "Displays a raw payload that the server provided when you connected to this website. The payload contains metadata describing the users request, as well field descriptions."
+        let prettyJsonDesc = "Displays a json object with fields that describe the connection details that you used when connecting to the whoami Service."
+        let headersDesc = "Displays a table that describes all of the different possible HTTP headers that someone might use."
+        tableContentBlock      = new ContentBlock(ContentType.TABLE,      document.querySelector("#whoami-table"),        populateTablesContent,    document.querySelector("#tables-button"),     tableDesc)
+        rawJsonContentBlock    = new ContentBlock(ContentType.JSON,       document.querySelector("#whoami-raw-json"),     populateRawJsonContent,   document.querySelector("#json-button"),       jsonDesc)
+        prettyJsonContentBlock = new ContentBlock(ContentType.PRETTY_JSON,document.querySelector("#whoami-pretty-json"),  populatePrettyJsonContent,document.querySelector("#pretty-json-button"),prettyJsonDesc)
+        headersContentBlock    = new ContentBlock(ContentType.HEADERS,    document.querySelector("#whoami-headers-table"),populateHeadersContent,   document.querySelector("#headers-button"),    headersDesc)
 
         allContentBlocks = [tableContentBlock, rawJsonContentBlock, prettyJsonContentBlock, headersContentBlock]
 
         content = new Content(allContentBlocks)
 
         // sets default content display
-        content.setContentType(ContentType.TABLE)
+        //content.setContentType(ContentType.TABLE)
 
     </script>
-
-    <div class="collapse" id="collapseExample">
-        <div class="card card-body">
-            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-        </div>
-    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 

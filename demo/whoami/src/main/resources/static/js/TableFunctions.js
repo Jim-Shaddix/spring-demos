@@ -53,6 +53,9 @@ function appendToggleColumn(row, value) {
  */
 function appendColumn(row, value) {
     let newCol = document.createElement("td")
+    if (value === null) {
+        value = "null"
+    }
     newCol.innerHTML = value
     row.appendChild(newCol)
 }
