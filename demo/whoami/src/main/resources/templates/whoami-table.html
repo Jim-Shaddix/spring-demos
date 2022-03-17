@@ -19,11 +19,13 @@
             color: white;
         }
         #top-content {
-            padding: 25px;
             text-align: center;
+            padding: 30px;
         }
         #content {
             background-color: darkslategray;
+            border: 1px solid darkgrey;
+            overflow: scroll;
             width: 90%;
         }
 
@@ -33,11 +35,15 @@
         #whoami-table div {
             display: none;
         }
+        #content table {
+            color: white;
+            font-size: 12px;
+        }
     </style>
 </head>
 <body>
 
-    <div id="top-content" class="center">
+    <div id="top-content" class="container">
         <h1>Whoami?</h1>
         <div id="button-div">
             <div>
@@ -51,13 +57,13 @@
         </div>
     </div>
 
-    <div id="content">
+    <div id="content" class="container">
 
         <div id = "whoami-table">
 
-            <div id="header-table-div">
-                <h3>Request headers received from the servers</h3>
-                <table id="header-table" class="table"></table>
+            <div id="url-parts-table-div">
+                <h3>Url Parts</h3>
+                <table id="url-parts-table" class="table"></table>
             </div>
 
             <div id="request-body-table-div">
@@ -65,14 +71,14 @@
                 <table id="request-body-table" class="table"></table>
             </div>
 
-            <div id="url-parts-table-div">
-                <h3>Url Parts</h3>
-                <table id="url-parts-table" class="table"></table>
-            </div>
-
             <div id="remote-info-table-div">
                 <h3>Remote Info</h3>
                 <table id="remote-info-table" class="table"></table>
+            </div>
+
+            <div id="server-info-table-div">
+                <h3>Server Info</h3>
+                <table id="server-info-table" class="table"></table>
             </div>
 
             <div id="authentication-table-div">
@@ -80,9 +86,9 @@
                 <table id="auth-info-table" class="table"></table>
             </div>
 
-            <div id="server-info-table-div">
-                <h3>Server Info</h3>
-                <table id="server-info-table" class="table"></table>
+            <div id="header-table-div">
+                <h3>Request headers received from the servers</h3>
+                <table id="header-table" class="table table-fixed table-bordered"></table>
             </div>
 
         </div>
@@ -99,7 +105,7 @@
 
         <div id = "whoami-headers-table">
             <h3>Headers Table</h3>
-            <table id="headers-table"></table>
+            <table id="headers-table" class="table table-fixed table-bordered"></table>
         </div>
 
     </div>
@@ -356,7 +362,7 @@
             headerTableDiv.style.display = "block";
             let tableElement = document.querySelector("#header-table")
             let columnTitles = ["name", "value", "example", "short-definition", "long-definition"]
-            let columnWidths = ["10%", "20%", "15%", "", ""]
+            let columnWidths = ["10%", "20%", "15%", "35", "20"]
             let arrayObject = jsonBlob["headers"]
             populateTableFromObjectArray(tableElement, columnTitles, arrayObject)
         }
