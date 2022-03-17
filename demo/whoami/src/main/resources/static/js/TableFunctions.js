@@ -4,15 +4,45 @@
  *
  * @param tableElement
  * @param columnTitles
+ * @param columnWidths
  */
-function setTitle(tableElement, columnTitles) {
+function setTitle(tableElement, columnTitles, columnWidths) {
+    let newHead = document.createElement("thead")
     let newRow = document.createElement("tr")
     for (let i = 0; i < columnTitles.length; i++) {
         let newCol = document.createElement("th")
         newCol.innerText = columnTitles[i]
+        newCol.setAttribute("scope", "col")
+        if (columnWidths !== undefined) {
+            newCol.style.width = columnWidths[i]
+        }
         newRow.appendChild(newCol)
     }
-    tableElement.appendChild(newRow)
+    newHead.appendChild(newRow)
+    tableElement.appendChild(newHead)
+}
+
+function appendToggleColumn(row, value) {
+
+    let newCol = document.createElement("td")
+
+    let id = Math.random()
+
+    let newButton = document.createElement("button")
+    newButton.classList.add("btn", "btn-primary")
+    newButton.setAttribute("type", "button")
+    newButton.setAttribute("data-toggle", "collapse")
+    newButton.setAttribute("data-target", "#" + id.toString())
+    newButton.innerText = "Toggle"
+
+    let newDiv = document.createElement("div")
+    newDiv.setAttribute("id", id.toString())
+    newDiv.innerHTML = value
+
+    newCol.appendChild(newButton)
+    newCol.appendChild(newDiv)
+    row.appendChild(newCol)
+
 }
 
 /**
@@ -22,7 +52,7 @@ function setTitle(tableElement, columnTitles) {
  * @param value value to set in the column
  */
 function appendColumn(row, value) {
-    let newCol = document.createElement("th")
+    let newCol = document.createElement("td")
     newCol.innerHTML = value
     row.appendChild(newCol)
 }
@@ -42,7 +72,13 @@ function populateTableFromObjectArray(tableElement, columnTitles, arrayObject) {
         let newRow = document.createElement("tr")
 
         // create new columns for each of the elements in the json blob
-        columnTitles.forEach((field, index) => appendColumn(newRow, jsonObject[field]))
+        columnTitles.forEach((field, index) => {
+            if (field === "long-definition") {
+                appendToggleColumn(newRow, jsonObject[field])
+            } else {
+                appendColumn(newRow, jsonObject[field])
+            }
+        })
 
         // create new row for every json object
         tableElement.appendChild(newRow)

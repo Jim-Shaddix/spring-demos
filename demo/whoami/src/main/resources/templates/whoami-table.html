@@ -2,9 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>whoami-table</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script type="text/javascript" src="js/TableFunctions.js"></script>
+    <link rel="icon" href="image/patch-question-fill.svg">
+    <title>Whoami?</title>
     <style>
+        body {
+            background-color: black;
+            color: white;
+        }
+        #button-div button {
+            width: 200px;
+        }
+        pre {
+            color: white;
+        }
+        #top-content {
+            padding: 25px;
+            text-align: center;
+        }
+        #content {
+            background-color: darkslategray;
+            width: 90%;
+        }
+
         #content div {
             display: none;
         }
@@ -15,13 +37,18 @@
 </head>
 <body>
 
-    <h1>Whoami</h1>
-
-    <div id="button-div">
-        <button id="json-button">Json</button>
-        <button id="pretty-json-button">Pretty-Json</button>
-        <button id="tables-button">Tables</button>
-        <button id="headers-button">Header-Descriptions</button>
+    <div id="top-content" class="center">
+        <h1>Whoami?</h1>
+        <div id="button-div">
+            <div>
+                <button id="json-button" class="btn btn-primary">Json</button>
+                <button id="pretty-json-button" class="btn btn-success">Pretty-Json</button>
+            </div>
+            <div>
+                <button id="tables-button" class="btn btn-danger">Tables</button>
+                <button id="headers-button" class="btn btn-warning">Header-Descriptions</button>
+            </div>
+        </div>
     </div>
 
     <div id="content">
@@ -30,32 +57,32 @@
 
             <div id="header-table-div">
                 <h3>Request headers received from the servers</h3>
-                <table id="header-table"></table>
+                <table id="header-table" class="table"></table>
             </div>
 
             <div id="request-body-table-div">
                 <h3>Request Body</h3>
-                <table id="request-body-table"></table>
+                <table id="request-body-table" class="table"></table>
             </div>
 
             <div id="url-parts-table-div">
                 <h3>Url Parts</h3>
-                <table id="url-parts-table"></table>
+                <table id="url-parts-table" class="table"></table>
             </div>
 
             <div id="remote-info-table-div">
                 <h3>Remote Info</h3>
-                <table id="remote-info-table"></table>
+                <table id="remote-info-table" class="table"></table>
             </div>
 
             <div id="authentication-table-div">
                 <h3>Auth Info</h3>
-                <table id="auth-info-table"></table>
+                <table id="auth-info-table" class="table"></table>
             </div>
 
             <div id="server-info-table-div">
                 <h3>Server Info</h3>
-                <table id="server-info-table"></table>
+                <table id="server-info-table" class="table"></table>
             </div>
 
         </div>
@@ -327,8 +354,9 @@
         function displayTableFromArrayObject() {
             let headerTableDiv = document.querySelector("#header-table-div")
             headerTableDiv.style.display = "block";
-            let tableElement = document.querySelector("#header-table-div")
-            let columnTitles = ["name", "value", "short-definition", "example", "long-definition"]
+            let tableElement = document.querySelector("#header-table")
+            let columnTitles = ["name", "value", "example", "short-definition", "long-definition"]
+            let columnWidths = ["10%", "20%", "15%", "", ""]
             let arrayObject = jsonBlob["headers"]
             populateTableFromObjectArray(tableElement, columnTitles, arrayObject)
         }
@@ -404,6 +432,14 @@
         content.setContentType(ContentType.TABLE)
 
     </script>
+
+    <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 </body>
 </html>
