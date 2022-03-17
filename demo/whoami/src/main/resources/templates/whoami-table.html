@@ -333,6 +333,17 @@
             populateTableFromObjectArray(tableElement, columnTitles, arrayObject)
         }
 
+        function displayHeadersTable(jsonHeaders) {
+
+            const jsonTableDisplay = document.querySelector("#headers-table")
+
+            // for each json object, add a new column
+            const tableElementOrder = ["name", "type", "example", "short-description", "long-description"]
+
+            populateTableFromObjectArray(jsonTableDisplay, tableElementOrder, jsonHeaders)
+
+        }
+
         function populateTablesContent() {
             displayTableFromKeyValueObject()
             displayTableFromArrayObject()
@@ -370,7 +381,14 @@
 
         function populateHeadersContent() {
 
-            // display headers tables
+            fetch('http://localhost:8080/api/v1/headers', {
+                headers: { "Content-Type": "application/json; charset=utf-8" },
+                method: 'GET'
+            })
+            .then(res => res.json())
+            .then(data => displayHeadersTable(data))
+            .catch((reason => {console.log(reason)}))
+
         }
 
         tableContentBlock      = new ContentBlock(ContentType.TABLE,      document.querySelector("#whoami-table"),        populateTablesContent,    document.querySelector("#tables-button"))

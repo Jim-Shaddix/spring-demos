@@ -3,6 +3,7 @@ package com.example.whoami.controller;
 import com.example.whoami.dto.WhoamiDto;
 import com.example.whoami.service.SizeSpecifiedPayloadService;
 import com.example.whoami.service.WhoamiService;
+import com.example.whoami.webparser.spec.HeaderSpec;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Operation;
@@ -11,6 +12,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Controller for sending metadata pertaining to a request
@@ -24,6 +26,7 @@ public class WhoamiRestController {
 
     private WhoamiService whoamiService;
     private SizeSpecifiedPayloadService sizeSpecifiedPayloadService;
+    private List<HeaderSpec> headerSpecs;
 
     /**
      * This endpoint displays metadata describing the users request
@@ -55,6 +58,12 @@ public class WhoamiRestController {
     @GetMapping(value = "/data")
     public String sizeSpecifiedPayload(@RequestParam(value = "unit", required = true) String unit) {
         return sizeSpecifiedPayloadService.generatePayloadFromUnitSpec(unit);
+    }
+
+    @Operation(summary = "returns a list of http headers and their descriptions")
+    @GetMapping("headers")
+    public List<HeaderSpec> headerSpecsPayload() {
+        return headerSpecs;
     }
 
 }
