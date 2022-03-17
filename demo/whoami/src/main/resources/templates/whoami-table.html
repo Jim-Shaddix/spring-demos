@@ -5,6 +5,9 @@
     <title>whoami-table</title>
     <script type="text/javascript" src="js/TableFunctions.js"></script>
     <style>
+        #content div {
+            display: none;
+        }
         #whoami-table div {
             display: none;
         }
@@ -15,15 +18,15 @@
     <h1>Whoami</h1>
 
     <div id="button-div">
-        <button>Json</button>
-        <button>Pretty-Json</button>
-        <button>Tables</button>
-        <button>Header-Descriptions</button>
+        <button id="json-button">Json</button>
+        <button id="pretty-json-button">Pretty-Json</button>
+        <button id="tables-button">Tables</button>
+        <button id="headers-button">Header-Descriptions</button>
     </div>
 
     <div id="content">
 
-        <div id="whoami-table">
+        <div id = "whoami-table">
 
             <div id="header-table-div">
                 <h3>Request headers received from the servers</h3>
@@ -58,11 +61,18 @@
         </div>
 
         <div id = "whoami-raw-json">
-            <p id="raw-json-p"></p>
+            <h3>Json</h3>
+            <pre id="raw-json-pre"></pre>
         </div>
 
-        <div id = "whoami-json">
+        <div id = "whoami-pretty-json">
+            <h3>Pretty Json</h3>
+            <pre id="pretty-json-pre"></pre>
+        </div>
 
+        <div id = "whoami-headers-table">
+            <h3>Headers Table</h3>
+            <table id="headers-table"></table>
         </div>
 
     </div>
@@ -230,16 +240,11 @@
 
     <script th:inline="javascript">
 
-//        ContentType = Object.freeze({
-//            TABLE:       Symbol("TABLE"),
-//            JSON:        Symbol("JSON"),
-//            PRETTY_JSON: Symbol("PRETTY_JSON")
-//        });
-
         ContentType = {
             "TABLE": "TABLE",
             "JSON": "JSON",
-            "PRETTY_JSON": "PRETTY_JSON"
+            "PRETTY_JSON": "PRETTY_JSON",
+            "HEADERS": "HEADERS"
         }
 
         class ContentBlock {
@@ -247,20 +252,26 @@
             type
             containerElement
             enableHandle
+            buttonElement
 
-            constructor(type, containerElement, enableHandle) {
+            constructor(type, containerElement, enableHandle, buttonElement) {
                 this.type = type
                 this.containerElement = containerElement
                 this.enableHandle = enableHandle
+                this.buttonElement = buttonElement
+                this.populate()
             }
 
             enable() {
+                this.containerElement.style.display = "block"
+            }
+
+            populate() {
                 this.enableHandle();
-                this.containerElement.display = "block"
             }
 
             disable() {
-                this.containerElement.display = "none"
+                this.containerElement.style.display = "none"
             }
 
         }
@@ -271,39 +282,46 @@
             allContentBlocks
 
             constructor(allContentBlocks) {
+                this.#setOnClickEvents(allContentBlocks)
                 this.allContentBlocks = allContentBlocks;
             }
 
-            enable(type) {
-                let typeBlock =  this.allContentBlocks.find(block => block.type === type)
-                if (this.enabledContentBlock != null) {
-                    this.enabledContentBlock.disable();
+            #setOnClickEvents(allContentBlocks) {
+                for (let i = 0; i < allContentBlocks.length; i++) {
+                    let contentBlock = allContentBlocks[i]
+                    contentBlock.buttonElement.onclick = () => {
+                        this.setContentType(contentBlock.type)
+                    }
                 }
-                typeBlock.enable();
-                this.enabled = typeBlock;
+            }
+
+            setContentType(type) {
+                let typeBlock =  this.allContentBlocks.find(block => block.type === type)
+                if (this.enabledContentBlock == null) {
+                    typeBlock.enable();
+                    this.enabledContentBlock = typeBlock;
+                } else if (this.enabledContentBlock.type === type) {
+                    // do nothing
+                } else {
+                    this.enabledContentBlock.disable();
+                    typeBlock.enable();
+                    this.enabledContentBlock = typeBlock;
+                }
             }
 
         }
 
-        function setTableFromKeyValueObject(tableSelector, columnTitles, keyValueObject) {
-
-            // set section element to visible
-            let divElement = document.querySelector(tableSelector)
+        function setTableFromKeyValueObject(divElement, columnTitles, keyValueObject) {
             divElement.style.display = "block";
-
-            // populate the table in the section
-            let tableElement = document.querySelector(tableSelector + " " + "table")
-
-            populateTableFromKeyValuePairs(tableElement, columnTitles, keyValueObject)
-
+            populateTableFromKeyValuePairs(divElement.querySelector("table"), columnTitles, keyValueObject)
         }
 
         function displayTableFromKeyValueObject() {
-            setTableFromKeyValueObject("#url-parts-table-div",     ["Url-Component", "Value"],         jsonBlob["url-parts"])
-            setTableFromKeyValueObject("#request-body-table-div",  ["Request-Body-Component", "Value"],jsonBlob["body"])
-            setTableFromKeyValueObject("#remote-info-table-div",   ["Client Info",  "Value"],          jsonBlob["remote-info"])
-            setTableFromKeyValueObject("#authentication-table-div",["auth-info", "value"],             jsonBlob["auth"])
-            setTableFromKeyValueObject("#server-info-table-div",   ["server-info", "value"],           jsonBlob["server-info"])
+            setTableFromKeyValueObject(document.querySelector("#url-parts-table-div"),     ["Url-Component", "Value"],         jsonBlob["url-parts"])
+            setTableFromKeyValueObject(document.querySelector("#request-body-table-div"),  ["Request-Body-Component", "Value"],jsonBlob["body"])
+            setTableFromKeyValueObject(document.querySelector("#remote-info-table-div"),   ["Client Info",  "Value"],          jsonBlob["remote-info"])
+            setTableFromKeyValueObject(document.querySelector("#authentication-table-div"),["auth-info", "value"],             jsonBlob["auth"])
+            setTableFromKeyValueObject(document.querySelector("#server-info-table-div"),   ["server-info", "value"],           jsonBlob["server-info"])
         }
 
         function displayTableFromArrayObject() {
@@ -315,21 +333,57 @@
             populateTableFromObjectArray(tableElement, columnTitles, arrayObject)
         }
 
-        function setContentToTables() {
+        function populateTablesContent() {
             displayTableFromKeyValueObject()
             displayTableFromArrayObject()
         }
 
-        function setContentToRawJson() {
-            const jsonDisplayPre = document.querySelector("#raw-json-p")
+        function populateRawJsonContent() {
+            const jsonDisplayPre = document.querySelector("#raw-json-pre")
             jsonDisplayPre.textContent = jsonDisplayPre.textContent = JSON.stringify(jsonBlob, undefined, 4)
         }
 
-        tableContentBlock = new ContentBlock(ContentType.TABLE,      document.querySelector("#whoami-table"),    setContentToTables)
-        rawJsonContentBlock = new ContentBlock(ContentType.JSON, document.querySelector("#whoami-raw-json"), setContentToRawJson)
-        allContentBlocks = [tableContentBlock, rawJsonContentBlock]
-        content = new Content(allContentBlocks, tableContentBlock)
-        content.enable(ContentType.TABLE)
+        function populatePrettyJsonContent() {
+
+            // duplicate object (this is one way to perform a deep copy)
+            let prettyJsonBlob = JSON.parse(JSON.stringify(jsonBlob));
+
+            let elementsWithDescriptions = ["url-parts", "body", "remote-info", "auth", "server-info"]
+
+            // remove descriptions from elements
+            for (let i = 0; i < elementsWithDescriptions.length; i++) {
+                let fieldName = elementsWithDescriptions[i]
+                delete prettyJsonBlob[fieldName]["description"]
+            }
+
+            // parse our header names and values
+            let newHeadersObject = {}
+            for (let i = 0; i < prettyJsonBlob["headers"].length; i++) {
+                newHeadersObject[prettyJsonBlob["headers"][i]["name"]] = prettyJsonBlob["headers"][i]["value"]
+            }
+            prettyJsonBlob["headers"] = newHeadersObject
+
+
+            const jsonDisplayPre = document.querySelector("#pretty-json-pre")
+            jsonDisplayPre.textContent = jsonDisplayPre.textContent = JSON.stringify(prettyJsonBlob, undefined, 4)
+        }
+
+        function populateHeadersContent() {
+
+            // display headers tables
+        }
+
+        tableContentBlock      = new ContentBlock(ContentType.TABLE,      document.querySelector("#whoami-table"),        populateTablesContent,    document.querySelector("#tables-button"))
+        rawJsonContentBlock    = new ContentBlock(ContentType.JSON,       document.querySelector("#whoami-raw-json"),     populateRawJsonContent,   document.querySelector("#json-button"))
+        prettyJsonContentBlock = new ContentBlock(ContentType.PRETTY_JSON,document.querySelector("#whoami-pretty-json"),  populatePrettyJsonContent,document.querySelector("#pretty-json-button"))
+        headersContentBlock    = new ContentBlock(ContentType.HEADERS,    document.querySelector("#whoami-headers-table"),populateHeadersContent,   document.querySelector("#headers-button"))
+
+        allContentBlocks = [tableContentBlock, rawJsonContentBlock, prettyJsonContentBlock, headersContentBlock]
+
+        content = new Content(allContentBlocks)
+
+        // sets default content display
+        content.setContentType(ContentType.TABLE)
 
     </script>
 
