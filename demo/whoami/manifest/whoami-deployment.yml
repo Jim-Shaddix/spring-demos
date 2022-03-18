@@ -16,14 +16,17 @@ spec:
     spec:
       containers:
       - name: whoami
-        image: containous/whoami:latest
+        image: spring-practice/whoami:latest
         imagePullPolicy: IfNotPresent
+        env:
+          - name: "SPRING_PROFILES_ACTIVE"
+            value: "prod"
         ports:
-        - containerPort: 80
+        - containerPort: 8080
         resources:
           requests:
-            memory: "64Mi"
+            memory: "512Mi"
             cpu: "250m"
           limits:
-            memory: "128Mi"
+            memory: "1024Mi"
             cpu: "500m"

@@ -1,0 +1,44 @@
+body {
+    background-color: black;
+    color: white;
+}
+
+#button-div button {
+    width: 200px;
+}
+
+pre {
+    color: white;
+}
+
+#top-content {
+    text-align: center;
+    padding: 30px;
+    padding-bottom: 0px;
+}
+
+#content {
+    background-color: darkslategray;
+    border: 1px solid darkgrey;
+    font-size: 12px;
+    overflow: scroll;
+    width: 90%;
+}
+
+#content div {
+    display: none;
+}
+
+#whoami-table div {
+    display: none;
+}
+
+#content table {
+    color: white;
+}
+
+#content-description {
+    width: 600px;
+    margin: auto;
+    padding: 10px;
+}

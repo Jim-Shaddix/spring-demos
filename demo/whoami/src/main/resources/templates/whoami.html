@@ -4,48 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script type="text/javascript" src="js/TableFunctions.js"></script>
-    <link rel="icon" href="image/patch-question-fill.svg">
+    <script type="text/javascript" th:src="@{js/table-functions.js}"></script>
+    <link rel="icon" th:href="@{image/patch-question-fill.svg}">
+    <link rel="stylesheet" th:href="@{css/whoami.css}">
     <title>Whoami</title>
-    <style>
-        body {
-            background-color: black;
-            color: white;
-        }
-        #button-div button {
-            width: 200px;
-        }
-        pre {
-            color: white;
-        }
-        #top-content {
-            text-align: center;
-            padding: 30px;
-            padding-bottom: 0px;
-        }
-        #content {
-            background-color: darkslategray;
-            border: 1px solid darkgrey;
-            font-size: 12px;
-            overflow: scroll;
-            width: 90%;
-        }
-
-        #content div {
-            display: none;
-        }
-        #whoami-table div {
-            display: none;
-        }
-        #content table {
-            color: white;
-        }
-        #content-description {
-            width: 600px;
-            margin: auto;
-            padding: 10px;
-        }
-    </style>
 </head>
 <body>
 
@@ -78,7 +40,6 @@
         </div>
         <div id="content-description"></div>
     </div>
-
 
     <div id="content" class="container">
 
@@ -130,7 +91,7 @@
 
     </div>
 
-    <script th:inline="javascript">
+    <script id="template-supplied-data" th:inline="javascript">
         /*<![CDATA[*/
         const jsonBlob = /*[[${jsonBlob}]]*/ {
             "headers": [
@@ -291,7 +252,7 @@
         }/*]]>*/
     </script>
 
-    <script th:inline="javascript">
+    <script id="content-class-script" th:inline="javascript">
 
         ContentType = {
             "TABLE": "TABLE",
@@ -378,6 +339,10 @@
 
         }
 
+    </script>
+
+    <script id="content-load-script" th:inline="javascript">
+
         function setTableFromKeyValueObject(divElement, columnTitles, keyValueObject) {
             divElement.style.display = "block";
             populateTableFromKeyValuePairs(divElement.querySelector("table"), columnTitles, keyValueObject)
@@ -396,7 +361,7 @@
             headerTableDiv.style.display = "block";
             let tableElement = document.querySelector("#header-table")
             let columnTitles = ["name", "value", "example", "short-definition", "long-definition"]
-            let columnWidths = ["10%", "20%", "15%", "35", "20"]
+            //let columnWidths = ["10%", "20%", "15%", "35", "20"]
             let arrayObject = jsonBlob["headers"]
             populateTableFromObjectArray(tableElement, columnTitles, arrayObject)
         }
@@ -449,7 +414,7 @@
 
         function populateHeadersContent() {
 
-            fetch('http://localhost:8080/api/v1/headers', {
+            fetch("/api/v1/headers", {
                 headers: { "Content-Type": "application/json; charset=utf-8" },
                 method: 'GET'
             })
@@ -472,12 +437,9 @@
 
         content = new Content(allContentBlocks)
 
-        // sets default content display
-        //content.setContentType(ContentType.TABLE)
-
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script id="bootstrap5-script" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 </body>
 </html>

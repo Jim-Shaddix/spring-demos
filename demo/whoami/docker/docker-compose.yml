@@ -14,3 +14,4 @@ services:
       - "80:8080"
     environment:
       SPRING_PROFILES_ACTIVE: "prod"
+    command: sleep 1000
