@@ -14,9 +14,8 @@ RUN /bin/bash -c "chmod -R 777 ${APP_DIRECTORY}" && \
 
 WORKDIR $APP_DIRECTORY
 
-EXPOSE 80
+EXPOSE 8080
 
 USER cloudy
 
 CMD ["java", "-jar", "whoami.jar"]
-#ENTRYPOINT ["java", "-jar", "whoami.jar"]
