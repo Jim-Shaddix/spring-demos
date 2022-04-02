@@ -30,7 +30,7 @@ public class WhoamiRestController {
 
     @Operation(summary = "Returns metadata describing the users request in json.")
     @RequestMapping(value = "/whoami/**", produces = "application/json")
-    public WhoamiDto whoamiApi(HttpServletRequest request) throws JsonProcessingException {
+    public WhoamiDto whoamiApi(HttpServletRequest request) {
 
         WhoamiDto whoamiDto = whoamiService.parseRequestMetadata(request);
 
