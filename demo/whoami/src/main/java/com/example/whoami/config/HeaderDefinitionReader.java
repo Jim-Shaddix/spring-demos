@@ -1,4 +1,4 @@
-package com.example.whoami.io;
+package com.example.whoami.config;
 
 import com.example.whoami.dto.HeaderSpec;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,7 +29,10 @@ public class HeaderDefinitionReader {
             specs = objectMapper.readerForListOf(HeaderSpec.class)
                     .readValue(Paths.get(headerSpecLocation).toFile());
         } catch (Exception e) {
-            throw new RuntimeException("Failed to read json spec file", e);
+            String currentDirectory = System.getProperty("user.dir");
+            String errMsg = String.format("Failed to read json spec file. [Current Directory: %s] [File Not Found: %s]",
+                    currentDirectory, headerSpecLocation);
+            throw new RuntimeException(errMsg, e);
         }
 
         return specs;
