@@ -11,7 +11,8 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * This controller handles all the error responses.
+ * This controller handles all the error responses that are not caught
+ * by the RestExceptionAdvice.java class.
  */
 @ConditionalOnProperty(value = "whoami.controller.enable-error-controller", havingValue = "true")
 @Controller

@@ -1,18 +1,23 @@
 package com.example.whoami.controller;
 
 import com.example.whoami.exception.InvalidSizeSpecException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
+import lombok.extern.java.Log;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@ControllerAdvice
-public class ExceptionAdvice {
+/**
+ * handles custom exceptioms thrown by the whoami application.
+ */
+@Log
+@RestControllerAdvice
+public class RestExceptionAdvice {
 
-    @ResponseBody
     @ExceptionHandler(InvalidSizeSpecException.class)
     public String invalidSizeSpec(InvalidSizeSpecException invalidSizeSpecException) {
-        return String.format("The specified payload return size is invalid: \"%s\"",
+        String errMsg = String.format("The specified payload return size is invalid: \"%s\"",
                 invalidSizeSpecException.getSizeSpec());
+        log.info(errMsg);
+        return errMsg;
     }
 
 }
