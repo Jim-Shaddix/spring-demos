@@ -52,7 +52,7 @@ public class WhoamiRestController {
             @ApiResponse(responseCode = "200", description = "valid response"),
             @ApiResponse(responseCode = "400", description = "Improper unit specification used")
     })
-    @GetMapping(value = "/data", produces = "application/json")
+    @GetMapping(value = "/data")
     public String sizeSpecifiedPayload(@RequestParam(value = "unit", required = true) String unit) {
         return sizeSpecifiedPayloadService.generatePayloadFromUnitSpec(unit);
     }
