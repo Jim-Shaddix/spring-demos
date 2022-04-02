@@ -1,20 +1,19 @@
 package com.example.whoami.service;
 
 import com.example.whoami.config.ParserProperties;
-import com.example.whoami.dto.component.*;
 import com.example.whoami.dto.WhoamiDto;
+import com.example.whoami.dto.component.*;
 import com.example.whoami.parser.HttpServletRequestParser;
 import com.example.whoami.parser.ServerMetadataParser;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.util.ReflectionTestUtils.*;
+import static org.springframework.test.util.ReflectionTestUtils.getField;
 
 /**
  * Unit tests for WhoamiService

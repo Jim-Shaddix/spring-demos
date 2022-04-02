@@ -1,8 +1,8 @@
 package com.example.whoami.parser;
 
+import com.example.whoami.dto.HeaderSpec;
 import com.example.whoami.dto.component.*;
 import com.example.whoami.dto.description.BasicDescriptionDto;
-import com.example.whoami.dto.HeaderSpec;
 import lombok.AllArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
@@ -34,8 +34,8 @@ public class HttpServletRequestParser {
         // find spec for the request dto
         Optional<HeaderSpec> optionalSpec = headerSpecs.stream()
             .filter(spec -> {
-                return spec.getName().toLowerCase()
-                        .equals(requestHeaderDto.getName().toLowerCase());
+                return spec.getName()
+                        .equalsIgnoreCase(requestHeaderDto.getName());
             }).findAny();
 
         // if the spec was found, then set the fields in the DTO.

@@ -2,7 +2,7 @@ package com.example.whoami.runner;
 
 import com.example.whoami.config.ControllerProperties;
 import com.example.whoami.config.ParserProperties;
-import lombok.*;
+import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;

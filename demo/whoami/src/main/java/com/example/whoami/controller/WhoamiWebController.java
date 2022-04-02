@@ -1,8 +1,8 @@
 package com.example.whoami.controller;
 
+import com.example.whoami.dto.HeaderSpec;
 import com.example.whoami.dto.WhoamiDto;
 import com.example.whoami.service.WhoamiService;
-import com.example.whoami.dto.HeaderSpec;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;

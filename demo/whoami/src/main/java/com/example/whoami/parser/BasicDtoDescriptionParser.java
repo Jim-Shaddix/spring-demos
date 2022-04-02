@@ -12,7 +12,7 @@ import java.util.Map;
 @Service
 public class BasicDtoDescriptionParser {
 
-    private static String JSON_KEY_SUFFIX = "-def";
+    private static final String JSON_KEY_SUFFIX = "-def";
 
     private static final Map<Class<?>, Map<String, String>> dtoDescriptions = new HashMap<>();
 

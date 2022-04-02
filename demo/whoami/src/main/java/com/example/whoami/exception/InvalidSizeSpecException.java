@@ -13,7 +13,7 @@ public class InvalidSizeSpecException extends RuntimeException {
     private static final String formatMessage = "An invalid size specification was requested." +
             " The string %s could not be interpreted as a valid size. ";
 
-    private String sizeSpec;
+    private final String sizeSpec;
 
     public InvalidSizeSpecException(String sizeSpec, String errorMsg) {
         super(String.format(formatMessage, sizeSpec) + errorMsg);

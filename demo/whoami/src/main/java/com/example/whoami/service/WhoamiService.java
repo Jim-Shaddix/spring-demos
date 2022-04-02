@@ -45,7 +45,7 @@ public class WhoamiService {
 
         if (parserProperties.isBody()) {
             whoamiDto.setHeaders(requestParser.parseRequestHeaders(request));
-        };
+        }
 
         if (parserProperties.isUrlParts()) {
             whoamiDto.setUrlParts(requestParser.parseRequestUrlParts(request));
@@ -86,9 +86,9 @@ public class WhoamiService {
      */
     public void logRequest(@NonNull WhoamiDto whoamiDto) {
         log.info("Number of \"whoami\" requests processed: "
-                + String.valueOf(numberOfRequestsProcessed.incrementAndGet())
+                + numberOfRequestsProcessed.incrementAndGet()
                 + ". json-response: "
-                + whoamiDto.toString()
+                + whoamiDto
         );
     }
 

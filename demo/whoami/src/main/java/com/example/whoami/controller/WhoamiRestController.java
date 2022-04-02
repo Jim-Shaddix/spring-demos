@@ -1,15 +1,17 @@
 package com.example.whoami.controller;
 
+import com.example.whoami.dto.HeaderSpec;
 import com.example.whoami.dto.WhoamiDto;
 import com.example.whoami.service.SizeSpecifiedPayloadService;
 import com.example.whoami.service.WhoamiService;
-import com.example.whoami.dto.HeaderSpec;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
