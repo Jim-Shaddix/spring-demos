@@ -3,6 +3,14 @@ body {
     color: white;
 }
 
+.navbar-brand {
+    color: cyan !important;
+}
+
+#whoami-title {
+    color: cyan;
+}
+
 #button-div button {
     width: 200px;
 }

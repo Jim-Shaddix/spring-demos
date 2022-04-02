@@ -2,13 +2,11 @@ package com.example.whoami.parser;
 
 import com.example.whoami.dto.component.ServerMetadataDto;
 import com.example.whoami.dto.description.BasicDescriptionDto;
-import com.example.whoami.webparser.spec.HeaderSpec;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.List;
 import java.util.Map;
 
 /**

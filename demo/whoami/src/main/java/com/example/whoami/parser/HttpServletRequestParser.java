@@ -2,7 +2,7 @@ package com.example.whoami.parser;
 
 import com.example.whoami.dto.component.*;
 import com.example.whoami.dto.description.BasicDescriptionDto;
-import com.example.whoami.webparser.spec.HeaderSpec;
+import com.example.whoami.dto.HeaderSpec;
 import lombok.AllArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
@@ -42,9 +42,9 @@ public class HttpServletRequestParser {
         if (optionalSpec.isPresent()) {
             HeaderSpec spec = optionalSpec.get();
             requestHeaderDto.setType(String.valueOf(spec.getType()));
-            requestHeaderDto.setExample(spec.getExample());
-            requestHeaderDto.setLongDefinition(spec.getLongDescription());
-            requestHeaderDto.setShortDefinition(spec.getShortDescription());
+            requestHeaderDto.setType(spec.getType());
+            requestHeaderDto.setLink(spec.getLink());
+            requestHeaderDto.setDescription(spec.getDescription());
         }
 
     }

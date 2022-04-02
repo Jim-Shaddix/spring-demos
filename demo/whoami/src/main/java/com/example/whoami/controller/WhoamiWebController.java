@@ -2,14 +2,13 @@ package com.example.whoami.controller;
 
 import com.example.whoami.dto.WhoamiDto;
 import com.example.whoami.service.WhoamiService;
-import com.example.whoami.webparser.spec.HeaderSpec;
+import com.example.whoami.dto.HeaderSpec;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;

@@ -3,9 +3,8 @@ package com.example.whoami.controller;
 import com.example.whoami.dto.WhoamiDto;
 import com.example.whoami.service.SizeSpecifiedPayloadService;
 import com.example.whoami.service.WhoamiService;
-import com.example.whoami.webparser.spec.HeaderSpec;
+import com.example.whoami.dto.HeaderSpec;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -61,7 +60,7 @@ public class WhoamiRestController {
     }
 
     @Operation(summary = "returns a list of http headers and their descriptions")
-    @GetMapping("headers")
+    @GetMapping("/headers")
     public List<HeaderSpec> headerSpecsPayload() {
         return headerSpecs;
     }

@@ -6,8 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 
 @SpringBootApplication
 @ConfigurationPropertiesScan(value = {
-        "com.example.whoami.config",
-        "com.example.whoami.webparser.config"
+        "com.example.whoami.config"
 })
 public class WhoamiApplication {
 

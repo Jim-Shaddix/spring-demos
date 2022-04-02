@@ -17,6 +17,10 @@ import io.swagger.v3.oas.annotations.servers.Server;
                 license = @License(
                         name = "MIT Licence",
                         url = "https://github.com/Jim-Shaddix/spring-demos/tree/main/demo/whoami")),
-        servers = @Server(url = "http://127.0.0.1:8080")
+        servers = {
+                @Server(url = "http://whoamiee:443", description = "running production build"),
+                @Server(url = "http://localhost:80", description = "running local docker image"),
+                @Server(url = "http://localhost:8080", description = "running local jar")
+        }
 )
 public class OpenApiConfiguration {}

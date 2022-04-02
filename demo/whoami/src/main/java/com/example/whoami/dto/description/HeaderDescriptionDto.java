@@ -14,15 +14,11 @@ public abstract class HeaderDescriptionDto {
     private String type;
 
     @Schema(description = "abbreviate definition of the header")
-    @JsonProperty("short-definition")
-    private String shortDefinition;
+    @JsonProperty("description")
+    private String description;
 
-    @Schema(description = "example value of the header")
-    @JsonProperty("example")
-    private String example;
-
-    @Schema(description = "Full definition of the header from the RFC reference")
-    @JsonProperty("long-definition")
-    private String longDefinition;
+    @Schema(description = "link to the full definition with examples")
+    @JsonProperty("link")
+    private String link;
 
 }

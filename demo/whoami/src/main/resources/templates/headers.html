@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Headers</title>
-    <script type="text/javascript" src="js/TableFunctions.js"></script>
+    <script type="text/javascript" src="js/table-functions.js"></script>
     <style>
 
         table {
@@ -68,7 +68,7 @@
       const jsonTableDisplay = document.querySelector("#json-table-display")
 
       // for each json object, add a new column
-      const tableElementOrder = ["name", "type", "example", "short-description", "long-description"]
+      const tableElementOrder = ["name", "type", "description", "link"]
 
       populateTableFromObjectArray(jsonTableDisplay, tableElementOrder, jsonBlob)
 

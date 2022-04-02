@@ -22,29 +22,6 @@ function setTitle(tableElement, columnTitles, columnWidths) {
     tableElement.appendChild(newHead)
 }
 
-function appendToggleColumn(row, value) {
-
-    let newCol = document.createElement("td")
-
-    let id = Math.random()
-
-    let newButton = document.createElement("button")
-    newButton.classList.add("btn", "btn-primary")
-    newButton.setAttribute("type", "button")
-    newButton.setAttribute("data-toggle", "collapse")
-    newButton.setAttribute("data-target", "#" + id.toString())
-    newButton.innerText = "Toggle"
-
-    let newDiv = document.createElement("div")
-    newDiv.setAttribute("id", id.toString())
-    newDiv.innerHTML = value
-
-    newCol.appendChild(newButton)
-    newCol.appendChild(newDiv)
-    row.appendChild(newCol)
-
-}
-
 /**
  * append a column to a row
  *
@@ -76,11 +53,7 @@ function populateTableFromObjectArray(tableElement, columnTitles, arrayObject) {
 
         // create new columns for each of the elements in the json blob
         columnTitles.forEach((field, index) => {
-            if (field === "long-definition") {
-                appendToggleColumn(newRow, jsonObject[field])
-            } else {
-                appendColumn(newRow, jsonObject[field])
-            }
+            appendColumn(newRow, jsonObject[field])
         })
 
         // create new row for every json object

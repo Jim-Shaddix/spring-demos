@@ -1,12 +1,13 @@
+import json
+import time
+import sys
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium import webdriver
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.chrome.webdriver import WebDriver
-import json
-import time
-import sys
 from typing import List, Dict
 
 WEBSITE_TO_PARSE = sys.argv[1]
@@ -23,9 +24,9 @@ class HeaderDesc:
 
     def to_map(self) -> Dict[str, str]:
         return {
-            "header-type": self.header_type,
-            "header-name": self.header_name,
-            "header-desc": self.header_desc,
+            "type": self.header_type,
+            "name": self.header_name,
+            "description": self.header_desc,
             "link": self.link
         }
 
@@ -49,7 +50,7 @@ def parse_content(driver) -> List[HeaderDesc]:
 
     # Parse the results of the search
     header_list = []
-    header_type_elems = driver.find_elements(By.CSS_SELECTOR, "h2")[2:-6]
+    header_type_elems = driver.find_elements(by=By.CSS_SELECTOR, value="h2")[2:-6] + driver.find_elements(by=By.TAG_NAME, value="h3")
     for header_type_elem in header_type_elems:
         header_type = header_type_elem.text
         div_after_header_type_elem = next_element(driver, header_type_elem)
@@ -67,7 +68,7 @@ def parse_content(driver) -> List[HeaderDesc]:
 
 
 def write_header_spec(header_list: List[HeaderDesc]) -> None:
-    with open("http_header_spec.json", "w") as fd:
+    with open("http-header-spec.json", "w") as fd:
         json_result = json.dumps([x.to_map() for x in header_list], indent=4)
         fd.write(json_result)
 

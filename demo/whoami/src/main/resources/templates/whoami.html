@@ -26,7 +26,7 @@
     </nav>
 
     <div id="top-content" class="container">
-        <h1>Whoami?</h1>
+        <h1 id="whoami-title">Whoami?</h1>
         <div id="button-div">
             <div>
                 <button id="json-button" class="btn btn-primary">Json</button>
@@ -255,7 +255,7 @@
             let headerTableDiv = document.querySelector("#header-table-div")
             headerTableDiv.style.display = "block";
             let tableElement = document.querySelector("#header-table")
-            let columnTitles = ["name", "value", "example", "short-definition", "long-definition"]
+            let columnTitles = ["name", "value", "type", "description", "link"]
             //let columnWidths = ["10%", "20%", "15%", "35", "20"]
             let arrayObject = jsonBlob["headers"]
             populateTableFromObjectArray(tableElement, columnTitles, arrayObject)
@@ -266,7 +266,7 @@
             const jsonTableDisplay = document.querySelector("#headers-table")
 
             // for each json object, add a new column
-            const tableElementOrder = ["name", "type", "example", "short-description", "long-description"]
+            const tableElementOrder = ["name", "type", "description", "link"]
 
             populateTableFromObjectArray(jsonTableDisplay, tableElementOrder, jsonHeaders)
 
