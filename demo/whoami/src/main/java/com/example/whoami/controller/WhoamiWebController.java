@@ -16,21 +16,13 @@ import java.util.List;
 @Controller
 @AllArgsConstructor
 @Tag(name = "Whoami-Web-Controller",
-     description = "Endpoints for sending metadata back to a client describing their request.")
+     description = "Endpoints that return HTML with content describing the client's request.")
 public class WhoamiWebController {
 
     private WhoamiService whoamiService;
 
     private List<HeaderSpec> headerSpecs;
 
-    /**
-     * This endpoint displays metadata describing the users request
-     * back to user in the form of an html file.
-     *
-     * @param model contains the html template attributes.
-     * @param request the http request received from the user.
-     * @return the formatted html template with the users' metadata displayed in json.
-     */
     @Operation(summary = "Displays metadata describing the users request in html.")
     @GetMapping("/whoami-json-display/**")
     public String whoamiHtml(Model model, HttpServletRequest request) {
