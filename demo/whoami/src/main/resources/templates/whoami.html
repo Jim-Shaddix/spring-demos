@@ -238,6 +238,14 @@
 
     <script id="content-load-script" th:inline="javascript">
 
+        function convertLink(link) {
+            let aElem = document.createElement("a")
+            aElem.setAttribute("href", link)
+            aElem.innerText = "link"
+            aElem.setAttribute("target", "_blank")
+            return aElem;
+        }
+
         function setTableFromKeyValueObject(divElement, columnTitles, keyValueObject) {
             divElement.style.display = "block";
             populateTableFromKeyValuePairs(divElement.querySelector("table"), columnTitles, keyValueObject)
@@ -256,8 +264,8 @@
             headerTableDiv.style.display = "block";
             let tableElement = document.querySelector("#header-table")
             let columnTitles = ["name", "value", "type", "description", "link"]
-            //let columnWidths = ["10%", "20%", "15%", "35", "20"]
             let arrayObject = jsonBlob["headers"]
+            arrayObject.forEach((headerObj) => headerObj["link"] = convertLink(headerObj["link"]))
             populateTableFromObjectArray(tableElement, columnTitles, arrayObject)
         }
 
@@ -265,6 +273,7 @@
 
             const jsonTableDisplay = document.querySelector("#headers-table")
 
+            jsonHeaders.forEach((obj) => obj["link"] = convertLink(obj["link"]))
             // for each json object, add a new column
             const tableElementOrder = ["name", "type", "description", "link"]
 

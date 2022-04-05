@@ -1,4 +1,8 @@
 
+function isElement(element) {
+    return element instanceof Element || element instanceof HTMLDocument;
+}
+
 /**
  * Sets the first row (the title row) of a table.
  *
@@ -33,7 +37,11 @@ function appendColumn(row, value) {
     if (value === null) {
         value = "null"
     }
-    newCol.innerHTML = value
+    if (isElement(value)) {
+        newCol.appendChild(value)
+    } else {
+        newCol.innerHTML = value
+    }
     row.appendChild(newCol)
 }
 
