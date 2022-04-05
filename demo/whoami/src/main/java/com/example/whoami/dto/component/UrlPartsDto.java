@@ -18,7 +18,7 @@ public class UrlPartsDto extends BasicDescriptionDto {
     @JsonProperty("request-method")
     private String requestMethod;
 
-    @Schema(description = "The full url used for acquiring this resource.")
+    @Schema(description = "The full url used for acquiring this resource (without the query string).")
     @JsonProperty("request-url")
     private String requestUrl;
 
@@ -38,6 +38,12 @@ public class UrlPartsDto extends BasicDescriptionDto {
             "listened on, and that received this request.")
     @JsonProperty("server-port")
     private String serverPort;
+
+    @Schema(description = "Server Host and Port that uniquely identifies" +
+            "the application the client is requesting a response from.")
+    @JsonProperty("server-socket")
+    private String serverSocket;
+
 
     @Schema(description = "The path that was used to specify the " +
             "resource the client wanted to interact with.")

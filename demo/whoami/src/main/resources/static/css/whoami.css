@@ -5,6 +5,7 @@ body {
 
 .navbar-brand {
     color: cyan !important;
+    padding-left: 10px;
 }
 
 #whoami-title {
