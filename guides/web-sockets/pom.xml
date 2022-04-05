@@ -15,9 +15,7 @@
 
     <name>web-sockets</name>
     <description>web-sockets</description>
-    <properties>
-        <java.version>11</java.version>
-    </properties>
+
     <dependencies>
 
         <dependency>
