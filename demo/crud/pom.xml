@@ -16,10 +16,6 @@
     <name>crud</name>
     <description>crud</description>
 
-    <properties>
-        <java.version>17</java.version>
-    </properties>
-
     <dependencies>
 
         <dependency>
