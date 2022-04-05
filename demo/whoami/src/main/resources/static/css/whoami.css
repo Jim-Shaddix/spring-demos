@@ -41,6 +41,10 @@ pre {
     display: none;
 }
 
+#whoami-table h5 {
+    color: cyan;
+}
+
 #content table {
     color: white;
 }

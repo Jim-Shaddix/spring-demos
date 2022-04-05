@@ -1,4 +1,7 @@
-
+/**
+ * @param element potential dom element.
+ * @returns {boolean} indicates whether "element" can be treated as a dom element.
+ */
 function isElement(element) {
     return element instanceof Element || element instanceof HTMLDocument;
 }
@@ -27,9 +30,10 @@ function setTitle(tableElement, columnTitles, columnWidths) {
 }
 
 /**
- * append a column to a row
+ * Append a column to a row. This function is capable of appending an element,
+ * whether the element is a plain string, or a html dom element.
  *
- * @param row row that will have a column appended to it
+ * @param row that will have a column appended to it
  * @param value value to set in the column
  */
 function appendColumn(row, value) {
