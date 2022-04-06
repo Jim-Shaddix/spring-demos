@@ -63,7 +63,7 @@ public class WhoamiService {
 
             RequestBodyDto requestBodyDto = requestParser.parseRequestBody(request);
 
-            if (requestBodyDto.getContent() == null ) {
+            if (requestBodyDto.getContent() == null) {
                 requestBodyDto.setContent("empty-body");
             }
 

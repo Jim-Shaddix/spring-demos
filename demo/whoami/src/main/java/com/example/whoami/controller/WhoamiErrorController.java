@@ -30,12 +30,10 @@ public class WhoamiErrorController implements ErrorController {
 
             int statusCode = Integer.parseInt(status.toString());
 
-            if(statusCode == HttpStatus.NOT_FOUND.value()) {
+            if (statusCode == HttpStatus.NOT_FOUND.value()) {
                 log.warn("404 Error received from URI: " + request.getRequestURI() + ".");
                 return "error/404";
-            }
-
-            else if(statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
+            } else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
                 log.warn("500 Error received from URI: " + request.getRequestURI() + ".");
                 return "error/5xx";
             }

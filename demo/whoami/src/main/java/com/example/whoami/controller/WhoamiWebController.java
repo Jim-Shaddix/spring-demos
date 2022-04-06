@@ -16,7 +16,7 @@ import java.util.List;
 @Controller
 @AllArgsConstructor
 @Tag(name = "Whoami-Web-Controller",
-     description = "Endpoints that return HTML with content describing the client's request.")
+        description = "Endpoints that return HTML with content describing the client's request.")
 public class WhoamiWebController {
 
     private WhoamiService whoamiService;

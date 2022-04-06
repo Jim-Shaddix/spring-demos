@@ -11,7 +11,7 @@ import java.util.stream.LongStream;
  * This class contains a single public method that
  * is utilized for generating a response for the /data
  * endpoint.
- *
+ * <p>
  * NOTE: Currently the approach I am taking in this class is imperfect.
  * The method generatePayloadFromUnitSpec would need to be configured to allow
  * for Long StringBuilder sizes in order to support gb sized payloads, however,
@@ -81,8 +81,8 @@ public class SizeSpecifiedPayloadService {
         SizeUnitSpecification sizeUnitSpec = new SizeUnitSpecification();
 
         // parsing units from sizeUnitString
-        for (String unit: validUnits) {
-            if(sizeUnitString.endsWith(unit)) {
+        for (String unit : validUnits) {
+            if (sizeUnitString.endsWith(unit)) {
                 sizeUnitSpec.unit = unit;
                 break;
             }
@@ -96,7 +96,7 @@ public class SizeSpecifiedPayloadService {
         String sizeString = sizeUnitString.substring(0, sizeUnitString.length() - sizeUnitSpec.unit.length());
         try {
             sizeUnitSpec.byteSize = Long.parseLong(sizeString);
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             throw new InvalidSizeSpecException(sizeUnitString, "Failed to find a valid SIZE. ");
         }
 

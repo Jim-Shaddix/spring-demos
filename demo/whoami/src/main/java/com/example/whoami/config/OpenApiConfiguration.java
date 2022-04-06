@@ -25,4 +25,5 @@ import io.swagger.v3.oas.annotations.servers.Server;
                 @Server(url = "http://127.0.0.1:8080", description = "running local jar")
         }
 )
-public class OpenApiConfiguration {}
+public class OpenApiConfiguration {
+}

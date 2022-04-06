@@ -32,6 +32,7 @@ public class ServerMetadataParser {
      * then method will return the containerID.
      * The following post gives details on how to acquire a hostname
      * in java: https://stackoverflow.com/questions/7348711/recommended-way-to-get-hostname-in-java
+     *
      * @return hostname of the machine running this application.
      */
     private String parseHostName() {
@@ -58,7 +59,8 @@ public class ServerMetadataParser {
             if (inetHost.length() != 0) {
                 return inetHost;
             }
-        } catch (UnknownHostException e) {}
+        } catch (UnknownHostException e) {
+        }
 
         return null;
     }

@@ -19,7 +19,7 @@ public class BasicDtoDescriptionParser {
     private Map<String, String> parseDtoDescriptionFromAnnotations(Class<?> clazz) {
         Map<String, String> fieldNamesToDescriptions = new HashMap<>();
         Field[] fields = clazz.getDeclaredFields();
-        for (Field field: fields) {
+        for (Field field : fields) {
             if (field.getName().equals("description")) {
                 continue;
             }

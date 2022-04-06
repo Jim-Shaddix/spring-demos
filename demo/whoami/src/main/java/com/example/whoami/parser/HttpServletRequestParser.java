@@ -33,10 +33,10 @@ public class HttpServletRequestParser {
 
         // find spec for the request dto
         Optional<HeaderSpec> optionalSpec = headerSpecs.stream()
-            .filter(spec -> {
-                return spec.getName()
-                        .equalsIgnoreCase(requestHeaderDto.getName());
-            }).findAny();
+                .filter(spec -> {
+                    return spec.getName()
+                            .equalsIgnoreCase(requestHeaderDto.getName());
+                }).findAny();
 
         // if the spec was found, then set the fields in the DTO.
         if (optionalSpec.isPresent()) {
