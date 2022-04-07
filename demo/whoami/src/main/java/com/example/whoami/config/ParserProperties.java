@@ -52,5 +52,11 @@ public class ParserProperties {
      */
     private boolean hostname = true;
 
+    /**
+     * Determines if the GeoIP services will be utilized for sending location data
+     * back to the user.
+     */
+    private boolean geoIp = false;
+
 }
 

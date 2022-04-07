@@ -14,5 +14,5 @@ public class IoProperties {
     /**
      * Location of the header specifications.
      */
-    String httpHeaderSpecLocation;
+    private String httpHeaderSpecLocation;
 }

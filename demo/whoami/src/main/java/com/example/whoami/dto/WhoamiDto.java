@@ -1,5 +1,6 @@
 package com.example.whoami.dto;
 
+import com.example.whoami.dto.component.GeolocationDto;
 import com.example.whoami.dto.component.*;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -33,4 +34,6 @@ public class WhoamiDto {
     @JsonProperty("server-info")
     private ServerMetadataDto serverMetadataDto;
 
+    @JsonProperty("geolocation")
+    private GeolocationDto geolocationDto;
 }

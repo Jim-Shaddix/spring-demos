@@ -1,5 +1,6 @@
 package com.example.whoami.service;
 
+import com.example.whoami.config.GeoIpProperties;
 import com.example.whoami.config.ParserProperties;
 import com.example.whoami.dto.WhoamiDto;
 import com.example.whoami.dto.component.RequestBodyDto;
@@ -27,6 +28,8 @@ public class WhoamiService {
     private final HttpServletRequestParser requestParser;
     private final ServerMetadataParser serverMetadataParser;
     private final ParserProperties parserProperties;
+    private final GeoIpService geoIpService;
+    private final GeoIpProperties geoIpProperties;
 
     /**
      * Parses metadata content from a http request into the following sections.
@@ -73,6 +76,15 @@ public class WhoamiService {
 
         if (parserProperties.isHostname()) {
             whoamiDto.setServerMetadataDto(serverMetadataParser.parseServerMetaData());
+        }
+
+        if (parserProperties.isGeoIp()) {
+            if (geoIpProperties.getApiKey() != null) {
+                whoamiDto.setGeolocationDto(geoIpService.getGeoIp(request.getRemoteAddr()));
+            } else {
+                log.warning("Parser properties are set to parse the geolocation, but NO geolocation API-key could be found. " +
+                        "Application is skipping parsing Geo Location data.");
+            }
         }
 
         return whoamiDto;
