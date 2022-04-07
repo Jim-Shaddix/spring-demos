@@ -262,7 +262,7 @@
             setTableFromKeyValueObject(document.querySelector("#remote-info-table-div"),   ["Client Info",  "Value"],          jsonBlob["remote-info"])
             setTableFromKeyValueObject(document.querySelector("#authentication-table-div"),["auth-info", "value"],             jsonBlob["auth"])
             setTableFromKeyValueObject(document.querySelector("#server-info-table-div"),   ["server-info", "value"],           jsonBlob["server-info"])
-            //setTableFromKeyValueObject(document.querySelector("#server-info-table-div"),   ["geolocation-info", "value"],      jsonBlob["geolocation"])
+            setTableFromKeyValueObject(document.querySelector("#geolocation-table-div"),   ["geolocation-info", "value"],      jsonBlob["geolocation"])
         }
 
         function displayTableFromArrayObject() {

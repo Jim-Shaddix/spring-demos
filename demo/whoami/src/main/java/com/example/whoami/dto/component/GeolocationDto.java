@@ -10,7 +10,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@Schema(description = "GeoIP data from https://api.freegeoip.app/json/8.8.8.8?apikey=d6c6edf0-b4ff-11ec-aea3-b7c9e74c67cb.")
+@Schema(description = "GeoIP data from https://api.freegeoip.app/json/8.8.8.8?apikey=xxx")
 public class GeolocationDto extends BasicDescriptionDto {
 
     @Schema(description = "Clients IP address used for establishing a connection to this service")
