@@ -27,14 +27,11 @@ public class GeoIpService {
 
         WebClient webClient = WebClient.create();
 
-        // using URI Builder instead of template (basically the same thing)
-        String exampleIp = "52.24.243.63";
-
         WebClient.ResponseSpec responseSpec = webClient.get()
                 .uri(uriBuilder -> uriBuilder
                     .scheme("https")
                     .host("api.freegeoip.app")
-                    .pathSegment("json", exampleIp)
+                    .pathSegment("json", ip)
                     .queryParam("apikey", apiKey)
                     .build()
                 )
