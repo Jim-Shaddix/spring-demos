@@ -1,6 +1,5 @@
 package com.example.whoami.service;
 
-import com.example.whoami.dto.HeaderSpec;
 import com.example.whoami.dto.component.GeolocationDto;
 import com.example.whoami.config.GeoIpProperties;
 import com.example.whoami.dto.description.BasicDescriptionDto;
@@ -8,14 +7,11 @@ import com.example.whoami.exception.InvalidApiKey;
 import com.example.whoami.parser.BasicDtoDescriptionParser;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
-import java.util.List;
 import java.util.Map;
-import java.util.function.Predicate;
 
 @Service
 @AllArgsConstructor
@@ -37,7 +33,7 @@ public class GeoIpService {
      * @param ip address that you would like to gather geolocation information for.
      * @return geolocation information that pertains to the ip address passed in.
      */
-    public @Nullable GeolocationDto getGeoIp(String ip) {
+    public GeolocationDto getGeoIp(String ip) {
 
         String apiKey = geoIpProperties.getApiKey();
 
@@ -54,7 +50,6 @@ public class GeoIpService {
                 )
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve();
-
 
         String fmtErrMsg = "Geolocation API key appears to be invalid [API-Key=%s]. This appears to be the case, " +
                 "because a WebClientResponseException.Unauthorized exception was thrown when " +

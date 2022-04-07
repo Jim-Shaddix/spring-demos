@@ -302,7 +302,7 @@
             // duplicate object (this is one way to perform a deep copy)
             let prettyJsonBlob = JSON.parse(JSON.stringify(jsonBlob));
 
-            let elementsWithDescriptions = ["url-parts", "body", "remote-info", "auth", "server-info"]
+            let elementsWithDescriptions = ["url-parts", "body", "remote-info", "auth", "server-info", "geolocation"]
 
             // remove descriptions from elements
             for (let i = 0; i < elementsWithDescriptions.length; i++) {

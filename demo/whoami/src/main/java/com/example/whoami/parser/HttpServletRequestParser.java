@@ -129,14 +129,14 @@ public class HttpServletRequestParser {
         UrlPartsDto dto = new UrlPartsDto();
 
         dto.setRequestMethod(request.getMethod());
-        dto.setRequestUrl(String.valueOf(request.getRequestURL()));
+        dto.setQueryString(request.getQueryString());
+        dto.setRequestUrl(String.valueOf(request.getRequestURL()) + "?" + dto.getQueryString());
         dto.setScheme(request.getScheme());
         dto.setProtocol(request.getProtocol());
         dto.setServerHost(String.valueOf(request.getServerName()));
         dto.setServerPort(String.valueOf(request.getServerPort()));
         dto.setServerSocket(dto.getServerHost() + ":" + dto.getServerPort());
         dto.setPath(request.getServletPath());
-        dto.setQueryString(request.getQueryString());
 
         setDescription(dto);
         return dto;
