@@ -59,6 +59,11 @@
                 <table id="remote-info-table" class="table"></table>
             </div>
 
+            <div id="geolocation-table-div">
+                <h5>Geolocation</h5>
+                <table id="geolocation-table" class="table"></table>
+            </div>
+
             <div id="server-info-table-div">
                 <h5>Server Description</h5>
                 <table id="server-info-table" class="table"></table>
@@ -257,6 +262,7 @@
             setTableFromKeyValueObject(document.querySelector("#remote-info-table-div"),   ["Client Info",  "Value"],          jsonBlob["remote-info"])
             setTableFromKeyValueObject(document.querySelector("#authentication-table-div"),["auth-info", "value"],             jsonBlob["auth"])
             setTableFromKeyValueObject(document.querySelector("#server-info-table-div"),   ["server-info", "value"],           jsonBlob["server-info"])
+            //setTableFromKeyValueObject(document.querySelector("#server-info-table-div"),   ["geolocation-info", "value"],      jsonBlob["geolocation"])
         }
 
         function displayTableFromArrayObject() {
@@ -264,7 +270,7 @@
             headerTableDiv.style.display = "block";
             let tableElement = document.querySelector("#header-table")
             let columnTitles = ["name", "value", "type", "description", "link"]
-            let arrayObject = jsonBlob["headers"]
+            let arrayObject = JSON.parse(JSON.stringify(jsonBlob["headers"]));
             arrayObject.forEach((headerObj) => headerObj["link"] = convertLink(headerObj["link"]))
             populateTableFromObjectArray(tableElement, columnTitles, arrayObject)
         }
