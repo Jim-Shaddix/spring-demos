@@ -4,8 +4,8 @@ public class InvalidApiKey extends RuntimeException {
 
     private String apiKey;
 
-    public InvalidApiKey(String apiKey, String msg) {
-        super(msg);
+    public InvalidApiKey(String apiKey, String msg, Exception e) {
+        super(msg, e);
         this.apiKey = apiKey;
     }
 

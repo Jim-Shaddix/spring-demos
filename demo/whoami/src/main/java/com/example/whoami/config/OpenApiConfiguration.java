@@ -16,13 +16,15 @@ import io.swagger.v3.oas.annotations.servers.Server;
                 ),
                 license = @License(
                         name = "MIT Licence",
-                        url = "https://github.com/Jim-Shaddix/spring-demos/tree/main/demo/whoami")),
+                        url = "https://github.com/Jim-Shaddix/spring-demos/tree/main/demo/whoami")
+        ),
         servers = {
-                @Server(url = "http://whoamiee:443", description = "running production build"),
-                @Server(url = "http://localhost:80", description = "running local docker image"),
-                @Server(url = "http://127.0.0.1:80", description = "running local docker image"),
-                @Server(url = "http://localhost:8080", description = "running local jar"),
-                @Server(url = "http://127.0.0.1:8080", description = "running local jar")
+                @Server(url = "http://whoamiee:443", description = "Production - HTTPS"),
+                @Server(url = "http://whoamiee:80", description = "Production - HTTP"),
+                @Server(url = "http://localhost:80", description = "Local - Docker Image"),
+                @Server(url = "http://127.0.0.1:80", description = "Local - Docker Image"),
+                @Server(url = "http://localhost:8080", description = "Local - Jar"),
+                @Server(url = "http://127.0.0.1:8080", description = "Local - Jar")
         }
 )
 public class OpenApiConfiguration {

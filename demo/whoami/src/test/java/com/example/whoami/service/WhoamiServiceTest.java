@@ -1,5 +1,6 @@
 package com.example.whoami.service;
 
+import com.example.whoami.api.IpGeolocationApi;
 import com.example.whoami.config.GeoIpProperties;
 import com.example.whoami.config.ParserProperties;
 import com.example.whoami.dto.WhoamiDto;
@@ -25,7 +26,7 @@ class WhoamiServiceTest {
     private static ParserProperties parserFlagsAllTrue;
     private static ParserProperties parserFlagsAllFalse;
     private static ServerMetadataParser serverMetadataParser;
-    private static GeoIpService geoIpService;
+    private static IpGeolocationApi geoIpService;
     private static GeoIpProperties geoIpProperties;
 
     public static int requestCount = 0;
@@ -61,7 +62,7 @@ class WhoamiServiceTest {
         when(requestParser.parseRequestBody(any())).thenReturn(new RequestBodyDto());
 
         // setup geo ip mock
-        geoIpService = mock(GeoIpService.class);
+        geoIpService = mock(IpGeolocationApi.class);
 
         // setup geo ip properties mock
         geoIpProperties = mock(GeoIpProperties.class);

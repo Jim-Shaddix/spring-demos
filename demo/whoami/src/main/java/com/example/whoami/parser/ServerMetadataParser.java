@@ -2,7 +2,8 @@ package com.example.whoami.parser;
 
 import com.example.whoami.dto.component.ServerMetadataDto;
 import com.example.whoami.dto.description.BasicDescriptionDto;
-import lombok.AllArgsConstructor;
+import com.example.whoami.service.IpDescriptionService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.net.InetAddress;
@@ -14,16 +15,33 @@ import java.util.Map;
  * that is running this application.
  */
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ServerMetadataParser {
 
-    private BasicDtoDescriptionParser basicDtoDescriptionParser;
+    private final BasicDtoDescriptionParser basicDtoDescriptionParser;
 
+    private final IpDescriptionService ipDescriptionService;
+
+    private static final String LOCALHOST = "127.0.0.1";
+
+    private ServerMetadataDto serverMetadataDto;
+
+    /**
+     * lazily evaluates serverMetaDataDto
+     */
     public ServerMetadataDto parseServerMetaData() {
-        ServerMetadataDto serverMetadataDto = new ServerMetadataDto();
-        serverMetadataDto.setHostname(parseHostName());
-        setDescription(serverMetadataDto);
+        if (serverMetadataDto == null) {
+            setServerMetaDataDto();
+        }
         return serverMetadataDto;
+    }
+
+    private void setServerMetaDataDto() {
+        serverMetadataDto = new ServerMetadataDto();
+        serverMetadataDto.setDeviceHostName(parseDeviceHostName());
+        serverMetadataDto.setHostIps(ipDescriptionService.parseIps(LOCALHOST));
+        serverMetadataDto.setHostnames(ipDescriptionService.parseHostNames(LOCALHOST));
+        setDescription(serverMetadataDto);
     }
 
     /**
@@ -35,7 +53,7 @@ public class ServerMetadataParser {
      *
      * @return hostname of the machine running this application.
      */
-    private String parseHostName() {
+    private String parseDeviceHostName() {
 
         String hostname;
 

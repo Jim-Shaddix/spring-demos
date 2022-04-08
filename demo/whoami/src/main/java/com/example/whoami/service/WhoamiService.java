@@ -1,10 +1,9 @@
 package com.example.whoami.service;
 
+import com.example.whoami.api.IpGeolocationApi;
 import com.example.whoami.config.GeoIpProperties;
 import com.example.whoami.config.ParserProperties;
 import com.example.whoami.dto.WhoamiDto;
-import com.example.whoami.dto.component.RequestBodyDto;
-import com.example.whoami.exception.InvalidApiKey;
 import com.example.whoami.parser.HttpServletRequestParser;
 import com.example.whoami.parser.ServerMetadataParser;
 import lombok.AllArgsConstructor;
@@ -29,7 +28,7 @@ public class WhoamiService {
     private final HttpServletRequestParser requestParser;
     private final ServerMetadataParser serverMetadataParser;
     private final ParserProperties parserProperties;
-    private final GeoIpService geoIpService;
+    private final IpGeolocationApi ipGeolocationApi;
     private final GeoIpProperties geoIpProperties;
 
     /**
@@ -64,15 +63,7 @@ public class WhoamiService {
         }
 
         if (parserProperties.isBody()) {
-
-            RequestBodyDto requestBodyDto = requestParser.parseRequestBody(request);
-
-            if (requestBodyDto.getContent() == null) {
-                requestBodyDto.setContent("empty-body");
-            }
-
-            whoamiDto.setBody(requestBodyDto);
-
+            whoamiDto.setBody(requestParser.parseRequestBody(request));
         }
 
         if (parserProperties.isHostname()) {
@@ -80,17 +71,7 @@ public class WhoamiService {
         }
 
         if (parserProperties.isGeoIp()) {
-            if (!geoIpProperties.getApiKey().equals("empty")) {
-                try {
-                    whoamiDto.setGeolocationDto(geoIpService.getGeoIp(request.getRemoteAddr()));
-                } catch (InvalidApiKey e) {
-                    log.warning(e.getMessage());
-                    log.info("Skipping setting geolocation properties, because the apikey appears to be invalid.");
-                }
-            } else {
-                log.warning("Parser properties are set to parse the geolocation, but NO geolocation API-key could be found. " +
-                        "Application is skipping parsing Geo Location data.");
-            }
+            whoamiDto.setGeolocationDto(ipGeolocationApi.getGeoIp(request.getRemoteAddr()));
         }
 
         return whoamiDto;

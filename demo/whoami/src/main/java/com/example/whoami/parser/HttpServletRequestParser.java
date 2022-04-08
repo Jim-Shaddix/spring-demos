@@ -3,6 +3,7 @@ package com.example.whoami.parser;
 import com.example.whoami.dto.HeaderSpec;
 import com.example.whoami.dto.component.*;
 import com.example.whoami.dto.description.BasicDescriptionDto;
+import com.example.whoami.service.IpDescriptionService;
 import lombok.AllArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,8 @@ import java.util.stream.Collectors;
 public class HttpServletRequestParser {
 
     private BasicDtoDescriptionParser basicDtoDescriptionParser;
+
+    private IpDescriptionService ipDescriptionService;
 
     private List<HeaderSpec> headerSpecs;
 
@@ -157,6 +160,7 @@ public class HttpServletRequestParser {
         dto.setRequestHost(request.getRemoteHost());
         dto.setRequestPort(String.valueOf(request.getRemotePort()));
         dto.setRequestSocket(dto.getRequestHost() + ":" + dto.getRequestPort());
+        dto.setRequestIpType(ipDescriptionService.parseIpType(request.getRemoteHost()));
 
         setDescription(dto);
         return dto;

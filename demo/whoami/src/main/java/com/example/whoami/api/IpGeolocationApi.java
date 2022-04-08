@@ -1,7 +1,7 @@
-package com.example.whoami.service;
+package com.example.whoami.api;
 
-import com.example.whoami.dto.component.GeolocationDto;
 import com.example.whoami.config.GeoIpProperties;
+import com.example.whoami.dto.component.GeolocationDto;
 import com.example.whoami.dto.description.BasicDescriptionDto;
 import com.example.whoami.exception.InvalidApiKey;
 import com.example.whoami.parser.BasicDtoDescriptionParser;
@@ -15,7 +15,7 @@ import java.util.Map;
 
 @Service
 @AllArgsConstructor
-public class GeoIpService {
+public class IpGeolocationApi {
 
     private final GeoIpProperties geoIpProperties;
 
@@ -42,11 +42,11 @@ public class GeoIpService {
         // setting up request
         WebClient.ResponseSpec responseSpec = webClient.get()
                 .uri(uriBuilder -> uriBuilder
-                    .scheme("https")
-                    .host("api.freegeoip.app")
-                    .pathSegment("json", ip)
-                    .queryParam("apikey", apiKey)
-                    .build()
+                        .scheme("https")
+                        .host("api.freegeoip.app")
+                        .pathSegment("json", ip)
+                        .queryParam("apikey", apiKey)
+                        .build()
                 )
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve();
@@ -59,9 +59,11 @@ public class GeoIpService {
         // setting blocking / error handling
         GeolocationDto geolocationDto = responseSpec.bodyToMono(GeolocationDto.class)
                 .doOnError(
-                        WebClientResponseException.Unauthorized.class, (val) -> {
-                            throw new InvalidApiKey(apiKey, errMsg);
-                        })
+                        WebClientResponseException.Unauthorized.class,
+                        (exception) -> {
+                            throw new InvalidApiKey(apiKey, errMsg, exception);
+                        }
+                )
                 .block();
 
         setDescription(geolocationDto);

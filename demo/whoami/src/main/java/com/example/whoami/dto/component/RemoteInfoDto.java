@@ -29,4 +29,8 @@ public class RemoteInfoDto extends BasicDescriptionDto {
     @JsonProperty("request-socket")
     private String requestSocket;
 
+    @Schema(description = "Either ipv4 or ipv6")
+    @JsonProperty("request-ip-type")
+    private String requestIpType;
+
 }

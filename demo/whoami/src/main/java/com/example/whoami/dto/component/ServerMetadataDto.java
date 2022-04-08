@@ -15,7 +15,14 @@ public class ServerMetadataDto extends BasicDescriptionDto {
 
     @Schema(description = "hostname of the server, or the containerID if this " +
             "image is running in a docker image.")
-    @JsonProperty("hostname")
-    private String hostname;
+    @JsonProperty("device-hostname")
+    private String deviceHostName;
 
+    @Schema(description = "ip addresses that can be used for contacting the whoami server")
+    @JsonProperty("all-ips")
+    private String hostIps;
+
+    @Schema(description = "hostnames that can be used for contacting the whoami server")
+    @JsonProperty("all-hostnames")
+    private String hostnames;
 }
