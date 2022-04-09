@@ -2,7 +2,6 @@ package com.example.whoami.parser;
 
 import com.example.whoami.dto.HeaderSpec;
 import com.example.whoami.dto.component.*;
-import com.example.whoami.dto.description.BasicDescriptionDto;
 import com.example.whoami.service.IpDescriptionService;
 import lombok.AllArgsConstructor;
 import org.springframework.lang.NonNull;

@@ -81,7 +81,7 @@ public class IpDescriptionService {
             throw new RuntimeException("Unexpected error occurred when parsing remote users hostname/ip information");
         }
 
-        return null;
+        return ipType;
     }
 
     public GeolocationDto getGeolocation(String ip) {
