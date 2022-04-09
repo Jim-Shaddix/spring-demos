@@ -26,12 +26,6 @@ public class HttpServletRequestParser {
 
     private List<HeaderSpec> headerSpecs;
 
-    private void setDescription(BasicDescriptionDto basicDescriptionDto) {
-        Map<String, String> map = basicDtoDescriptionParser
-                .parseDtoDescription(basicDescriptionDto.getClass());
-        basicDescriptionDto.setDefinition(map);
-    }
-
     private void setHeaderDescription(RequestHeaderDto requestHeaderDto) {
 
         // find spec for the request dto
@@ -95,7 +89,7 @@ public class HttpServletRequestParser {
      */
     public RequestBodyDto parseRequestBody(@NonNull HttpServletRequest request) {
 
-        RequestBodyDto requestBodyDto = new RequestBodyDto();
+        RequestBodyDto dto = new RequestBodyDto();
 
         try {
 
@@ -111,14 +105,14 @@ public class HttpServletRequestParser {
                 requestBody = null;
             }
 
-            requestBodyDto.setContent(requestBody);
+            dto.setContent(requestBody);
 
         } catch (IOException e) {
             throw new RuntimeException("Failed ot parse the request body.", e);
         }
 
-        setDescription(requestBodyDto);
-        return requestBodyDto;
+        basicDtoDescriptionParser.setDescription(dto);
+        return dto;
     }
 
     /**
@@ -141,7 +135,7 @@ public class HttpServletRequestParser {
         dto.setServerSocket(dto.getServerHost() + ":" + dto.getServerPort());
         dto.setPath(request.getServletPath());
 
-        setDescription(dto);
+        basicDtoDescriptionParser.setDescription(dto);
         return dto;
     }
 
@@ -157,12 +151,12 @@ public class HttpServletRequestParser {
         RemoteInfoDto dto = new RemoteInfoDto();
 
         dto.setRequestAddress(request.getRemoteAddr());
-        dto.setRequestHost(request.getRemoteHost());
+        dto.setRequestHost(ipDescriptionService.parseHostNames(request.getRemoteAddr()));
         dto.setRequestPort(String.valueOf(request.getRemotePort()));
         dto.setRequestSocket(dto.getRequestHost() + ":" + dto.getRequestPort());
         dto.setRequestIpType(ipDescriptionService.parseIpType(request.getRemoteHost()));
 
-        setDescription(dto);
+        basicDtoDescriptionParser.setDescription(dto);
         return dto;
     }
 
@@ -180,7 +174,7 @@ public class HttpServletRequestParser {
         dto.setRemoteUser(request.getRemoteUser());
         dto.setUserPrincipal(String.valueOf(request.getUserPrincipal()));
 
-        setDescription(dto);
+        basicDtoDescriptionParser.setDescription(dto);
         return dto;
     }
 

@@ -56,4 +56,5 @@ public class GeolocationDto extends BasicDescriptionDto {
     @Schema(description = "metro code associated with the clients ip")
     @JsonProperty("metro_code")
     private float metroCode;
+
 }

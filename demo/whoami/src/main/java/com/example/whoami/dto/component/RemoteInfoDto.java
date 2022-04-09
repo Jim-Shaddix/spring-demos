@@ -25,7 +25,7 @@ public class RemoteInfoDto extends BasicDescriptionDto {
     @JsonProperty("request-port")
     private String requestPort;
 
-    @Schema(description = "Request Host and Port that uniquely identifies the application on the last proxy that forwarded the clients request.")
+    @Schema(description = "Request Host/Address and Port that uniquely identifies the application on the last proxy that forwarded the clients request.")
     @JsonProperty("request-socket")
     private String requestSocket;
 

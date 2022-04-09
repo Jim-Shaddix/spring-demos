@@ -38,4 +38,9 @@ public class BasicDtoDescriptionParser {
         return dtoDescriptions.get(clazz);
     }
 
+    public void setDescription(BasicDescriptionDto basicDescriptionDto) {
+        Map<String, String> map = parseDtoDescription(basicDescriptionDto.getClass());
+        basicDescriptionDto.setDefinition(map);
+    }
+
 }

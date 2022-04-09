@@ -28,6 +28,7 @@ class WhoamiServiceTest {
     private static ServerMetadataParser serverMetadataParser;
     private static IpGeolocationApi geoIpService;
     private static GeoIpProperties geoIpProperties;
+    private static IpDescriptionService ipDescriptionService;
 
     public static int requestCount = 0;
 
@@ -70,6 +71,10 @@ class WhoamiServiceTest {
 
         serverMetadataParser = mock(ServerMetadataParser.class);
         when(serverMetadataParser.parseServerMetaData()).thenReturn(new ServerMetadataDto());
+
+        // setup mock ip description servie
+        ipDescriptionService = mock(IpDescriptionService.class);
+
     }
 
     /**
@@ -80,7 +85,7 @@ class WhoamiServiceTest {
     void parseRequestMetadataAllTrueFlags() {
 
         // setup WhoamiService for test
-        WhoamiService whoamiService = new WhoamiService(requestParser,serverMetadataParser, parserFlagsAllTrue, geoIpService, geoIpProperties);
+        WhoamiService whoamiService = new WhoamiService(requestParser,serverMetadataParser, parserFlagsAllTrue, ipDescriptionService);
 
         WhoamiDto whoamiDto = whoamiService.parseRequestMetadata(null);
         verify(requestParser).parseRequestHeaders(any());
@@ -104,7 +109,7 @@ class WhoamiServiceTest {
     void parseRequestMetadataAllFalseFlags() {
 
         // setup WhoamiService for test
-        WhoamiService whoamiService = new WhoamiService(requestParser, serverMetadataParser, parserFlagsAllFalse, geoIpService, geoIpProperties);
+        WhoamiService whoamiService = new WhoamiService(requestParser, serverMetadataParser, parserFlagsAllFalse, ipDescriptionService);
 
         WhoamiDto whoamiDto = whoamiService.parseRequestMetadata(null);
         assertNull(whoamiDto.getHeaders());
@@ -121,7 +126,7 @@ class WhoamiServiceTest {
     void logRequest() {
 
         // setup WhoamiService for test
-        WhoamiService whoamiService = new WhoamiService(requestParser, serverMetadataParser, parserFlagsAllTrue, geoIpService, geoIpProperties);
+        WhoamiService whoamiService = new WhoamiService(requestParser, serverMetadataParser, parserFlagsAllTrue, ipDescriptionService);
 
         // reset static count in whoami service, so we know its expected result.
         AtomicLong numRequests = (AtomicLong) getField(whoamiService, "numberOfRequestsProcessed");

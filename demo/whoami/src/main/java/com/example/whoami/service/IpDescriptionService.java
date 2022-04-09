@@ -4,6 +4,7 @@ import com.example.whoami.api.IpGeolocationApi;
 import com.example.whoami.config.GeoIpProperties;
 import com.example.whoami.dto.component.GeolocationDto;
 import com.example.whoami.exception.InvalidApiKey;
+import com.example.whoami.parser.BasicDtoDescriptionParser;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
@@ -22,13 +23,13 @@ public class IpDescriptionService {
 
     private final IpGeolocationApi ipGeolocationApi;
     private final GeoIpProperties geoIpProperties;
+    private final BasicDtoDescriptionParser basicDtoDescriptionParser;
 
-    public InetAddress[] getAddresses(String host) {
+    private InetAddress[] getAddresses(String host) {
 
         InetAddress[] addresses;
 
         try {
-
             InetAddress address = InetAddress.getByName(host);
             addresses = InetAddress.getAllByName(host);
         } catch (UnknownHostException e) {
@@ -54,24 +55,6 @@ public class IpDescriptionService {
         return Arrays.stream(getAddresses(host))
                 .map(InetAddress::getHostName)
                 .collect(Collectors.joining(","));
-    }
-
-    public GeolocationDto getGeoIp(String ip) {
-
-        GeolocationDto geolocationDto = null;
-
-        if (!geoIpProperties.getApiKey().equals("empty")) {
-            try {
-                geolocationDto = ipGeolocationApi.getGeoIp(ip);
-            } catch (InvalidApiKey e) {
-                log.warning(e.getMessage());
-                log.info("Skipping setting geolocation properties, because the apikey appears to be invalid.");
-            }
-        } else {
-            log.warning("Parser properties are set to parse the geolocation, but NO geolocation API-key could be found. " +
-                    "Application is skipping parsing Geo Location data.");
-        }
-        return geolocationDto;
     }
 
     /**
@@ -100,4 +83,38 @@ public class IpDescriptionService {
 
         return null;
     }
+
+    public GeolocationDto getGeolocation(String ip) {
+        if (ip.equals("127.0.0.1") || ip.equals("localhost")) {
+            return getGeolocationForLocalHost();
+        } else {
+            return getGeolocationForNonLocalHost(ip);
+        }
+    }
+
+    private GeolocationDto getGeolocationForLocalHost() {
+        GeolocationDto geolocationDto = new GeolocationDto();
+        basicDtoDescriptionParser.setDescription(geolocationDto);
+        return geolocationDto;
+    }
+
+    private GeolocationDto getGeolocationForNonLocalHost(String ip) {
+
+        GeolocationDto geolocationDto = new GeolocationDto();
+
+        if (!geoIpProperties.getApiKey().equals("empty")) {
+            try {
+                geolocationDto = ipGeolocationApi.getGeolocation(ip);
+            } catch (InvalidApiKey e) {
+                log.warning(e.getMessage());
+                log.info("Skipping setting geolocation properties, because the apikey appears to be invalid.");
+            }
+        } else {
+            log.warning("Parser properties are set to parse the geolocation, but NO geolocation API-key could be found. " +
+                    "Application is skipping parsing Geo Location data.");
+        }
+
+        return geolocationDto;
+    }
+
 }

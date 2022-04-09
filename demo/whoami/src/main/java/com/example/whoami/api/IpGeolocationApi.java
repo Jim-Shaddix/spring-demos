@@ -33,7 +33,7 @@ public class IpGeolocationApi {
      * @param ip address that you would like to gather geolocation information for.
      * @return geolocation information that pertains to the ip address passed in.
      */
-    public GeolocationDto getGeoIp(String ip) {
+    public GeolocationDto getGeolocation(String ip) {
 
         String apiKey = geoIpProperties.getApiKey();
 

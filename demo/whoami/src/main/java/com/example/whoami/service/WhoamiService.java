@@ -28,8 +28,7 @@ public class WhoamiService {
     private final HttpServletRequestParser requestParser;
     private final ServerMetadataParser serverMetadataParser;
     private final ParserProperties parserProperties;
-    private final IpGeolocationApi ipGeolocationApi;
-    private final GeoIpProperties geoIpProperties;
+    private final IpDescriptionService ipDescriptionService;
 
     /**
      * Parses metadata content from a http request into the following sections.
@@ -71,7 +70,7 @@ public class WhoamiService {
         }
 
         if (parserProperties.isGeoIp()) {
-            whoamiDto.setGeolocationDto(ipGeolocationApi.getGeoIp(request.getRemoteAddr()));
+            whoamiDto.setGeolocationDto(ipDescriptionService.getGeolocation(request.getRemoteAddr()));
         }
 
         return whoamiDto;
