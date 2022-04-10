@@ -19,9 +19,9 @@ import java.util.List;
         description = "Endpoints that return HTML with content describing the client's request.")
 public class WhoamiWebController {
 
-    private WhoamiService whoamiService;
+    private final WhoamiService whoamiService;
 
-    private List<HeaderSpec> headerSpecs;
+    private final List<HeaderSpec> headerSpecs;
 
     @Operation(summary = "Displays metadata describing the users request in html.")
     @GetMapping("/whoami-json-display/**")

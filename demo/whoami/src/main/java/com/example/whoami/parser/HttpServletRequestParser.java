@@ -19,31 +19,11 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class HttpServletRequestParser {
 
-    private BasicDtoDescriptionParser basicDtoDescriptionParser;
+    private final BasicDtoDescriptionParser basicDtoDescriptionParser;
 
-    private IpDescriptionService ipDescriptionService;
+    private final HeaderDtoDescriptionParser headerDtoDescriptionParser;
 
-    private List<HeaderSpec> headerSpecs;
-
-    private void setHeaderDescription(RequestHeaderDto requestHeaderDto) {
-
-        // find spec for the request dto
-        Optional<HeaderSpec> optionalSpec = headerSpecs.stream()
-                .filter(spec -> {
-                    return spec.getName()
-                            .equalsIgnoreCase(requestHeaderDto.getName());
-                }).findAny();
-
-        // if the spec was found, then set the fields in the DTO.
-        if (optionalSpec.isPresent()) {
-            HeaderSpec spec = optionalSpec.get();
-            requestHeaderDto.setType(String.valueOf(spec.getType()));
-            requestHeaderDto.setType(spec.getType());
-            requestHeaderDto.setLink(spec.getLink());
-            requestHeaderDto.setDescription(spec.getDescription());
-        }
-
-    }
+    private final IpDescriptionService ipDescriptionService;
 
     /**
      * parses the http headers from the HttpServletRequest and
@@ -72,7 +52,7 @@ public class HttpServletRequestParser {
                 RequestHeaderDto requestHeaderDto = new RequestHeaderDto();
                 requestHeaderDto.setName(currHeaderName);
                 requestHeaderDto.setValue(currHeaderValue);
-                setHeaderDescription(requestHeaderDto);
+                headerDtoDescriptionParser.setHeaderDescription(requestHeaderDto);
                 requestHeaderDtos.add(requestHeaderDto);
             }
         }

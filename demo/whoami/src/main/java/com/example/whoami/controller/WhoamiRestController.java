@@ -26,9 +26,9 @@ import java.util.List;
 @Tag(name = "Whoami-Rest-Controller", description = "Endpoints for sending JSON metadata back to a client describing their request.")
 public class WhoamiRestController {
 
-    private WhoamiService whoamiService;
-    private SizeSpecifiedPayloadService sizeSpecifiedPayloadService;
-    private List<HeaderSpec> headerSpecs;
+    private final WhoamiService whoamiService;
+    private final SizeSpecifiedPayloadService sizeSpecifiedPayloadService;
+    private final List<HeaderSpec> headerSpecs;
 
     @Operation(summary = "Returns metadata describing the users request in json.")
     @RequestMapping(value = "/whoami/**", produces = "application/json")
