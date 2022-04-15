@@ -46,6 +46,46 @@
 
             <div id="url-parts-table-div">
                 <h5>Url Components</h5>
+                <ul>
+                    <li>
+                        <p>
+                            URL Format:
+                            <span class="url-element">{scheme}</span>
+                            ://
+                            <span class="url-element">{host}</span>
+                            :
+                            <span class="url-element">{port}</span>
+                            /
+                            <span class="url-element">{path}</span>
+                            ?
+                            <span class="url-element">query-string</span>
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            Host Format #1:
+                            <span class="url-element">{sub-domain}</span>
+                            .
+                            <span class="url-element">{domain}</span>
+                            .
+                            <span class="url-element">{TLD-domain}</span>
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            Host Format #2:
+                            <span class="url-element">{domain}</span>
+                            .
+                            <span class="url-element">{TLD-domain}</span>
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            Host Format #3:
+                            <span class="url-element">{ip-address}</span>
+                        </p>
+                    </li>
+                </ul>
                 <table id="url-parts-table" class="table"></table>
             </div>
 
@@ -60,7 +100,7 @@
             </div>
 
             <div id="geolocation-table-div">
-                <h5>Geolocation</h5>
+                <h5>Remote Geolocation</h5>
                 <table id="geolocation-table" class="table"></table>
             </div>
 
@@ -75,7 +115,7 @@
             </div>
 
             <div id="header-table-div">
-                <h5>HTTP Headers</h5>
+                <h5>Request Headers</h5>
                 <table id="header-table" class="table table-fixed table-bordered"></table>
             </div>
 
