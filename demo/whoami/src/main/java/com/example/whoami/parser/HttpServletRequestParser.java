@@ -1,6 +1,5 @@
 package com.example.whoami.parser;
 
-import com.example.whoami.dto.HeaderSpec;
 import com.example.whoami.dto.component.*;
 import com.example.whoami.service.IpDescriptionService;
 import lombok.AllArgsConstructor;
@@ -106,10 +105,11 @@ public class HttpServletRequestParser {
 
         dto.setRequestMethod(request.getMethod());
         dto.setQueryString(request.getQueryString());
-        dto.setRequestUrl(String.valueOf(request.getRequestURL()) + "?" + dto.getQueryString());
+        dto.setUrl(String.valueOf(request.getRequestURL()) + "?" + dto.getQueryString());
         dto.setScheme(request.getScheme());
         dto.setProtocol(request.getProtocol());
         dto.setServerHost(String.valueOf(request.getServerName()));
+        dto.setHostFormat(ipDescriptionService.parseHostType(request.getServerName()));
         dto.setServerPort(String.valueOf(request.getServerPort()));
         dto.setServerSocket(dto.getServerHost() + ":" + dto.getServerPort());
         dto.setPath(request.getServletPath());

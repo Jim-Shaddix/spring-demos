@@ -7,7 +7,9 @@ import com.example.whoami.exception.InvalidApiKey;
 import com.example.whoami.parser.BasicDtoDescriptionParser;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
+import org.apache.catalina.Host;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.net.Inet4Address;
 import java.net.Inet6Address;
@@ -72,9 +74,9 @@ public class IpDescriptionService {
 
             // setting IP type
             if (address instanceof Inet4Address) {
-                ipType = "ipv4";
+                ipType = IpType.IPV4.toString();
             } else if (address instanceof Inet6Address) {
-                ipType = "ipv6";
+                ipType = IpType.IPV6.toString();
             }
 
         } catch (Exception e) {
@@ -84,8 +86,42 @@ public class IpDescriptionService {
         return ipType;
     }
 
+    /**
+     * @param host this string could be a hostName, ipv4 address, or ipv6 address.
+     * @return A String that represents the particular host format associated with the host.
+     */
+    public HostType parseHostType(String host) {
+
+        HostType result = null;
+
+        int periodCount = StringUtils.countOccurrencesOf(host, ".");
+
+        if (host.equals("localhost")) {
+            result = HostType.LOCALHOST;
+        }
+        else if (Character.digit(host.charAt(0), 16) != -1 || (host.charAt(0) == ':')) {
+            result = HostType.IP;
+
+        } else if (periodCount == 1) {
+            result = HostType.Domain_Tld;
+
+        } else {
+            result = HostType.Subdomain_Domain_Tld;
+        }
+
+        return result;
+    }
+
+    public boolean isLocalHost(String host) {
+        if (host.equals("127.0.0.1") || host.equals("localhost") || host.equals("[::1]")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public GeolocationDto getGeolocation(String ip) {
-        if (ip.equals("127.0.0.1") || ip.equals("localhost")) {
+        if (ip.equals("127.0.0.1") || ip.equals("localhost") || ip.equals("[::1]")) {
             return getGeolocationForLocalHost();
         } else {
             return getGeolocationForNonLocalHost(ip);
