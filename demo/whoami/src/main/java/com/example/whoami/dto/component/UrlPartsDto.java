@@ -14,11 +14,6 @@ import lombok.ToString;
 @Schema(description = "Information that describes the different components of a url!")
 public class UrlPartsDto extends BasicDescriptionDto {
 
-    @Schema(description = "HTTP Method used for specifying " +
-            "what server side operation should be performed")
-    @JsonProperty("request-method")
-    private String requestMethod;
-
     @Schema(description = "The full url used for acquiring this resource (without the query string).")
     @JsonProperty("url")
     private String url;

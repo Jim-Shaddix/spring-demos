@@ -17,7 +17,7 @@ public class RemoteInfoDto extends BasicDescriptionDto {
     @JsonProperty("request-address")
     private String requestAddress;
 
-    @Schema(description = "The IP address associated with the client.")
+    @Schema(description = "The hostname associated with the clients IP (most likely, this does not exist).")
     @JsonProperty("request-host")
     private String requestHost;
 

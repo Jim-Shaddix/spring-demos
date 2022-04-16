@@ -35,4 +35,7 @@ public class WhoamiDto {
 
     @JsonProperty("geolocation")
     private GeolocationDto geolocationDto;
+
+    @JsonProperty("request-method")
+    private RequestMethodDto requestMethod;
 }

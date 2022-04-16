@@ -103,7 +103,6 @@ public class HttpServletRequestParser {
 
         UrlPartsDto dto = new UrlPartsDto();
 
-        dto.setRequestMethod(request.getMethod());
         dto.setQueryString(request.getQueryString());
         dto.setUrl(String.valueOf(request.getRequestURL()) + "?" + dto.getQueryString());
         dto.setScheme(request.getScheme());
@@ -114,6 +113,19 @@ public class HttpServletRequestParser {
         dto.setServerSocket(dto.getServerHost() + ":" + dto.getServerPort());
         dto.setPath(request.getServletPath());
 
+        basicDtoDescriptionParser.setDescription(dto);
+        return dto;
+    }
+
+    /**
+     * Parses metadata regarding the request method specified by the received http request.
+     *
+     * @param request the http request received from the user.
+     * @return metadata that describes the users request method.
+     */
+    public RequestMethodDto parseRequestMethodDto(@NonNull HttpServletRequest request) {
+        RequestMethodDto dto = new RequestMethodDto();
+        dto.setRequestMethod(request.getMethod());
         basicDtoDescriptionParser.setDescription(dto);
         return dto;
     }
@@ -157,4 +169,9 @@ public class HttpServletRequestParser {
         return dto;
     }
 
+    public void parseLocale(@NonNull HttpServletRequest request) {
+        Locale local =  request.getLocale();
+
+
+    }
 }

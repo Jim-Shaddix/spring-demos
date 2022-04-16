@@ -15,6 +15,12 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class ParserProperties {
 
     /**
+     * Determines if the request method will be parsed
+     * from the http request.
+     */
+    private boolean method = true;
+
+    /**
      * Determines if the body of the http request is
      * will be returned ot the user.
      */

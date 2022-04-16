@@ -45,7 +45,11 @@ public class WhoamiService {
 
         WhoamiDto whoamiDto = new WhoamiDto();
 
-        if (parserProperties.isBody()) {
+        if (parserProperties.isMethod()) {
+            whoamiDto.setRequestMethod(requestParser.parseRequestMethodDto(request));
+        }
+
+        if (parserProperties.isHeader()) {
             whoamiDto.setHeaders(requestParser.parseRequestHeaders(request));
         }
 
