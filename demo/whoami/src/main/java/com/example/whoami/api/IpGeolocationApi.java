@@ -4,7 +4,7 @@ import com.example.whoami.config.GeoIpProperties;
 import com.example.whoami.dto.component.GeolocationDto;
 import com.example.whoami.dto.description.BasicDescriptionDto;
 import com.example.whoami.exception.InvalidApiKey;
-import com.example.whoami.parser.BasicDtoDescriptionParser;
+import com.example.whoami.service.util.BasicDtoDescriptionParser;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;

@@ -10,7 +10,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@Schema(description = "This Dto describes the Request headers sent to the server.")
+@Schema(description = "This Dto describes the request method associated with an http request.")
 public class RequestMethodDto extends BasicDescriptionDto {
 
     @Schema(description = "HTTP Method used for specifying " +

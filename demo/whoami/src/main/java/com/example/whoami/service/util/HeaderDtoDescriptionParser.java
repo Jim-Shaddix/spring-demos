@@ -1,4 +1,4 @@
-package com.example.whoami.parser;
+package com.example.whoami.service.util;
 
 import com.example.whoami.dto.HeaderSpec;
 import com.example.whoami.dto.component.RequestHeaderDto;

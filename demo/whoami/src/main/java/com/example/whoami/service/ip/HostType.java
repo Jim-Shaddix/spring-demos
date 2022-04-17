@@ -1,4 +1,4 @@
-package com.example.whoami.service;
+package com.example.whoami.service.ip;
 
 public enum HostType {
     Subdomain_Domain_Tld ("subdomain.domain.tld"),

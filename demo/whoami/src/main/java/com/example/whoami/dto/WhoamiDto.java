@@ -38,4 +38,7 @@ public class WhoamiDto {
 
     @JsonProperty("request-method")
     private RequestMethodDto requestMethod;
+
+    @JsonProperty("locale")
+    private LocaleDto localDto;
 }

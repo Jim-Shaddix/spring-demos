@@ -5,8 +5,7 @@ import com.example.whoami.config.GeoIpProperties;
 import com.example.whoami.config.ParserProperties;
 import com.example.whoami.dto.WhoamiDto;
 import com.example.whoami.dto.component.*;
-import com.example.whoami.parser.HttpServletRequestParser;
-import com.example.whoami.parser.ServerMetadataParser;
+import com.example.whoami.service.ip.IpDescriptionService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

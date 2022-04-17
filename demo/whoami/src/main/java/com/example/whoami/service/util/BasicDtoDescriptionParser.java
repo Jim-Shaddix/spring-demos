@@ -1,4 +1,4 @@
-package com.example.whoami.parser;
+package com.example.whoami.service.util;
 
 import com.example.whoami.dto.description.BasicDescriptionDto;
 import com.fasterxml.jackson.annotation.JsonProperty;

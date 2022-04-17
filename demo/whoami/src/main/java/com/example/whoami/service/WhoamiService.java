@@ -1,11 +1,8 @@
 package com.example.whoami.service;
 
-import com.example.whoami.api.IpGeolocationApi;
-import com.example.whoami.config.GeoIpProperties;
 import com.example.whoami.config.ParserProperties;
 import com.example.whoami.dto.WhoamiDto;
-import com.example.whoami.parser.HttpServletRequestParser;
-import com.example.whoami.parser.ServerMetadataParser;
+import com.example.whoami.service.ip.IpDescriptionService;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.lang.NonNull;
@@ -75,6 +72,10 @@ public class WhoamiService {
 
         if (parserProperties.isGeoIp()) {
             whoamiDto.setGeolocationDto(ipDescriptionService.getGeolocation(request.getRemoteAddr()));
+        }
+
+        if (parserProperties.isLocale()) {
+            whoamiDto.setLocalDto(requestParser.parseLocale(request));
         }
 
         return whoamiDto;

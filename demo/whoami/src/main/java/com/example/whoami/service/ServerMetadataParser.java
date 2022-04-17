@@ -1,8 +1,9 @@
-package com.example.whoami.parser;
+package com.example.whoami.service;
 
 import com.example.whoami.dto.component.ServerMetadataDto;
 import com.example.whoami.dto.description.BasicDescriptionDto;
-import com.example.whoami.service.IpDescriptionService;
+import com.example.whoami.service.ip.IpDescriptionService;
+import com.example.whoami.service.util.BasicDtoDescriptionParser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

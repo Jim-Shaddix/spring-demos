@@ -1,13 +1,14 @@
-package com.example.whoami.service;
+package com.example.whoami.service.ip;
 
 import com.example.whoami.api.IpGeolocationApi;
 import com.example.whoami.config.GeoIpProperties;
 import com.example.whoami.dto.component.GeolocationDto;
 import com.example.whoami.exception.InvalidApiKey;
-import com.example.whoami.parser.BasicDtoDescriptionParser;
+import com.example.whoami.service.util.BasicDtoDescriptionParser;
+import com.example.whoami.service.ip.HostType;
+import com.example.whoami.service.ip.IpType;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
-import org.apache.catalina.Host;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 

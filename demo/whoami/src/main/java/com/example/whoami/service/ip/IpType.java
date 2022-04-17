@@ -1,4 +1,4 @@
-package com.example.whoami.service;
+package com.example.whoami.service.ip;
 
 public enum IpType {
 

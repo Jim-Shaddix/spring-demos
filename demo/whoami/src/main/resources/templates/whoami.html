@@ -102,6 +102,11 @@
                 <table id="request-method-table" class="table"></table>
             </div>
 
+            <div id="locale-table-div">
+                <h5>Request Locale</h5>
+                <table id="locale-table" class="table"></table>
+            </div>
+
             <div id="remote-info-table-div">
                 <h5>Client Connection Profile</h5>
                 <table id="remote-info-table" class="table"></table>
@@ -323,6 +328,7 @@
             setTableFromKeyValueObject(document.querySelector("#request-body-table-div"),  ["Request-Body-Component", "value"],  jsonBlob["body"])
             setTableFromKeyValueObject(document.querySelector("#request-method-table-div"),["Request-Method-Component", "value"],jsonBlob["request-method"])
             setTableFromKeyValueObject(document.querySelector("#remote-info-table-div"),   ["Client Info",  "value"],            jsonBlob["remote-info"])
+            setTableFromKeyValueObject(document.querySelector("#locale-table-div"),        ["Locale-Component", "value"],        jsonBlob["locale"])
             setTableFromKeyValueObject(document.querySelector("#authentication-table-div"),["auth-info", "value"],               jsonBlob["auth"])
             setTableFromKeyValueObject(document.querySelector("#server-info-table-div"),   ["server-info", "value"],             jsonBlob["server-info"])
             setTableFromKeyValueObject(document.querySelector("#geolocation-table-div"),   ["geolocation-info", "value"],        jsonBlob["geolocation"])

@@ -59,6 +59,12 @@ public class ParserProperties {
     private boolean hostname = true;
 
     /**
+     * Determines if the locale that the server uses to process a request
+     * should have its metadata sent back to the user.
+     */
+    private boolean locale = true;
+
+    /**
      * Determines if the GeoIP services will be utilized for sending location data
      * back to the user.
      */

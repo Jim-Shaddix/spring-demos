@@ -1,7 +1,7 @@
 package com.example.whoami.dto.component;
 
 import com.example.whoami.dto.description.BasicDescriptionDto;
-import com.example.whoami.service.HostType;
+import com.example.whoami.service.ip.HostType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;

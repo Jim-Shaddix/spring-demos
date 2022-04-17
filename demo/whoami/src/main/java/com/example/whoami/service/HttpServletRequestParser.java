@@ -1,7 +1,9 @@
-package com.example.whoami.parser;
+package com.example.whoami.service;
 
 import com.example.whoami.dto.component.*;
-import com.example.whoami.service.IpDescriptionService;
+import com.example.whoami.service.ip.IpDescriptionService;
+import com.example.whoami.service.util.BasicDtoDescriptionParser;
+import com.example.whoami.service.util.HeaderDtoDescriptionParser;
 import lombok.AllArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
@@ -169,9 +171,31 @@ public class HttpServletRequestParser {
         return dto;
     }
 
-    public void parseLocale(@NonNull HttpServletRequest request) {
+    /**
+     * gets local information that the server is using to process the request.
+     *
+     * @param request the http request received from the user.
+     * @return metadata describing the local being used to process the request.
+     */
+    public LocaleDto parseLocale(@NonNull HttpServletRequest request) {
+
+        LocaleDto dto = new LocaleDto();
+
         Locale local =  request.getLocale();
 
+        dto.setName(local.getDisplayName());
+        dto.setCountry(local.getDisplayCountry());
+        dto.setLanguage(local.getDisplayLanguage());
+        dto.setLanguageTag(local.toLanguageTag());
 
+        //String extensions = local.getExtensionKeys().stream().map(c -> String.valueOf(c)).collect(Collectors.joining(","));
+        //dto.setExtensions(extensions);
+        //dto.setScript(local.getDisplayScript());
+        //dto.setVariant(local.getDisplayVariant());
+
+        basicDtoDescriptionParser.setDescription(dto);
+
+        return dto;
     }
+
 }
