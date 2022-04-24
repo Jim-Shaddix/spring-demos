@@ -14,9 +14,13 @@ import lombok.ToString;
 @Schema(description = "Information that describes the different components of a url!")
 public class UrlPartsDto extends BasicDescriptionDto {
 
-    @Schema(description = "The full url used for acquiring this resource (without the query string).")
-    @JsonProperty("url")
-    private String url;
+    @Schema(description = "The full (url-encoded) url used for acquiring this resource (without the query string).")
+    @JsonProperty("encoded-url")
+    private String encodedUrl;
+
+    @Schema(description = "The full (url-decoded) url used for acquiring this resource (without the query string).")
+    @JsonProperty("decoded-url")
+    private String decodedUrl;
 
     @Schema(description = "Communication format used for making the request.")
     @JsonProperty("scheme")

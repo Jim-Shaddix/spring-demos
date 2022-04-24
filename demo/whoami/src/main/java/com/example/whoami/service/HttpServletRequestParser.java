@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -106,7 +108,8 @@ public class HttpServletRequestParser {
         UrlPartsDto dto = new UrlPartsDto();
 
         dto.setQueryString(request.getQueryString());
-        dto.setUrl(String.valueOf(request.getRequestURL()) + "?" + dto.getQueryString());
+        dto.setEncodedUrl(String.valueOf(request.getRequestURL()) + "?" + dto.getQueryString());
+        dto.setDecodedUrl(URLDecoder.decode(dto.getEncodedUrl(), StandardCharsets.UTF_8));
         dto.setScheme(request.getScheme());
         dto.setProtocol(request.getProtocol());
         dto.setServerHost(String.valueOf(request.getServerName()));
@@ -187,11 +190,6 @@ public class HttpServletRequestParser {
         dto.setCountry(local.getDisplayCountry());
         dto.setLanguage(local.getDisplayLanguage());
         dto.setLanguageTag(local.toLanguageTag());
-
-        //String extensions = local.getExtensionKeys().stream().map(c -> String.valueOf(c)).collect(Collectors.joining(","));
-        //dto.setExtensions(extensions);
-        //dto.setScript(local.getDisplayScript());
-        //dto.setVariant(local.getDisplayVariant());
 
         basicDtoDescriptionParser.setDescription(dto);
 
