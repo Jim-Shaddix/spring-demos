@@ -10,7 +10,7 @@ def main():
     header_website = sys.argv[0]
     response_code_website = sys.argv[1]
     request_header_website = sys.argv[2]
-    web_driver_path = sys.argv[2]
+    web_driver_path = sys.argv[3]
 
     HeaderParser.execute(Config.get_webdriver(header_website, web_driver_path))
     ResponseCodeParser.execute(Config.get_webdriver(response_code_website, web_driver_path))
