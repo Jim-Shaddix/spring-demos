@@ -115,13 +115,13 @@
     },
     {
         "type": "Redirection messages",
-        "name": "304 Not Modified",
+        "name": "305 Use Proxy",
         "description": "Defined in a previous version of the HTTP specification to indicate that a requested response must be accessed by a proxy. It has been deprecated due to security concerns regarding in-band configuration of a proxy.",
         "link": "null"
     },
     {
         "type": "Redirection messages",
-        "name": "304 Not Modified",
+        "name": "306 unused",
         "description": "This response code is no longer used; it is just reserved. It was used in a previous version of the HTTP/1.1 specification.",
         "link": "null"
     },
