@@ -6,11 +6,12 @@ from selenium import webdriver
 
 class Config:
 
-    def __init__(self):
-        pass
+    CONTENT_DIRECTORY = "parsed-content"
+    HEADER_SPEC_FILE = CONTENT_DIRECTORY + "/" + "http-header-spec.json"
+    RETURN_CODE_FILE = CONTENT_DIRECTORY + "/" + "http-response-code-spec.json"
 
     @staticmethod
-    def get_web_driver(website_to_parse: str, web_driver_path: str) -> webdriver:
+    def get_webdriver(website_to_parse: str, web_driver_path: str) -> webdriver:
 
         # Web Driver Configurations
         options = Options()

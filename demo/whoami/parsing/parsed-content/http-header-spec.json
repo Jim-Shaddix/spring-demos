@@ -1,0 +1,818 @@
+[
+    {
+        "type": "Authentication",
+        "name": "WWW-Authenticate",
+        "description": "Defines the authentication method that should be used to access a resource.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/WWW-Authenticate"
+    },
+    {
+        "type": "Authentication",
+        "name": "Authorization",
+        "description": "Contains the credentials to authenticate a user-agent with a server.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization"
+    },
+    {
+        "type": "Authentication",
+        "name": "Proxy-Authenticate",
+        "description": "Defines the authentication method that should be used to access a resource behind a proxy server.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Proxy-Authenticate"
+    },
+    {
+        "type": "Authentication",
+        "name": "Proxy-Authorization",
+        "description": "Contains the credentials to authenticate a user agent with a proxy server.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Proxy-Authorization"
+    },
+    {
+        "type": "Caching",
+        "name": "Age",
+        "description": "The time, in seconds, that the object has been in a proxy cache.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Age"
+    },
+    {
+        "type": "Caching",
+        "name": "Cache-Control",
+        "description": "Directives for caching mechanisms in both requests and responses.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control"
+    },
+    {
+        "type": "Caching",
+        "name": "Clear-Site-Data",
+        "description": "Clears browsing data (e.g. cookies, storage, cache) associated with the requesting website.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Clear-Site-Data"
+    },
+    {
+        "type": "Caching",
+        "name": "Expires",
+        "description": "The date/time after which the response is considered stale.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expires"
+    },
+    {
+        "type": "Caching",
+        "name": "Pragma",
+        "description": "Implementation-specific header that may have various effects anywhere along the request-response chain. Used for backwards compatibility with HTTP/1.0 caches where the Cache-Control header is not yet present.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Pragma"
+    },
+    {
+        "type": "Caching",
+        "name": "Warning",
+        "description": "General warning information about possible problems.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Warning"
+    },
+    {
+        "type": "Client hints",
+        "name": "Accept-CH",
+        "description": "Servers can advertise support for Client Hints using the Accept-CH header field or an equivalent HTML <meta> element with http-equiv attribute.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-CH"
+    },
+    {
+        "type": "Client hints",
+        "name": "Accept-CH-Lifetime",
+        "description": "Servers can ask the client to remember the set of Client Hints that the server supports for a specified period of time, to enable delivery of Client Hints on subsequent requests to the server's origin.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-CH-Lifetime"
+    },
+    {
+        "type": "Conditionals",
+        "name": "Last-Modified",
+        "description": "The last modification date of the resource, used to compare several versions of the same resource. It is less accurate than ETag, but easier to calculate in some environments. Conditional requests using If-Modified-Since and If-Unmodified-Since use this value to change the behavior of the request.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Last-Modified"
+    },
+    {
+        "type": "Conditionals",
+        "name": "ETag",
+        "description": "A unique string identifying the version of the resource. Conditional requests using If-Match and If-None-Match use this value to change the behavior of the request.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag"
+    },
+    {
+        "type": "Conditionals",
+        "name": "If-Match",
+        "description": "Makes the request conditional, and applies the method only if the stored resource matches one of the given ETags.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match"
+    },
+    {
+        "type": "Conditionals",
+        "name": "If-None-Match",
+        "description": "Makes the request conditional, and applies the method only if the stored resource doesn't match any of the given ETags. This is used to update caches (for safe requests), or to prevent uploading a new resource when one already exists.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match"
+    },
+    {
+        "type": "Conditionals",
+        "name": "If-Modified-Since",
+        "description": "Makes the request conditional, and expects the resource to be transmitted only if it has been modified after the given date. This is used to transmit data only when the cache is out of date.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Modified-Since"
+    },
+    {
+        "type": "Conditionals",
+        "name": "If-Unmodified-Since",
+        "description": "Makes the request conditional, and expects the resource to be transmitted only if it has not been modified after the given date. This ensures the coherence of a new fragment of a specific range with previous ones, or to implement an optimistic concurrency control system when modifying existing documents.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Unmodified-Since"
+    },
+    {
+        "type": "Conditionals",
+        "name": "Vary",
+        "description": "Determines how to match request headers to decide whether a cached response can be used rather than requesting a fresh one from the origin server.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Vary"
+    },
+    {
+        "type": "Connection management",
+        "name": "Connection",
+        "description": "Controls whether the network connection stays open after the current transaction finishes.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Connection"
+    },
+    {
+        "type": "Connection management",
+        "name": "Keep-Alive",
+        "description": "Controls how long a persistent connection should stay open.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Keep-Alive"
+    },
+    {
+        "type": "Content negotiation",
+        "name": "Accept",
+        "description": "Informs the server about the types of data that can be sent back.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept"
+    },
+    {
+        "type": "Content negotiation",
+        "name": "Accept-Encoding",
+        "description": "The encoding algorithm, usually a compression algorithm, that can be used on the resource sent back.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Encoding"
+    },
+    {
+        "type": "Content negotiation",
+        "name": "Accept-Language",
+        "description": "Informs the server about the human language the server is expected to send back. This is a hint and is not necessarily under the full control of the user: the server should always pay attention not to override an explicit user choice (like selecting a language from a dropdown).",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language"
+    },
+    {
+        "type": "Controls",
+        "name": "Expect",
+        "description": "Indicates expectations that need to be fulfilled by the server to properly handle the request.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expect"
+    },
+    {
+        "type": "Controls",
+        "name": "Max-Forwards",
+        "description": "TBD",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Max-Forwards"
+    },
+    {
+        "type": "Cookies",
+        "name": "Cookie",
+        "description": "Contains stored HTTP cookies previously sent by the server with the Set-Cookie header.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cookie"
+    },
+    {
+        "type": "Cookies",
+        "name": "Set-Cookie",
+        "description": "Send cookies from the server to the user-agent.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie"
+    },
+    {
+        "type": "CORS",
+        "name": "Access-Control-Allow-Origin",
+        "description": "Indicates whether the response can be shared.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin"
+    },
+    {
+        "type": "CORS",
+        "name": "Access-Control-Allow-Credentials",
+        "description": "Indicates whether the response to the request can be exposed when the credentials flag is true.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Credentials"
+    },
+    {
+        "type": "CORS",
+        "name": "Access-Control-Allow-Headers",
+        "description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Headers"
+    },
+    {
+        "type": "CORS",
+        "name": "Access-Control-Allow-Methods",
+        "description": "Specifies the methods allowed when accessing the resource in response to a preflight request.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Methods"
+    },
+    {
+        "type": "CORS",
+        "name": "Access-Control-Expose-Headers",
+        "description": "Indicates which headers can be exposed as part of the response by listing their names.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Expose-Headers"
+    },
+    {
+        "type": "CORS",
+        "name": "Access-Control-Max-Age",
+        "description": "Indicates how long the results of a preflight request can be cached.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Max-Age"
+    },
+    {
+        "type": "CORS",
+        "name": "Access-Control-Request-Headers",
+        "description": "Used when issuing a preflight request to let the server know which HTTP headers will be used when the actual request is made.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Request-Headers"
+    },
+    {
+        "type": "CORS",
+        "name": "Access-Control-Request-Method",
+        "description": "Used when issuing a preflight request to let the server know which HTTP method will be used when the actual request is made.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Request-Method"
+    },
+    {
+        "type": "CORS",
+        "name": "Origin",
+        "description": "Indicates where a fetch originates from.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Origin"
+    },
+    {
+        "type": "CORS",
+        "name": "Timing-Allow-Origin",
+        "description": "Specifies origins that are allowed to see values of attributes retrieved via features of the Resource Timing API, which would otherwise be reported as zero due to cross-origin restrictions.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Timing-Allow-Origin"
+    },
+    {
+        "type": "Downloads",
+        "name": "Content-Disposition",
+        "description": "Indicates if the resource transmitted should be displayed inline (default behavior without the header), or if it should be handled like a download and the browser should present a \"Save As\" dialog.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition"
+    },
+    {
+        "type": "Message body information",
+        "name": "Content-Length",
+        "description": "The size of the resource, in decimal number of bytes.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Length"
+    },
+    {
+        "type": "Message body information",
+        "name": "Content-Type",
+        "description": "Indicates the media type of the resource.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type"
+    },
+    {
+        "type": "Message body information",
+        "name": "Content-Encoding",
+        "description": "Used to specify the compression algorithm.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Encoding"
+    },
+    {
+        "type": "Message body information",
+        "name": "Content-Language",
+        "description": "Describes the human language(s) intended for the audience, so that it allows a user to differentiate according to the users' own preferred language.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Language"
+    },
+    {
+        "type": "Message body information",
+        "name": "Content-Location",
+        "description": "Indicates an alternate location for the returned data.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Location"
+    },
+    {
+        "type": "Proxies",
+        "name": "Forwarded",
+        "description": "Contains information from the client-facing side of proxy servers that is altered or lost when a proxy is involved in the path of the request.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Forwarded"
+    },
+    {
+        "type": "Proxies",
+        "name": "X-Forwarded-For",
+        "description": "Identifies the originating IP addresses of a client connecting to a web server through an HTTP proxy or a load balancer.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For"
+    },
+    {
+        "type": "Proxies",
+        "name": "X-Forwarded-Host",
+        "description": "Identifies the original host requested that a client used to connect to your proxy or load balancer.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-Host"
+    },
+    {
+        "type": "Proxies",
+        "name": "X-Forwarded-Proto",
+        "description": "Identifies the protocol (HTTP or HTTPS) that a client used to connect to your proxy or load balancer.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-Proto"
+    },
+    {
+        "type": "Proxies",
+        "name": "Via",
+        "description": "Added by proxies, both forward and reverse proxies, and can appear in the request headers and the response headers.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Via"
+    },
+    {
+        "type": "Redirects",
+        "name": "Location",
+        "description": "Indicates the URL to redirect a page to.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Location"
+    },
+    {
+        "type": "Request context",
+        "name": "From",
+        "description": "Contains an Internet email address for a human user who controls the requesting user agent.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/From"
+    },
+    {
+        "type": "Request context",
+        "name": "Host",
+        "description": "Specifies the domain name of the server (for virtual hosting), and (optionally) the TCP port number on which the server is listening.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Host"
+    },
+    {
+        "type": "Request context",
+        "name": "Referer",
+        "description": "The address of the previous web page from which a link to the currently requested page was followed.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referer"
+    },
+    {
+        "type": "Request context",
+        "name": "Referrer-Policy",
+        "description": "Governs which referrer information sent in the Referer header should be included with requests made.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy"
+    },
+    {
+        "type": "Request context",
+        "name": "User-Agent",
+        "description": "Contains a characteristic string that allows the network protocol peers to identify the application type, operating system, software vendor or software version of the requesting software user agent. See also the Firefox user agent string reference.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent"
+    },
+    {
+        "type": "Response context",
+        "name": "Allow",
+        "description": "Lists the set of HTTP request methods supported by a resource.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Allow"
+    },
+    {
+        "type": "Response context",
+        "name": "Server",
+        "description": "Contains information about the software used by the origin server to handle the request.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Server"
+    },
+    {
+        "type": "Range requests",
+        "name": "Accept-Ranges",
+        "description": "Indicates if the server supports range requests, and if so in which unit the range can be expressed.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Ranges"
+    },
+    {
+        "type": "Range requests",
+        "name": "Range",
+        "description": "Indicates the part of a document that the server should return.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Range"
+    },
+    {
+        "type": "Range requests",
+        "name": "If-Range",
+        "description": "Creates a conditional range request that is only fulfilled if the given etag or date matches the remote resource. Used to prevent downloading two ranges from incompatible version of the resource.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Range"
+    },
+    {
+        "type": "Range requests",
+        "name": "Content-Range",
+        "description": "Indicates where in a full body message a partial message belongs.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Range"
+    },
+    {
+        "type": "Security",
+        "name": "Cross-Origin-Embedder-Policy",
+        "description": "Allows a server to declare an embedder policy for a given document.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Embedder-Policy"
+    },
+    {
+        "type": "Security",
+        "name": "Cross-Origin-Opener-Policy",
+        "description": "Prevents other domains from opening/controlling a window.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Opener-Policy"
+    },
+    {
+        "type": "Security",
+        "name": "Cross-Origin-Resource-Policy",
+        "description": "Prevents other domains from reading the response of the resources to which this header is applied.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Resource-Policy"
+    },
+    {
+        "type": "Security",
+        "name": "Content-Security-Policy",
+        "description": "Controls resources the user agent is allowed to load for a given page.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy"
+    },
+    {
+        "type": "Security",
+        "name": "CSP",
+        "description": "Allows web developers to experiment with policies by monitoring, but not enforcing, their effects. These violation reports consist of JSON documents sent via an HTTP POST request to the specified URI.",
+        "link": "https://developer.mozilla.org/en-US/docs/Glossary/CSP"
+    },
+    {
+        "type": "Security",
+        "name": "Content-Security-Policy-Report-Only",
+        "description": "Allows sites to opt in to reporting and/or enforcement of Certificate Transparency requirements, which prevents the use of misissued certificates for that site from going unnoticed. When a site enables the Expect-CT header, they are requesting that Chrome check that any certificate for that site appears in public CT logs.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only"
+    },
+    {
+        "type": "Security",
+        "name": "Expect-CT",
+        "description": "Provides a mechanism to allow and deny the use of browser features in its own frame, and in iframes that it embeds.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expect-CT"
+    },
+    {
+        "type": "Security",
+        "name": "Feature-Policy",
+        "description": "Provides a mechanism to allow web applications to isolate their origins.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy"
+    },
+    {
+        "type": "Security",
+        "name": "Origin-Isolation",
+        "description": "Force communication using HTTPS instead of HTTP.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Origin-Isolation"
+    },
+    {
+        "type": "Security",
+        "name": "Strict-Transport-Security",
+        "description": "Sends a signal to the server expressing the client's preference for an encrypted and authenticated response, and that it can successfully handle the upgrade-insecure-requests directive.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security"
+    },
+    {
+        "type": "Security",
+        "name": "HSTS",
+        "description": "Disables MIME sniffing and forces browser to use the type given in Content-Type.",
+        "link": "https://developer.mozilla.org/en-US/docs/Glossary/HSTS"
+    },
+    {
+        "type": "Security",
+        "name": "Upgrade-Insecure-Requests",
+        "description": "The X-Download-Options HTTP header indicates that the browser (Internet Explorer) should not display the option to \"Open\" a file that has been downloaded from an application, to prevent phishing attacks as the file otherwise would gain access to execute in the context of the application. (Note: related MS Edge bug).",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Upgrade-Insecure-Requests"
+    },
+    {
+        "type": "Security",
+        "name": "X-Content-Type-Options",
+        "description": "Indicates whether a browser should be allowed to render a page in a <frame>, <iframe>, <embed> or <object>.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options"
+    },
+    {
+        "type": "Security",
+        "name": "X-Download-Options",
+        "description": "Specifies if a cross-domain policy file (crossdomain.xml) is allowed. The file may define a policy to grant clients, such as Adobe's Flash Player (now obsolete), Adobe Acrobat, Microsoft Silverlight (now obsolete), or Apache Flex, permission to handle data across domains that would otherwise be restricted due to the Same-Origin Policy. See the Cross-domain Policy File Specification for more information.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Download-Options"
+    },
+    {
+        "type": "Security",
+        "name": "X-Frame-Options",
+        "description": "May be set by hosting environments or other frameworks and contains information about them while not providing any usefulness to the application or its visitors. Unset this header to avoid exposing potential vulnerabilities.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options"
+    },
+    {
+        "type": "Security",
+        "name": "X-Permitted-Cross-Domain-Policies",
+        "description": "Enables cross-site scripting filtering.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Permitted-Cross-Domain-Policies"
+    },
+    {
+        "type": "Server-sent events",
+        "name": "Last-Event-ID",
+        "description": "TBD",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Last-Event-ID"
+    },
+    {
+        "type": "Server-sent events",
+        "name": "NEL",
+        "description": "Defines a mechanism that enables developers to declare a network error reporting policy.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/NEL"
+    },
+    {
+        "type": "Server-sent events",
+        "name": "Ping-From",
+        "description": "TBD",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Ping-From"
+    },
+    {
+        "type": "Server-sent events",
+        "name": "Ping-To",
+        "description": "TBD",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Ping-To"
+    },
+    {
+        "type": "Server-sent events",
+        "name": "Report-To",
+        "description": "Used to specify a server endpoint for the browser to send warning and error reports to.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Report-To"
+    },
+    {
+        "type": "Transfer coding",
+        "name": "Transfer-Encoding",
+        "description": "Specifies the form of encoding used to safely transfer the resource to the user.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Transfer-Encoding"
+    },
+    {
+        "type": "Transfer coding",
+        "name": "TE",
+        "description": "Specifies the transfer encodings the user agent is willing to accept.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/TE"
+    },
+    {
+        "type": "Transfer coding",
+        "name": "Trailer",
+        "description": "Allows the sender to include additional fields at the end of chunked message.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Trailer"
+    },
+    {
+        "type": "WebSockets",
+        "name": "Sec-WebSocket-Key",
+        "description": "TBD",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-WebSocket-Key"
+    },
+    {
+        "type": "WebSockets",
+        "name": "Sec-WebSocket-Extensions",
+        "description": "TBD",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-WebSocket-Extensions"
+    },
+    {
+        "type": "WebSockets",
+        "name": "Sec-WebSocket-Accept",
+        "description": "TBD",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-WebSocket-Accept"
+    },
+    {
+        "type": "WebSockets",
+        "name": "Sec-WebSocket-Protocol",
+        "description": "TBD",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-WebSocket-Protocol"
+    },
+    {
+        "type": "WebSockets",
+        "name": "Sec-WebSocket-Version",
+        "description": "TBD",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-WebSocket-Version"
+    },
+    {
+        "type": "Other",
+        "name": "Accept-Push-Policy",
+        "description": "A client can express the desired push policy for a request by sending an Accept-Push-Policy header field in the request.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Push-Policy"
+    },
+    {
+        "type": "Other",
+        "name": "Accept-Signature",
+        "description": "A client can send the Accept-Signature header field to indicate intention to take advantage of any available signatures and to indicate what kinds of signatures it supports.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Signature"
+    },
+    {
+        "type": "Other",
+        "name": "Alt-Svc",
+        "description": "Used to list alternate ways to reach this service.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Alt-Svc"
+    },
+    {
+        "type": "Other",
+        "name": "Date",
+        "description": "Contains the date and time at which the message was originated.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Date"
+    },
+    {
+        "type": "Other",
+        "name": "Early-Data",
+        "description": "Indicates that the request has been conveyed in TLS early data.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Early-Data"
+    },
+    {
+        "type": "Other",
+        "name": "Large-Allocation",
+        "description": "Tells the browser that the page being loaded is going to want to perform a large allocation.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Large-Allocation"
+    },
+    {
+        "type": "Other",
+        "name": "Link",
+        "description": "The Link entity-header field provides a means for serializing one or more links in HTTP headers. It is semantically equivalent to the HTML <link> element.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Link"
+    },
+    {
+        "type": "Other",
+        "name": "Push-Policy",
+        "description": "A Push-Policy defines the server behavior regarding push when processing a request.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Push-Policy"
+    },
+    {
+        "type": "Other",
+        "name": "Retry-After",
+        "description": "Indicates how long the user agent should wait before making a follow-up request.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After"
+    },
+    {
+        "type": "Other",
+        "name": "Signature",
+        "description": "The Signature header field conveys a list of signatures for an exchange, each one accompanied by information about how to determine the authority of and refresh that signature.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Signature"
+    },
+    {
+        "type": "Other",
+        "name": "Signed-Headers",
+        "description": "The Signed-Headers header field identifies an ordered list of response header fields to include in a signature.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Signed-Headers"
+    },
+    {
+        "type": "Other",
+        "name": "Server-Timing",
+        "description": "Communicates one or more metrics and descriptions for the given request-response cycle.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Server-Timing"
+    },
+    {
+        "type": "Other",
+        "name": "Service-Worker-Allowed",
+        "description": "Used to remove the path restriction by including this header in the response of the Service Worker script.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Service-Worker-Allowed"
+    },
+    {
+        "type": "Other",
+        "name": "SourceMap",
+        "description": "Links generated code to a source map.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/SourceMap"
+    },
+    {
+        "type": "Other",
+        "name": "Upgrade",
+        "description": "The relevant RFC document for the Upgrade header field is RFC 7230, section 6.7. The standard establishes rules for upgrading or changing to a different protocol on the current client, server, transport protocol connection. For example, this header standard allows a client to change from HTTP 1.1 to HTTP 2.0, assuming the server decides to acknowledge and implement the Upgrade header field. Neither party is required to accept the terms specified in the Upgrade header field. It can be used in both client and server headers. If the Upgrade header field is specified, then the sender MUST also send the Connection header field with the upgrade option specified. For details on the Connection header field please see section 6.1 of the aforementioned RFC.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Upgrade"
+    },
+    {
+        "type": "Other",
+        "name": "X-DNS-Prefetch-Control",
+        "description": "Controls DNS prefetching, a feature by which browsers proactively perform domain name resolution on both links that the user may choose to follow as well as URLs for items referenced by the document, including images, CSS, JavaScript, and so forth.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-DNS-Prefetch-Control"
+    },
+    {
+        "type": "Other",
+        "name": "X-Firefox-Spdy",
+        "description": "TBD",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Firefox-Spdy"
+    },
+    {
+        "type": "Other",
+        "name": "X-Pingback",
+        "description": "TBD",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Pingback"
+    },
+    {
+        "type": "Other",
+        "name": "X-Requested-With",
+        "description": "TBD",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Requested-With"
+    },
+    {
+        "type": "Other",
+        "name": "X-Robots-Tag",
+        "description": "The X-Robots-Tag HTTP header is used to indicate how a web page is to be indexed within public search engine results. The header is effectively equivalent to <meta name=\"robots\" content=\"...\">.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Robots-Tag"
+    },
+    {
+        "type": "Other",
+        "name": "X-UA-Compatible",
+        "description": "Used by Internet Explorer to signal which document mode to use.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-UA-Compatible"
+    },
+    {
+        "type": "User agent client hints",
+        "name": "Sec-CH-UA",
+        "description": "User agent's branding and version.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-CH-UA"
+    },
+    {
+        "type": "User agent client hints",
+        "name": "Sec-CH-UA-Arch",
+        "description": "User agent's underlying platform architecture.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-CH-UA-Arch"
+    },
+    {
+        "type": "User agent client hints",
+        "name": "Sec-CH-UA-Bitness",
+        "description": "User agent's underlying CPU architecture bitness (for example \"64\" bit).",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-CH-UA-Bitness"
+    },
+    {
+        "type": "User agent client hints",
+        "name": "Sec-CH-UA-Full-Version",
+        "description": "User agent's full semantic version string.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-CH-UA-Full-Version"
+    },
+    {
+        "type": "User agent client hints",
+        "name": "Sec-CH-UA-Full-Version-List",
+        "description": "Full version for each brand in the user agent's brand list.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-CH-UA-Full-Version-List"
+    },
+    {
+        "type": "User agent client hints",
+        "name": "Sec-CH-UA-Mobile",
+        "description": "User agent is running on a mobile device or, more generally, prefers a \"mobile\" user experience.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-CH-UA-Mobile"
+    },
+    {
+        "type": "User agent client hints",
+        "name": "Sec-CH-UA-Model",
+        "description": "User agent's device model.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-CH-UA-Model"
+    },
+    {
+        "type": "User agent client hints",
+        "name": "Sec-CH-UA-Platform",
+        "description": "User agent's underlying operation system/platform.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-CH-UA-Platform"
+    },
+    {
+        "type": "User agent client hints",
+        "name": "Sec-CH-UA-Platform-Version",
+        "description": "User agent's underlying operation system version.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-CH-UA-Platform-Version"
+    },
+    {
+        "type": "Device client hints",
+        "name": "Content-DPR",
+        "description": "Response header used to confirm the image device to pixel ratio in requests where the DPR client hint was used to select an image resource.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-DPR"
+    },
+    {
+        "type": "Device client hints",
+        "name": "Device-Memory",
+        "description": "Approximate amount of available client RAM memory. This is part of the Device Memory API.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Device-Memory"
+    },
+    {
+        "type": "Device client hints",
+        "name": "DPR",
+        "description": "Client device pixel ratio (DPR), which is the number of physical device pixels corresponding to every CSS pixel.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/DPR"
+    },
+    {
+        "type": "Device client hints",
+        "name": "Viewport-Width",
+        "description": "A number that indicates the layout viewport width in CSS pixels. The provided pixel value is a number rounded to the smallest following integer (i.e. ceiling value).",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Viewport-Width"
+    },
+    {
+        "type": "Device client hints",
+        "name": "Width",
+        "description": "A number that indicates the desired resource width in physical pixels (i.e. intrinsic size of an image).",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Width"
+    },
+    {
+        "type": "Network client hints",
+        "name": "Downlink",
+        "description": "Approximate bandwidth of the client's connection to the server, in Mbps. This is part of the Network Information API.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Downlink"
+    },
+    {
+        "type": "Network client hints",
+        "name": "ECT",
+        "description": "The effective connection type (\"network profile\") that best matches the connection's latency and bandwidth. This is part of the Network Information API.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ECT"
+    },
+    {
+        "type": "Network client hints",
+        "name": "RTT",
+        "description": "Application layer round trip time (RTT) in milliseconds, which includes the server processing time. This is part of the Network Information API.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/RTT"
+    },
+    {
+        "type": "Network client hints",
+        "name": "Save-Data",
+        "description": "A boolean that indicates the user agent's preference for reduced data usage.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Save-Data"
+    },
+    {
+        "type": "HTTP Public Key Pinning (HPKP)",
+        "name": "Public-Key-Pins",
+        "description": "Associates a specific cryptographic public key with a certain web server to decrease the risk of MITM attacks with forged certificates.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Public-Key-Pins"
+    },
+    {
+        "type": "HTTP Public Key Pinning (HPKP)",
+        "name": "Public-Key-Pins-Report-Only",
+        "description": "Sends reports to the report-uri specified in the header and does still allow clients to connect to the server even if the pinning is violated.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Public-Key-Pins-Report-Only"
+    },
+    {
+        "type": "Fetch metadata request headers",
+        "name": "Sec-Fetch-Site",
+        "description": "It is a request header that indicates the relationship between a request initiator's origin and its target's origin. It is a Structured Header whose value is a token with possible values cross-site, same-origin, same-site, and none.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Site"
+    },
+    {
+        "type": "Fetch metadata request headers",
+        "name": "Sec-Fetch-Mode",
+        "description": "It is a request header that indicates the request's mode to a server. It is a Structured Header whose value is a token with possible values cors, navigate, no-cors, same-origin, and websocket.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Mode"
+    },
+    {
+        "type": "Fetch metadata request headers",
+        "name": "Sec-Fetch-User",
+        "description": "It is a request header that indicates whether or not a navigation request was triggered by user activation. It is a Structured Header whose value is a boolean so possible values are ?0 for false and ?1 for true.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-User"
+    },
+    {
+        "type": "Fetch metadata request headers",
+        "name": "Sec-Fetch-Dest",
+        "description": "It is a request header that indicates the request's destination to a server. It is a Structured Header whose value is a token with possible values audio, audioworklet, document, embed, empty, font, image, manifest, object, paintworklet, report, script, serviceworker, sharedworker, style, track, video, worker, and xslt.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-Fetch-Dest"
+    },
+    {
+        "type": "Fetch metadata request headers",
+        "name": "Service-Worker-Navigation-Preload",
+        "description": "A request header sent in preemptive request to fetch() a resource during service worker boot. The value, which is set with NavigationPreloadManager.setHeaderValue(), can be used to inform a server that a different resource should be returned than in a normal fetch() operation.",
+        "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Service-Worker-Navigation-Preload"
+    }
+]
