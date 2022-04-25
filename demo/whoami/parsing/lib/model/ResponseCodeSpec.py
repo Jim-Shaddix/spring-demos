@@ -1,5 +1,6 @@
 from typing import Dict
 
+
 class ResponseCodeSpec:
 
     def __init__(self, rc_type, rc_name, rc_desc, link):
@@ -21,5 +22,3 @@ class ResponseCodeSpec:
 
     def __repr__(self):
         return self.__str__()
-
-
