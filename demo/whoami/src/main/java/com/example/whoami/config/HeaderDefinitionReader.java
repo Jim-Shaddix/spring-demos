@@ -2,6 +2,7 @@ package com.example.whoami.config;
 
 import com.example.whoami.dto.HeaderSpec;
 import com.example.whoami.dto.RequestMethodSpec;
+import com.example.whoami.dto.ResponseCodeSpec;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,9 +52,14 @@ public class HeaderDefinitionReader {
         return readSpecFile(HeaderSpec.class, headerSpecLocation);
     }
 
-    //@Bean
-    //public List<RequestMethodSpec> getRequestMethodSpecs() {
-    //    return readSpecFile(RequestMethodSpec.class, requestMethodSpecLocation);
-    //}
+    @Bean
+    public List<RequestMethodSpec> getRequestMethodSpecs() {
+        return readSpecFile(RequestMethodSpec.class, requestMethodSpecLocation);
+    }
+
+    @Bean
+    public List<ResponseCodeSpec> getResponseCodeSpecs() {
+        return readSpecFile(ResponseCodeSpec.class, responseCodeSpecLocation);
+    }
 
 }

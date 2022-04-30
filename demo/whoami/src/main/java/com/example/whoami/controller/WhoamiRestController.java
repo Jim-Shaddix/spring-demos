@@ -1,6 +1,8 @@
 package com.example.whoami.controller;
 
 import com.example.whoami.dto.HeaderSpec;
+import com.example.whoami.dto.RequestMethodSpec;
+import com.example.whoami.dto.ResponseCodeSpec;
 import com.example.whoami.dto.WhoamiDto;
 import com.example.whoami.service.SizeSpecifiedPayloadService;
 import com.example.whoami.service.WhoamiService;
@@ -29,6 +31,8 @@ public class WhoamiRestController {
     private final WhoamiService whoamiService;
     private final SizeSpecifiedPayloadService sizeSpecifiedPayloadService;
     private final List<HeaderSpec> headerSpecs;
+    private final List<RequestMethodSpec> requestMethodSpecs;
+    private final List<ResponseCodeSpec> responseCodeSpecs;
 
     @Operation(summary = "Returns metadata describing the users request in json.")
     @RequestMapping(value = "/whoami/**", produces = "application/json")
@@ -63,6 +67,18 @@ public class WhoamiRestController {
     @GetMapping(value = "/headers", produces = "application/json")
     public List<HeaderSpec> headerSpecsPayload() {
         return headerSpecs;
+    }
+
+    @Operation(summary = "returns a list of http response codes and their descriptions")
+    @GetMapping(value = "/response-codes", produces = "application/json")
+    public List<ResponseCodeSpec> responseCodeSpecsPayload() {
+        return responseCodeSpecs;
+    }
+
+    @Operation(summary = "returns a list of request methods and their descriptions")
+    @GetMapping(value = "/request-methods", produces = "application/json")
+    public List<RequestMethodSpec> requestMethodSpecsPayload() {
+        return requestMethodSpecs;
     }
 
 }
