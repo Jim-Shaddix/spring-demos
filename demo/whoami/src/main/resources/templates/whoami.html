@@ -29,12 +29,16 @@
         <h1 id="whoami-title">Whoami?</h1>
         <div id="button-div">
             <div>
-                <button id="json-button" class="btn btn-primary">Json</button>
-                <button id="pretty-json-button" class="btn btn-success">Pretty-Json</button>
+                <button id="json-button" class="btn btn-outline-primary">Json</button>
+                <button id="pretty-json-button" class="btn btn-outline-success">Pretty-Json</button>
+                <button id="tables-button" class="btn btn-outline-danger">Tables</button>
             </div>
             <div>
-                <button id="tables-button" class="btn btn-danger">Tables</button>
-                <button id="headers-button" class="btn btn-warning">Header-Descriptions</button>
+                <button id="request-method-button" class="btn btn-outline-info">Request-Methods</button>
+                <button id="headers-button" class="btn btn-outline-warning">Headers</button>
+                <button id="response-code-button" class="btn btn-outline-secondary">Response-Codes</button>
+            </div>
+            <div>
             </div>
         </div>
         <div id="content-description"></div>
@@ -132,6 +136,7 @@
                 <table id="header-table" class="table table-fixed table-bordered"></table>
             </div>
 
+
         </div>
 
         <div id = "whoami-raw-json">
@@ -144,6 +149,14 @@
 
         <div id = "whoami-headers-table">
             <table id="headers-table" class="table table-fixed table-bordered"></table>
+        </div>
+
+        <div id = "whoami-request-method-description-table">
+            <table id="request-method-description-table" class="table table-fixed table-bordered"></table>
+        </div>
+
+        <div id = "whoami-response-code-description-table">
+            <table id="response-code-description-table" class="table table-fixed table-bordered"></table>
         </div>
 
     </div>
@@ -211,7 +224,9 @@
             "TABLE": "TABLE",
             "JSON": "JSON",
             "PRETTY_JSON": "PRETTY_JSON",
-            "HEADERS": "HEADERS"
+            "HEADERS": "HEADERS",
+            "RESPONSE_CODE": "RESPONSE_CODE",
+            "REQUEST_METHOD": "REQUEST_METHOD"
         }
 
         class ContentBlock {
@@ -356,6 +371,20 @@
 
         }
 
+        function displayResponseCodeTable(jsonResponseCodes) {
+            const jsonTableDisplay = document.querySelector("#response-code-description-table")
+            jsonResponseCodes.forEach((obj) => obj["link"] = convertLink(obj["link"]))
+            const tableElementOrder = ["name", "type", "description", "link"]
+            populateTableFromObjectArray(jsonTableDisplay, tableElementOrder, jsonResponseCodes)
+        }
+
+        function displayRequestMethodTable(jsonRequestMethods) {
+            const jsonTableDisplay = document.querySelector("#request-method-description-table")
+            jsonRequestMethods.forEach((obj) => obj["link"] = convertLink(obj["link"]))
+            const tableElementOrder = ["name", "description", "link"]
+            populateTableFromObjectArray(jsonTableDisplay, tableElementOrder, jsonRequestMethods)
+        }
+
         function populateTablesContent() {
             displayTableFromKeyValueObject()
             displayTableFromArrayObject()
@@ -403,16 +432,41 @@
 
         }
 
+        function populateResponseCodeContent() {
+            fetch("/api/v1/response-codes", {
+                headers: { "Content-Type": "application/json; charset=utf-8" },
+                method: 'GET'
+            })
+                .then(res => res.json())
+                .then(data => displayResponseCodeTable(data))
+                .catch((reason => {console.log(reason)}))
+        }
+
+        function populateRequestMethodContent() {
+            fetch("/api/v1/request-methods", {
+                headers: { "Content-Type": "application/json; charset=utf-8" },
+                method: 'GET'
+            })
+                .then(res => res.json())
+                .then(data => displayRequestMethodTable(data))
+                .catch((reason => {console.log(reason)}))
+        }
+
         let tableDesc = "Displays the request message contents (with descriptions) that were received from the Whoami server when you connected to this website!"
         let jsonDesc = "Displays a raw payload that the server provided when you connected to this website. The payload contains metadata describing the users request, as well as field descriptions."
         let prettyJsonDesc = "Displays a json object with fields that describe the connection details that you used when connecting to the whoami Service."
         let headersDesc = "Displays a table that describes all of the different possible HTTP headers that someone might use."
+        let responseCodeDesc = "Displays a table that describes all of the different possible Response Codes that might be associated with an Http Response."
+        let requestMethodDesc = "Displays a table that describes all of the different HTTP Request Methods that might be associated with an HTTP Request."
         tableContentBlock      = new ContentBlock(ContentType.TABLE,      document.querySelector("#whoami-table"),        populateTablesContent,    document.querySelector("#tables-button"),     tableDesc)
         rawJsonContentBlock    = new ContentBlock(ContentType.JSON,       document.querySelector("#whoami-raw-json"),     populateRawJsonContent,   document.querySelector("#json-button"),       jsonDesc)
         prettyJsonContentBlock = new ContentBlock(ContentType.PRETTY_JSON,document.querySelector("#whoami-pretty-json"),  populatePrettyJsonContent,document.querySelector("#pretty-json-button"),prettyJsonDesc)
         headersContentBlock    = new ContentBlock(ContentType.HEADERS,    document.querySelector("#whoami-headers-table"),populateHeadersContent,   document.querySelector("#headers-button"),    headersDesc)
 
-        allContentBlocks = [tableContentBlock, rawJsonContentBlock, prettyJsonContentBlock, headersContentBlock]
+        responseCodeContentBlock  = new ContentBlock(ContentType.RESPONSE_CODE, document.querySelector("#whoami-response-code-description-table"), populateResponseCodeContent, document.querySelector("#response-code-button"), responseCodeDesc)
+        requestMethodContentBlock = new ContentBlock(ContentType.REQUEST_METHOD, document.querySelector("#whoami-request-method-description-table"), populateRequestMethodContent, document.querySelector("#request-method-button"), requestMethodDesc)
+
+        allContentBlocks = [tableContentBlock, rawJsonContentBlock, prettyJsonContentBlock, headersContentBlock, responseCodeContentBlock, requestMethodContentBlock]
 
         content = new Content(allContentBlocks)
 
